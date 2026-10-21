@@ -1,0 +1,26 @@
+---
+// Post teaser. Not a rounded card grid: a hard-bordered row with a sigil watermark corner.
+import Sigil from '@/components/ui/Sigil.astro';
+import Tag from '@/components/ui/Tag.astro';
+import { themeStyle, type ThemeKey } from '@/themes';
+interface Props {
+  href: string; title: string; description: string; date: Date;
+  venue?: string; genre?: string; readTime?: string; tags?: string[]; theme?: ThemeKey;
+}
+const { href, title, description, date, venue, genre, readTime, tags = [], theme = 'default' } = Astro.props;
+const fmt = date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+---
+<article style={themeStyle(theme)} class="group relative overflow-hidden border border-line bg-bg p-5 hover:border-atmo">
+  <Sigil tone="watermark" size={160} class="pointer-events-none absolute -right-10 -top-10" />
+  <p class="meta relative flex flex-wrap gap-x-3">
+    <time datetime={date.toISOString()}>{fmt}</time>
+    {venue && <span>{venue}</span>}
+    {genre && <span class="text-atmo-text">{genre}</span>}
+    {readTime && <span>{readTime}</span>}
+  </p>
+  <h3 class="relative mt-2 text-3xl">
+    <a href={href} class="text-fg no-underline after:absolute after:inset-0 group-hover:text-fg">{title}</a>
+  </h3>
+  <p class="relative mt-2 max-w-prose text-muted">{description}</p>
+  {tags.length > 0 && <div class="relative z-10 mt-4 flex flex-wrap gap-2">{tags.map((t) => <Tag tag={t} />)}</div>}
+</article>

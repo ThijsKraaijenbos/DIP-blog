@@ -1,5 +1,117 @@
 @import 'tailwindcss';
 
-/* Design tokens are defined in Phase 3. */
-@theme {
+/*
+  Design tokens. See docs/DESIGN-SYSTEM.md for the "why".
+  Fixed base colours never change. The atmosphere role reads CSS variables
+  (--atmo, --atmo-text) that a theme can override on any wrapper element.
+*/
+:root {
+  --atmo: #7a3cff; /* UV violet (default theme) */
+  --atmo-text: #925fff; /* text-safe tint, 5:1 on bg (= textSafeTint() in themes.ts) */
+  --cta: #ff2a1a; /* action red; a theme may override via ctaOverride */
+  --cta-ink: #060606; /* text on the CTA (black: 5.4:1 on red; white would fail) */
+}
+
+@theme inline {
+  /* Base (fixed) */
+  --color-bg: #060606;
+  --color-surface: #111112;
+  --color-line: #2b2a29;
+  --color-line-strong: #4a4845;
+  --color-fg: #f2efe8;
+  --color-muted: #a8a49c;
+  --color-subtle: #85817a;
+
+  /* Action (constant red) */
+  --color-action: #ff2a1a;
+  --color-action-hover: #ff5a4d;
+  --color-cta: var(--cta);
+  --color-cta-ink: var(--cta-ink);
+
+  /* Atmosphere (themeable) */
+  --color-atmo: var(--atmo);
+  --color-atmo-text: var(--atmo-text);
+
+  /* Fonts */
+  --font-display: 'Anton', 'Impact', 'Arial Narrow', sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, monospace;
+  --font-body: 'Source Serif 4 Variable', Georgia, serif;
+
+  /* Type scale (1.25 ratio for text, fluid display sizes) */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+  --text-3xl: clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem);
+  --text-4xl: clamp(3rem, 2rem + 5vw, 6rem);
+  --text-5xl: clamp(3.75rem, 2rem + 8vw, 9rem);
+
+  /* Radii: sharp */
+  --radius-none: 0;
+  --radius-xs: 1px;
+  --radius-sm: 2px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-sweep: 14s;
+}
+
+/* Spacing uses Tailwind's default 4px scale (p-1 = 4px, p-2 = 8px …). */
+
+@layer base {
+  html {
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-body);
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    font-size: var(--text-base);
+    line-height: 1.65;
+    min-height: 100dvh;
+  }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    line-height: 0.95;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+  }
+  a {
+    color: var(--color-action);
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+  a:hover {
+    color: var(--color-action-hover);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-fg);
+    outline-offset: 3px;
+  }
+  ::selection {
+    background: var(--atmo);
+    color: var(--color-fg);
+  }
+}
+
+@utility meta {
+  /* Space Mono metadata label: dates, venue, genre, read time */
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }

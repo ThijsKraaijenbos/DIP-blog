@@ -1,0 +1,71 @@
+---
+// Symmetrical spiky ornament made of thin tapered thorns (cyber-sigilism inspired).
+// Deliberately NOT occult: even, mirrored thorns only — no stars, crosses, horns or letters.
+interface Props {
+  size?: number | string;
+  /** 'atmo' = theme colour, 'fg' = off-white, 'watermark' = dark low-contrast */
+  tone?: 'atmo' | 'fg' | 'watermark';
+  class?: string;
+  label?: string; // omit for decorative use (aria-hidden)
+}
+const { size = 64, tone = 'atmo', class: className = '', label } = Astro.props;
+
+// One thorn = a tapered, curved spike from near the centre outwards.
+// [angleDeg from top, length, base half-width, bend, barb?] — mirrored left/right.
+// Barbs are small hooked thorns branching off a main thorn (the "cyber-sigil" detail).
+const THORNS: [number, number, number, number, boolean][] = [
+  [0, 50, 3, 0, true],
+  [180, 44, 2.8, 0, true],
+  [22, 34, 2, 10, false],
+  [52, 46, 2.4, -14, true],
+  [86, 30, 2, 6, false],
+  [122, 42, 2.2, 14, true],
+  [154, 30, 1.8, -8, false],
+];
+const R0 = 5; // inner radius where thorns start
+const f = (n: number) => n.toFixed(2);
+
+function spike(ox: number, oy: number, angle: number, len: number, w: number, bend: number) {
+  const a = ((angle - 90) * Math.PI) / 180;
+  const dx = Math.cos(a), dy = Math.sin(a);
+  const px = -dy, py = dx; // perpendicular
+  const tip = [ox + dx * len + px * bend, oy + dy * len + py * bend];
+  const mid = [ox + dx * len * 0.5 + px * bend * 0.9, oy + dy * len * 0.5 + py * bend * 0.9];
+  return `M${f(ox + px * w)} ${f(oy + py * w)} Q${f(mid[0] + px * w * 0.45)} ${f(mid[1] + py * w * 0.45)} ${f(tip[0])} ${f(tip[1])} Q${f(mid[0] - px * w * 0.45)} ${f(mid[1] - py * w * 0.45)} ${f(ox - px * w)} ${f(oy - py * w)}Z`;
+}
+
+function thorn(angle: number, len: number, w: number, bend: number, barb: boolean, side = 1) {
+  const a = ((angle - 90) * Math.PI) / 180;
+  const out = [spike(Math.cos(a) * R0, Math.sin(a) * R0, angle, len, w, bend)];
+  if (barb) {
+    // small hooked thorn at ~55% of the main thorn, angled outward
+    const t = 0.55 * len + R0;
+    const bend0 = bend * 0.9 * 0.55 * 2 * (1 - 0.55); // approx offset of the curve at t
+    const bx = Math.cos(a) * t - Math.sin(a) * bend0, by = Math.sin(a) * t + Math.cos(a) * bend0;
+    out.push(spike(bx, by, angle + 38 * side, len * 0.32, w * 0.7, 3 * side));
+    if (angle === 0 || angle === 180) out.push(spike(bx, by, angle - 38, len * 0.32, w * 0.7, -3));
+  }
+  return out;
+}
+
+const paths: string[] = [];
+for (const [ang, len, w, bend, barb] of THORNS) {
+  paths.push(...thorn(ang, len, w, bend, barb, 1));
+  if (ang !== 0 && ang !== 180) paths.push(...thorn(360 - ang, len, w, -bend, barb, -1)); // mirror
+}
+const color = { atmo: 'var(--atmo)', fg: 'var(--color-fg)', watermark: '#1a1919' }[tone];
+---
+<svg
+  viewBox="-56 -56 112 112"
+  width={size}
+  height={size}
+  class={className}
+  fill={color}
+  role={label ? 'img' : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : 'true'}
+  focusable="false"
+>
+  {paths.map((d) => <path d={d} />)}
+  <rect x="-3.5" y="-3.5" width="7" height="7" transform="rotate(45)" fill="none" stroke={color} stroke-width="1.2" />
+</svg>

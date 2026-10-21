@@ -1,0 +1,9 @@
+---
+// Highlighted aside inside a post. Label text tells the type (colour is never the only cue).
+interface Props { label?: string }
+const { label = 'Note' } = Astro.props;
+---
+<aside class="my-8 border-l-2 border-atmo bg-surface px-5 py-4">
+  <p class="meta mb-1 !text-atmo-text">{label}</p>
+  <div class="text-fg [&>p]:m-0"><slot /></div>
+</aside>

@@ -1,0 +1,17 @@
+---
+// Hero for the home page / post header: laser background, left-aligned huge headline,
+// metadata row and a single CTA. (Deliberately not a centred hero with two buttons.)
+import LaserHero from '@/components/layout/LaserHero.astro';
+import Button from '@/components/ui/Button.astro';
+import Sigil from '@/components/ui/Sigil.astro';
+interface Props { kicker: string; title: string; meta?: string[]; href?: string; cta?: string; compact?: boolean; sweep?: boolean; as?: 'h1' | 'h2' }
+const { kicker, title, meta = [], href, cta = 'Read the review', compact = false, sweep = true, as: H = 'h1' } = Astro.props;
+---
+<LaserHero sweep={sweep}>
+  <div class:list={['mx-auto max-w-6xl px-4 sm:px-6', compact ? 'py-12' : 'py-20 sm:py-28']}>
+    <p class="meta flex items-center gap-2 !text-atmo-text"><Sigil size={16} />{kicker}</p>
+    <H class:list={['mt-4 max-w-4xl', compact ? 'text-4xl' : 'text-5xl']}>{title}</H>
+    {meta.length > 0 && <p class="meta mt-5 flex flex-wrap gap-x-4">{meta.map((m) => <span>{m}</span>)}</p>}
+    {href && <div class="mt-8"><Button href={href}>{cta}</Button></div>}
+  </div>
+</LaserHero>

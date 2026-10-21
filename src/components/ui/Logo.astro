@@ -1,0 +1,12 @@
+---
+// TEMPORARY logo: sigil mark + site name. Swap this one file for a custom logo later.
+import Sigil from '@/components/ui/Sigil.astro';
+import { SITE } from '@/consts';
+interface Props { size?: 'sm' | 'lg'; class?: string }
+const { size = 'sm', class: className = '' } = Astro.props;
+const big = size === 'lg';
+---
+<span class:list={['inline-flex items-center gap-2 text-fg', className]}>
+  <Sigil size={big ? 72 : 32} />
+  <span class:list={['font-display uppercase leading-none tracking-wide', big ? 'text-3xl' : 'whitespace-nowrap text-xl']}>{SITE.name}</span>
+</span>

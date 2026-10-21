@@ -1,0 +1,16 @@
+---
+// Link styled as a button. 'primary' = the one red CTA per section; 'secondary' = outline.
+interface Props { href: string; variant?: 'primary' | 'secondary'; class?: string; external?: boolean }
+const { href, variant = 'primary', class: className = '', external = false } = Astro.props;
+---
+<a
+  href={href}
+  {...(external ? { target: '_blank', rel: 'noopener' } : {})}
+  class:list={[
+    'inline-flex min-h-11 items-center gap-2 rounded-xs border px-5 font-mono text-sm font-bold uppercase tracking-wider no-underline transition-colors duration-[var(--duration-fast)]',
+    variant === 'primary'
+      ? 'border-cta bg-cta text-cta-ink hover:bg-fg hover:border-fg hover:text-bg'
+      : 'border-line-strong text-fg hover:border-fg hover:text-fg',
+    className,
+  ]}
+><slot /></a>

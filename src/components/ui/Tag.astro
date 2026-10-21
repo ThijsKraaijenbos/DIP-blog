@@ -1,0 +1,14 @@
+---
+// Tag chip. Genre tags use their genre colour; other tags use the current atmosphere.
+import { themeStyle, GENRES, type ThemeKey } from '@/themes';
+interface Props { tag: string; href?: string }
+const { tag, href } = Astro.props;
+const key = tag.toLowerCase();
+const style = (GENRES as readonly string[]).includes(key) ? themeStyle(key as ThemeKey) : undefined;
+const El = href ? 'a' : 'span';
+---
+<El
+  href={href}
+  style={style}
+  class="inline-flex min-h-6 items-center border border-atmo px-2 font-mono text-xs uppercase tracking-wider text-atmo-text no-underline hover:bg-atmo hover:text-bg"
+>#{tag}</El>

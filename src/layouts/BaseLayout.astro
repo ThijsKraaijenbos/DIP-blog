@@ -1,0 +1,34 @@
+---
+import '@fontsource/anton';
+import '@fontsource/space-mono/400.css';
+import '@fontsource/space-mono/700.css';
+import '@fontsource-variable/source-serif-4';
+import '@/styles/global.css';
+import Logo from '@/components/ui/Logo.astro';
+import { SITE } from '@/consts';
+interface Props { title?: string; description?: string }
+const { title, description = SITE.description } = Astro.props;
+const fullTitle = title ? `${title} — ${SITE.name}` : SITE.name;
+// SEO (canonical, OG, JSON-LD) is completed in Phase 5.
+---
+<!doctype html>
+<html lang={SITE.locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body class="bg-bg text-fg">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:bg-fg focus:p-2 focus:text-bg">Skip to content</a>
+    <header class="border-b border-line">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+        <a href="/" class="no-underline" aria-label={`${SITE.name} home`}><Logo /></a>
+      </div>
+    </header>
+    <main id="main"><slot /></main>
+    <footer class="mt-24 border-t border-line">
+      <div class="meta mx-auto max-w-6xl px-4 py-8 sm:px-6">© {new Date().getFullYear()} {SITE.name}</div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,161 @@
+---
+// Living style guide: every token and component, plus each theme side by side.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Sigil from '@/components/ui/Sigil.astro';
+import Logo from '@/components/ui/Logo.astro';
+import LaserDivider from '@/components/layout/LaserDivider.astro';
+import FeatureHero from '@/components/layout/FeatureHero.astro';
+import Button from '@/components/ui/Button.astro';
+import Tag from '@/components/ui/Tag.astro';
+import PostCard from '@/components/ui/PostCard.astro';
+import Figure from '@/components/ui/Figure.astro';
+import Callout from '@/components/ui/Callout.astro';
+import CommunityCTA from '@/components/ui/CommunityCTA.astro';
+import placeholder from '@/assets/images/placeholder-crowd.jpg';
+import { THEMES, THEME_KEYS, themeStyle, textSafeTint, contrast } from '@/themes';
+
+const BG = '#060606';
+const base = [
+  ['bg', '#060606', 'Page background'],
+  ['surface', '#111112', 'Raised blocks (CTA, callouts)'],
+  ['line', '#2b2a29', 'Hairline borders'],
+  ['line-strong', '#4a4845', 'Input / secondary button borders'],
+  ['fg', '#f2efe8', 'Body text'],
+  ['muted', '#a8a49c', 'Secondary text, metadata'],
+  ['subtle', '#85817a', 'Placeholders, fine print'],
+  ['action', '#ff2a1a', 'Links, buttons, primary CTA (constant)'],
+];
+const sample = { title: 'Rebellion 2026: four hours of pure rawtempo', description: 'Dummy teaser text for the style guide. Real posts come in Phase 4.', date: new Date('2026-10-12'), venue: 'Ziggo Dome', genre: 'Rawtempo', readTime: '6 min read', tags: ['rawtempo', 'review'] };
+const Section = 'section';
+---
+<BaseLayout title="Style guide" description="Design system of The Rave Log: colours, type, components and themes.">
+  <div class="mx-auto max-w-6xl space-y-20 px-4 py-12 sm:px-6">
+    <header>
+      <p class="meta">Design system · v0.1</p>
+      <h1 class="mt-2 text-5xl">Style guide</h1>
+      <p class="mt-4 max-w-prose text-muted">Every token and component in one place. Explained in <code class="font-mono text-sm">docs/DESIGN-SYSTEM.md</code>.</p>
+    </header>
+
+    <Section aria-labelledby="c">
+      <h2 id="c" class="text-3xl">Colour</h2>
+      <p class="meta mt-2">Contrast measured against bg #060606 · AA = 4.5 (small text), 3 (large text / UI)</p>
+      <ul class="mt-6 grid grid-cols-2 gap-px border border-line bg-line sm:grid-cols-4">
+        {base.map(([n, hex, use]) => (
+          <li class="bg-bg p-4">
+            <span class="block h-14 border border-line" style={`background:${hex}`}></span>
+            <p class="mt-2 font-mono text-sm">{n}</p>
+            <p class="meta">{hex} · {contrast(hex, BG).toFixed(1)}:1</p>
+            <p class="mt-1 text-sm text-muted">{use}</p>
+          </li>
+        ))}
+      </ul>
+      <h3 class="mt-10 text-2xl">Atmosphere presets</h3>
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full min-w-[36rem] border-collapse font-mono text-sm">
+          <thead><tr class="meta text-left"><th class="p-2">Theme</th><th class="p-2">Atmosphere</th><th class="p-2">Text tint</th><th class="p-2">CTA</th></tr></thead>
+          <tbody>
+            {THEME_KEYS.map((k) => {
+              const t = THEMES[k]; const tint = textSafeTint(t.atmosphere);
+              const cta = 'ctaOverride' in t ? t.ctaOverride : '#ff2a1a';
+              return (
+                <tr class="border-t border-line">
+                  <td class="p-2">{k}</td>
+                  <td class="p-2"><span class="mr-2 inline-block size-3 align-middle" style={`background:${t.atmosphere}`}></span>{t.atmosphere} · {contrast(t.atmosphere, BG).toFixed(1)}:1</td>
+                  <td class="p-2" style={`color:${tint}`}>{tint} · {contrast(tint, BG).toFixed(1)}:1 ✓AA</td>
+                  <td class="p-2"><span class="mr-2 inline-block size-3 align-middle" style={`background:${cta}`}></span>{cta}{'ctaOverride' in t && ' (override)'}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </Section>
+
+    <Section aria-labelledby="t">
+      <h2 id="t" class="text-3xl">Type</h2>
+      <div class="mt-6 space-y-6 border-l border-line pl-6">
+        <div><p class="meta">Display · Anton · text-5xl (fluid)</p><p class="font-display text-5xl uppercase leading-none">Hardcore never dies</p></div>
+        <div><p class="meta">Display · text-4xl</p><p class="font-display text-4xl uppercase leading-none">Rebellion 2026</p></div>
+        <div><p class="meta">Display · text-3xl / h2</p><p class="font-display text-3xl uppercase leading-none">The set that broke me</p></div>
+        <div><p class="meta">Metadata · Space Mono · xs uppercase</p><p class="meta">12 Oct 2026 · Ziggo Dome · Rawtempo · 6 min read</p></div>
+        <div class="max-w-prose"><p class="meta">Body · Source Serif 4 · base 17px / 1.65</p>
+          <p>Long reads stay comfortable in a serif with generous line height. Paragraphs stay short and lines are capped at about 65 characters so a review scans quickly on a phone.</p></div>
+      </div>
+    </Section>
+
+    <Section aria-labelledby="b">
+      <h2 id="b" class="text-3xl">Buttons, links, tags</h2>
+      <div class="mt-6 flex flex-wrap items-center gap-4">
+        <Button href="#">Join the Discord</Button>
+        <Button href="#" variant="secondary">Secondary</Button>
+        <a href="#">An inline red link</a>
+      </div>
+      <div class="mt-6 flex flex-wrap gap-2">
+        <Tag tag="uptempo" href="#" /><Tag tag="rawstyle" href="#" /><Tag tag="rawtempo" href="#" /><Tag tag="review" href="#" /><Tag tag="outfits" />
+      </div>
+    </Section>
+
+    <Section aria-labelledby="l">
+      <h2 id="l" class="text-3xl">Logo & sigil</h2>
+      <div class="mt-6 grid gap-px border border-line bg-line sm:grid-cols-2">
+        <div class="bg-bg p-6"><p class="meta mb-4">Logo (header)</p><Logo /></div>
+        <div class="bg-bg p-6"><p class="meta mb-4">Logo (large)</p><Logo size="lg" /></div>
+        <div class="flex items-end gap-6 bg-bg p-6"><div><p class="meta mb-4">Mark · atmo / fg</p><div class="flex gap-4"><Sigil size={96} /><Sigil size={96} tone="fg" /></div></div></div>
+        <div class="relative overflow-hidden bg-bg p-6"><Sigil tone="watermark" size={260} class="absolute -right-12 -top-12" /><p class="meta relative">Watermark behind a headline</p><p class="relative mt-6 font-display text-4xl uppercase leading-none">Behind the decks</p></div>
+      </div>
+    </Section>
+
+    <Section aria-labelledby="d">
+      <h2 id="d" class="text-3xl">Laser divider</h2>
+      <LaserDivider class="mt-6" />
+      <LaserDivider class="mt-6" mark={false} />
+    </Section>
+  </div>
+
+  <section aria-labelledby="h" class="mt-20">
+    <h2 id="h" class="mx-auto max-w-6xl px-4 text-3xl sm:px-6">Hero</h2>
+    <div class="mt-6 border-t border-line"><FeatureHero as="h2" kicker="Latest review" title="Rebellion 2026: four hours of pure rawtempo" meta={['12 Oct 2026', 'Ziggo Dome', 'Rawtempo']} href="#" /></div>
+  </section>
+
+  <div class="mx-auto max-w-6xl space-y-20 px-4 py-20 sm:px-6">
+    <Section aria-labelledby="p">
+      <h2 id="p" class="text-3xl">Post card</h2>
+      <div class="mt-6 max-w-2xl"><PostCard href="#" {...sample} /></div>
+    </Section>
+
+    <Section aria-labelledby="f">
+      <h2 id="f" class="text-3xl">Image + caption + credit</h2>
+      <Figure class="mt-6 max-w-3xl" src={placeholder} alt="Placeholder: laser beams over a dark crowd" caption="Mainstage during the closing set." credit="Photographer Name" creditUrl="https://example.com" />
+    </Section>
+
+    <Section aria-labelledby="co">
+      <h2 id="co" class="text-3xl">Callouts</h2>
+      <div class="max-w-prose">
+        <Callout label="Tip"><p>Bring earplugs. Seriously — 150+ BPM for six hours adds up.</p></Callout>
+        <Callout label="Read next"><p>My review of <a href="#">Dominator 2026</a> picks up where this one ends.</p></Callout>
+      </div>
+    </Section>
+
+    <Section aria-labelledby="cta">
+      <h2 id="cta" class="text-3xl">Community CTA</h2>
+      <div class="mt-6"><CommunityCTA /></div>
+    </Section>
+  </div>
+
+  <section aria-labelledby="th" class="border-t border-line py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <h2 id="th" class="text-3xl">Every theme, side by side</h2>
+      <p class="mt-3 max-w-prose text-muted">Only the atmosphere colour changes. Layout, fonts, logo and CTA position stay put. Sweep animation off here to keep it calm.</p>
+    </div>
+    <div class="mx-auto mt-8 grid max-w-6xl gap-8 px-4 sm:px-6 lg:grid-cols-2">
+      {THEME_KEYS.map((k) => (
+        <div style={themeStyle(k)} class="border border-line">
+          <p class="meta border-b border-line px-4 py-2"><span class="!text-atmo-text">{THEMES[k].label}</span> · {k}</p>
+          <FeatureHero as="h2" compact sweep={false} kicker="Latest review" title="Four hours of pure rawtempo" meta={['12 Oct 2026', 'Ziggo Dome']} href="#" />
+          <div class="p-4"><PostCard href="#" {...sample} theme={k} /></div>
+          <div class="px-4 pb-4"><LaserDivider /></div>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
