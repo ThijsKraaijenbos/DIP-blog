@@ -101,7 +101,6 @@ const Section = 'section';
         <div class="bg-bg p-6"><p class="meta mb-4">Logo (header)</p><Logo /></div>
         <div class="bg-bg p-6"><p class="meta mb-4">Logo (large)</p><Logo size="lg" /></div>
         <div class="flex items-end gap-6 bg-bg p-6"><div><p class="meta mb-4">Mark · atmo / fg</p><div class="flex gap-4"><Sigil size={96} /><Sigil size={96} tone="fg" /></div></div></div>
-        <div class="relative overflow-hidden bg-bg p-6"><Sigil tone="watermark" size={260} class="absolute -right-12 -top-12" /><p class="meta relative">Watermark behind a headline</p><p class="relative mt-6 font-display text-4xl uppercase leading-none">Behind the decks</p></div>
       </div>
     </Section>
 
@@ -114,7 +113,7 @@ const Section = 'section';
 
   <section aria-labelledby="h" class="mt-20">
     <h2 id="h" class="mx-auto max-w-6xl px-4 text-3xl sm:px-6">Hero</h2>
-    <div class="mt-6 border-t border-line"><FeatureHero as="h2" kicker="Latest review" title="Rebellion 2026: four hours of pure rawtempo" meta={['12 Oct 2026', 'Ziggo Dome', 'Rawtempo']} href="#" /></div>
+    <div class="mt-6 border-t border-line"><FeatureHero as="h2" title="Rebellion 2026: four hours of pure rawtempo" facts={[['Date', '12 Oct 2026'], ['Venue', 'Ziggo Dome'], ['Genre', 'Rawtempo']]} href="#" /></div>
   </section>
 
   <div class="mx-auto max-w-6xl space-y-20 px-4 py-20 sm:px-6">
@@ -151,7 +150,7 @@ const Section = 'section';
       {THEME_KEYS.map((k) => (
         <div style={themeStyle(k)} class="border border-line">
           <p class="meta border-b border-line px-4 py-2"><span class="!text-atmo-text">{THEMES[k].label}</span> · {k}</p>
-          <FeatureHero as="h2" compact sweep={false} kicker="Latest review" title="Four hours of pure rawtempo" meta={['12 Oct 2026', 'Ziggo Dome']} href="#" />
+          <FeatureHero as="h2" compact sweep={false} title="Four hours of pure rawtempo" facts={[['Date', '12 Oct 2026'], ['Venue', 'Ziggo Dome']]} href="#" />
           <div class="p-4"><PostCard href="#" {...sample} theme={k} /></div>
           <div class="px-4 pb-4"><LaserDivider /></div>
         </div>

@@ -1,15 +1,23 @@
 ---
-import '@/styles/global.css';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import FeatureHero from '@/components/layout/FeatureHero.astro';
+import CommunityCTA from '@/components/ui/CommunityCTA.astro';
 import { SITE } from '@/consts';
 ---
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{SITE.name}</title>
-  </head>
-  <body>
-    <h1>{SITE.name}</h1>
-    <p>Scaffold works. Design system coming in Phase 3.</p>
-  </body>
-</html>
+<BaseLayout>
+  <FeatureHero
+    title="Rave reviews from the front row"
+    facts={[['Genres', 'Uptempo'], ['', 'Rawstyle'], ['', 'Rawtempo'], ['Scene', 'NL hardcore']]}
+  />
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <section class="mt-16 max-w-prose" aria-labelledby="about-title">
+      <h2 id="about-title" class="text-3xl">Why this log exists</h2>
+      <p class="mt-4">{SITE.description} No press passes, no lineup hype: just what the night actually felt like, what the sound did, and what I'd wear next time.</p>
+    </section>
+    <section id="reviews" class="mt-16 border-t border-line pt-8" aria-labelledby="reviews-title">
+      <h2 id="reviews-title" class="text-3xl">Latest reviews</h2>
+      <p class="mt-4 max-w-prose text-muted">The first reviews are being written. Check back after the next weekend out.</p>
+    </section>
+    <div id="community" class="mt-16"><CommunityCTA /></div>
+  </div>
+</BaseLayout>

@@ -5,7 +5,8 @@ import '@fontsource/space-mono/700.css';
 import '@fontsource-variable/source-serif-4';
 import '@/styles/global.css';
 import Logo from '@/components/ui/Logo.astro';
-import { SITE } from '@/consts';
+import { SITE, COMMUNITY } from '@/consts';
+const nav = [['Reviews', '/#reviews'], ['Community', '/#community']];
 interface Props { title?: string; description?: string }
 const { title, description = SITE.description } = Astro.props;
 const fullTitle = title ? `${title} — ${SITE.name}` : SITE.name;
@@ -22,13 +23,21 @@ const fullTitle = title ? `${title} — ${SITE.name}` : SITE.name;
   <body class="bg-bg text-fg">
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:bg-fg focus:p-2 focus:text-bg">Skip to content</a>
     <header class="border-b border-line">
-      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+      <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
         <a href="/" class="no-underline" aria-label={`${SITE.name} home`}><Logo /></a>
+        <nav aria-label="Main">
+          <ul class="flex gap-4 text-sm sm:gap-5 sm:text-base">
+            {nav.map(([label, href]) => <li><a href={href} class="inline-flex min-h-11 items-center text-fg no-underline hover:text-action">{label}</a></li>)}
+          </ul>
+        </nav>
       </div>
     </header>
     <main id="main"><slot /></main>
     <footer class="mt-24 border-t border-line">
-      <div class="meta mx-auto max-w-6xl px-4 py-8 sm:px-6">© {new Date().getFullYear()} {SITE.name}</div>
+      <div class="mx-auto flex max-w-6xl flex-wrap justify-between gap-4 px-4 py-8 text-sm text-muted sm:px-6">
+        <p>© {new Date().getFullYear()} {SITE.author}. Written from the front row.</p>
+        <p class="flex gap-4"><a href={COMMUNITY.discord}>Discord</a><a href={COMMUNITY.whatsapp}>WhatsApp</a><a href={COMMUNITY.instagram}>Instagram</a></p>
+      </div>
     </footer>
   </body>
 </html>
