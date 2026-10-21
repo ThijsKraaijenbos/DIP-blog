@@ -1,1 +1,17 @@
-﻿.claude/settings.local.json
+.claude/settings.local.json
+
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# env & deploy (never commit secrets)
+.env*
+.vercel/
+
+# logs / OS
+npm-debug.log*
+.DS_Store
+Thumbs.db
