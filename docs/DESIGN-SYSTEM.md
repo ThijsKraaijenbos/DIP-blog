@@ -58,7 +58,7 @@ All fonts are self-hosted with Fontsource and imported in `src/layouts/BaseLayou
 
 | Component | File | Notes |
 |---|---|---|
-| Sigil | `src/components/ui/Sigil.astro` | Generated from a small list of thorns `[angle, length, width, bend, barb]`, mirrored left/right. Props: `size`, `tone` (`atmo` / `fg` / `watermark`), `label`. Decorative by default (`aria-hidden`). |
+| Sigil (KB icon) | `src/components/ui/Sigil.astro` | Draws the KB icon inline so it takes the theme colour. Props: `size` (height), `tone` (`atmo` / `fg` / `watermark`), `label`. Decorative by default (`aria-hidden`). |
 | Logo | `src/components/ui/Logo.astro` | Custom KICKBACK wordmark in UV violet (`public/brand/kickback-logo.svg`). The KB icon (`kickback-icon.svg`) is the favicon. PNG copies in `public/brand/` are for emails, since email apps don't show SVG. |
 | LaserDivider | `src/components/layout/LaserDivider.astro` | 1px atmosphere line, with an optional small sigil mark. |
 | LaserHero | `src/components/layout/LaserHero.astro` | SVG laser fan behind any content (two red beams). One slow sweep. |
