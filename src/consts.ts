@@ -12,7 +12,7 @@ export const SITE = {
 
 // Analytics. Vercel Web Analytics is cookieless and always on in production.
 // GA4 only loads after the visitor accepts cookies (EU rules). Leave empty to disable.
-export const GA4_ID = ''; // e.g. 'G-XXXXXXXXXX'
+export const GA4_ID = 'G-XLXJXRQ43P';
 
 // Newsletter (Buttondown). Leave empty to hide the email form until the account exists.
 export const BUTTONDOWN_USERNAME = '';
