@@ -6,25 +6,66 @@ description: 'Who writes Kickback: a raver from the Dutch uptempo, rawstyle and 
 noindex: true
 ---
 
-{/* TODO(Thijs): replace this skeleton with your own words. Keep "## " for section headings. */}
+import NewsletterForm from '@/components/post/NewsletterForm.astro';
+import CommunityCTA from '@/components/ui/CommunityCTA.astro';
 
-## Who I am as a raver
+{/*
+  TODO(Thijs): write each section in your own words and delete the bullet prompts.
+  Keep it short: 2–4 sentences per section. Keep "## " for headings (the page title is the only H1).
+*/}
 
-- Your first rave and how you got into hardcore.
-- Which events you go to, and roughly how many per year.
-- The genres you know best (uptempo, rawstyle / Xtra raw, rawtempo) and the ones you skip.
+{/* 1. VALUE PROPOSITION — first thing people read, no heading. 1–2 sentences. */}
+**Write 1–2 sentences here: who Kickback is for and what they get from it.**
 
-## What makes Kickback different
+- Who: ravers who go to (or want to go to) uptempo, rawstyle and rawtempo events.
+- What they get: honest reviews with scores, so they know which raves are worth the ticket.
 
-- Your angle: reviews written from the front row, with scores you can compare between events.
-- What you write about: rave reviews, upcoming raves, new acts and outfits.
-- What you leave out on purpose.
+## Who I am
 
-## Why English
+{/* 2. SHORT BIO + PHOTO. Add a real photo of yourself at a rave, with caption and credit (graded). */}
 
-- Who you want to reach outside the Netherlands.
-- Why the international crowd at Dutch raves matters to you.
+- Your first name and that you're a raver from the Dutch scene (city or region if you want).
+- Since when you go to raves, and roughly how many events a year.
+- The genres you know best, and that you skip terror.
 
-## Say hi
+{/*
+  Photo: put the file in src/assets/images/ and uncomment this:
+  import Figure from '@/components/ui/Figure.astro';
+  import me from '@/assets/images/about-me.jpg';
+  <Figure src={me} alt="Thijs in the crowd at …" caption="Me at … (year)" credit="Photo: own photo" />
+*/}
 
-- How readers can reach you, and where the group chat is.
+## How Kickback started
+
+{/* 3. ORIGIN STORY: why you started, the gap you saw. */}
+
+- The moment you got into hardcore (first event, first track, who took you).
+- What was missing: reviews that tell you what a night actually feels like, not just the line-up hype.
+- Why in English: the international crowd at Dutch raves, and reaching ravers outside the Netherlands.
+
+## How I review
+
+{/* 4. CREDIBILITY: your method. This is your unique angle and shows you know your stuff. */}
+
+- You only review raves you went to yourself, and you pay for your own tickets.
+- Every review gets scores on 8 points: line-up, atmosphere, sound quality, location, facilities, logistics, decoration and ticket price.
+- One thing you always pay attention to that other blogs skip.
+
+## Start here
+
+{/* 5. GREATEST HITS: link 2–3 of your best posts once they're live. Replace the dummy links. */}
+
+- [Your first or best review](/blog/) — one line on why it's a good first read.
+- [A tips or outfit post](/blog/) — one line.
+- [Upcoming raves](/blog/) — one line.
+
+## Stay in the loop
+
+{/* 6. CALL TO ACTION: the newsletter form and group chat are added automatically below. Write 1 sentence. */}
+
+**Write 1 sentence here inviting people to join the newsletter or the group chat.**
+
+<div class="not-prose mt-8 grid gap-10 border-y border-atmo py-8">
+  <CommunityCTA as="h3" />
+  <NewsletterForm />
+</div>
