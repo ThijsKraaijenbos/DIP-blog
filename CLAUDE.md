@@ -1,4 +1,4 @@
-# The Rave Log — project rules for Claude
+# Kickback — project rules for Claude
 
 Personal blog about the Dutch hardcore scene (uptempo, rawstyle / Xtra raw, rawtempo; no terror).
 School assignment (Digital Individual Portfolio "Blog"), deadline ~1 Nov 2026. Semi-working prototype, not a product.
@@ -59,7 +59,7 @@ docs/                  beginner docs (DEPLOY, DESIGN-SYSTEM, ASTRO-GUIDE, WRITIN
 - Type: huge uppercase Anton headlines; Space Mono for dates/venue/genre/read time/tags; Source Serif 4 for body.
 - Lasers only in home/post hero (SVG, one slow sweep disabled under `prefers-reduced-motion`) and as 1px dividers.
 - Sigil: symmetrical, thin tapered thorns. Never demonic/occult (no pentagrams, inverted crosses, horns, goats, skulls, runes).
-- Logo lives in `Logo.astro` only (sigil + "THE RAVE LOG" text from `SITE.name`).
+- Logo lives in `Logo.astro` only (sigil + "KICKBACK" text from `SITE.name`).
 - Themes change **only** the atmosphere colour. Never layout, fonts, logo, nav, background or CTA position. Never recreate event logos/artwork.
 - Avoid AI-slop tells: gradients, Inter, emoji icons, identical rounded card grids, centred hero with two buttons, shadows everywhere.
 

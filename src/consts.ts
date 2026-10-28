@@ -1,10 +1,10 @@
 // Single source of truth for site-wide settings. Change the name here only.
 export const SITE = {
-  name: 'The Rave Log',
+  name: 'Kickback',
   tagline: 'Uptempo, rawstyle & rawtempo — from the front row.',
   description:
     'Personal rave reviews, upcoming events, new DJ acts and rave outfits from the Dutch hardcore scene: uptempo, rawstyle and rawtempo.',
-  url: 'https://dip-blog.vercel.app', // keep in sync with `site` in astro.config.mjs
+  url: 'https://www.kickbacknl.app', // keep in sync with `site` in astro.config.mjs
   locale: 'en',
   author: 'Thijs Kraaijenbos',
 };

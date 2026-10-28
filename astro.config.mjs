@@ -7,7 +7,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // `site` must match SITE.url in src/consts.ts (used for canonical URLs, sitemap, RSS).
 export default defineConfig({
-  site: 'https://dip-blog.vercel.app',
+  site: 'https://www.kickbacknl.app',
   output: 'static',
   integrations: [mdx(), react(), sitemap()],
   vite: {

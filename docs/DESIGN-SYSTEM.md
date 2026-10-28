@@ -1,4 +1,4 @@
-# Design system: The Rave Log
+# Design system: Kickback
 
 See it live at **`/styleguide`**. This doc explains what each token is for and why it exists.
 

@@ -29,7 +29,7 @@ npx vercel deploy --prod --token "$VERCEL_TOKEN"   # live site
 
 ## The site URL
 
-`site` in `astro.config.mjs` and `SITE.url` in `src/consts.ts` are both `https://dip-blog.vercel.app`. If Vercel gives the project a different production domain, change **both** so canonical links, the sitemap and RSS point to the right place.
+`site` in `astro.config.mjs` and `SITE.url` in `src/consts.ts` are both `https://www.kickbacknl.app` (the custom domain; `kickbacknl.app` redirects to www). If the domain ever changes, change **both** so canonical links, the sitemap and RSS point to the right place.
 
 ## Alternative: deploy from GitHub
 
