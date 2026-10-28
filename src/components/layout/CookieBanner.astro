@@ -1,30 +1,43 @@
 ---
-// GA4 only loads after the visitor says yes (EU cookie rules). The choice is stored in
-// localStorage. "Cookie settings" in the footer reopens this bar.
+// Cookie choice for Google Analytics (EU rules: GA only loads after "Accept").
+// Shows on every page until the visitor picks an option. The choice is remembered for
+// 6 months, then asked again. "Cookie settings" in the footer reopens it any time.
 // Vercel Web Analytics is cookieless, so it doesn't need this.
+// Bump KEY's version to ask everyone again (e.g. after changing what you measure).
 interface Props { id: string }
 const { id } = Astro.props;
 ---
-<div
-  id="cookie-bar" hidden role="region" aria-label="Cookie choice"
-  class="fixed inset-x-0 bottom-0 z-50 border-t border-atmo bg-surface"
+<section
+  id="cookie-bar" hidden aria-labelledby="cookie-title" aria-describedby="cookie-text"
+  class="fixed inset-x-0 bottom-0 z-50 border-t-2 border-atmo bg-surface sm:inset-x-auto sm:bottom-4 sm:left-4 sm:max-w-md sm:border-2"
 >
-  <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6">
-    <p class="max-w-prose text-sm text-fg">
-      Can I use Google Analytics cookies to see which posts people read? No ads, no selling data.{' '}
-      <a href="/privacy/">Privacy</a>
+  <div class="p-5">
+    <h2 id="cookie-title" class="text-2xl">Cookies</h2>
+    <p id="cookie-text" class="mt-2 text-sm text-fg">
+      I'd like to use Google Analytics to see which posts people read and how they find Kickback.
+      It sets cookies, so it only runs if you accept. No ads, and your data isn't sold.
     </p>
-    <div class="flex gap-2">
-      <button type="button" data-consent="denied" class="min-h-11 rounded-xs border border-line-strong px-4 font-mono text-sm uppercase tracking-wider text-fg hover:border-fg">No thanks</button>
-      <button type="button" data-consent="granted" class="min-h-11 rounded-xs border border-cta bg-cta px-4 font-mono text-sm font-bold uppercase tracking-wider text-cta-ink hover:border-fg hover:bg-fg">Allow</button>
+    <p class="mt-2 text-sm text-muted">
+      Reject keeps only basic, cookie-free visit counts. You can change this later under "Cookie settings" at the bottom of every page.{' '}
+      <a href="/privacy/">Read the privacy page</a>
+    </p>
+    <div class="mt-4 grid grid-cols-2 gap-2">
+      <button type="button" data-consent="denied" class="min-h-11 rounded-xs border border-fg px-4 font-mono text-sm font-bold uppercase tracking-wider text-fg hover:bg-fg hover:text-bg">Reject</button>
+      <button type="button" data-consent="granted" class="min-h-11 rounded-xs border border-cta bg-cta px-4 font-mono text-sm font-bold uppercase tracking-wider text-cta-ink hover:border-fg hover:bg-fg">Accept</button>
     </div>
   </div>
-</div>
+</section>
 <script is:inline define:vars={{ id }}>
-  const KEY = 'kickback-consent';
+  const KEY = 'kickback-consent-v2';
+  const MAX_AGE = 1000 * 60 * 60 * 24 * 182; // ~6 months
   const bar = document.getElementById('cookie-bar');
-  const read = () => { try { return localStorage.getItem(KEY); } catch { return null; } };
-  const save = (v) => { try { localStorage.setItem(KEY, v); } catch {} };
+  const read = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || 'null');
+      return c && Date.now() - c.at < MAX_AGE ? c.value : null;
+    } catch { return null; }
+  };
+  const save = (value) => { try { localStorage.setItem(KEY, JSON.stringify({ value, at: Date.now() })); } catch {} };
   let loaded = false;
   function loadGA() {
     if (loaded) return;
@@ -38,9 +51,10 @@ const { id } = Astro.props;
     s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
     document.head.appendChild(s);
   }
+  const open = () => { bar.hidden = false; };
   const choice = read();
   if (choice === 'granted') loadGA();
-  else if (choice !== 'denied') bar.hidden = false;
+  else if (choice !== 'denied') open();
   bar.addEventListener('click', (e) => {
     const v = e.target.closest('[data-consent]')?.dataset.consent;
     if (!v) return;
@@ -49,5 +63,8 @@ const { id } = Astro.props;
     if (v === 'granted') loadGA();
     else if (loaded) location.reload(); // stop GA if it was running
   });
-  document.querySelector('[data-cookie-settings]')?.addEventListener('click', () => { bar.hidden = false; });
+  document.querySelector('[data-cookie-settings]')?.addEventListener('click', () => {
+    open();
+    bar.querySelector('[data-consent="granted"]').focus();
+  });
 </script>
