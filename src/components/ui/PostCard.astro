@@ -4,21 +4,23 @@ import Tag from '@/components/ui/Tag.astro';
 import { themeStyle, type ThemeKey } from '@/themes';
 interface Props {
   href: string; title: string; description: string; date: Date;
-  venue?: string; genre?: string; readTime?: string; tags?: string[]; theme?: ThemeKey;
+  venue?: string; genre?: string; category?: string; readTime?: string; tags?: string[]; theme?: ThemeKey;
+  as?: 'h2' | 'h3';
 }
-const { href, title, description, date, venue, genre, readTime, tags = [], theme = 'default' } = Astro.props;
+const { href, title, description, date, venue, genre, category, readTime, tags = [], theme = 'default', as: H = 'h3' } = Astro.props;
 const fmt = date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
 ---
 <article style={themeStyle(theme)} class="group relative border border-line bg-bg p-5 hover:border-atmo">
   <p class="meta relative flex flex-wrap gap-x-3">
+    {category && <span class="text-atmo-text">{category}</span>}
     <time datetime={date.toISOString()}>{fmt}</time>
     {venue && <span>{venue}</span>}
     {genre && <span class="text-atmo-text">{genre}</span>}
     {readTime && <span>{readTime}</span>}
   </p>
-  <h3 class="relative mt-2 text-3xl">
+  <H class="relative mt-2 text-3xl">
     <a href={href} class="text-fg no-underline after:absolute after:inset-0 group-hover:text-fg">{title}</a>
-  </h3>
+  </H>
   <p class="relative mt-2 max-w-prose text-muted">{description}</p>
   {tags.length > 0 && <div class="relative z-10 mt-4 flex flex-wrap gap-2">{tags.map((t) => <Tag tag={t} />)}</div>}
 </article>

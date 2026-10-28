@@ -1,0 +1,25 @@
+---
+// Builds one page per post: /blog/<file-name>/
+import { render } from 'astro:content';
+import PostLayout from '@/layouts/PostLayout.astro';
+import { getPosts, relatedPosts } from '@/utils/posts';
+
+export async function getStaticPaths() {
+  const posts = await getPosts(); // newest first
+  // SEO guards: clean slugs and exactly one H1 (the title). The build fails with a clear message otherwise.
+  for (const p of posts) {
+    if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(p.id)) throw new Error(`Post file name "${p.id}" must be lowercase words with dashes, e.g. rebirth-2026-review.mdx`);
+    if (/^#\s/m.test(p.body ?? '')) throw new Error(`Post "${p.id}" uses "# " in the text. The title is the only H1: start sections with "## ".`);
+  }
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    props: { post, newer: posts[i - 1], older: posts[i + 1], related: relatedPosts(post, posts) },
+  }));
+}
+
+const { post, newer, older, related } = Astro.props;
+const { Content } = await render(post);
+---
+<PostLayout post={post} newer={newer} older={older} related={related}>
+  <Content />
+</PostLayout>

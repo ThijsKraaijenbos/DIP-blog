@@ -1,0 +1,23 @@
+---
+// "More like this": related posts as stacked rows (internal links for SEO).
+import PostCard from '@/components/ui/PostCard.astro';
+import { CATEGORIES } from '@/consts';
+import { postUrl, readTime, type Post } from '@/utils/posts';
+interface Props { posts: Post[] }
+const { posts } = Astro.props;
+---
+{posts.length > 0 && (
+  <section class="mt-16" aria-labelledby="related-title">
+    <h2 id="related-title" class="text-3xl">More like this</h2>
+    <ul class="mt-6 space-y-4">
+      {posts.map((p) => (
+        <li>
+          <PostCard
+            href={postUrl(p)} title={p.data.title} description={p.data.description} date={p.data.pubDate}
+            category={CATEGORIES[p.data.category]} genre={p.data.genre} readTime={readTime(p.body)} theme={p.data.theme} as="h3"
+          />
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

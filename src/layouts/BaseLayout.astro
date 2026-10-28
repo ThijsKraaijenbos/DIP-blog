@@ -5,12 +5,32 @@ import '@fontsource/space-mono/700.css';
 import '@fontsource-variable/source-serif-4';
 import '@/styles/global.css';
 import Logo from '@/components/ui/Logo.astro';
-import { SITE, COMMUNITY } from '@/consts';
-const nav = [['Reviews', '/#reviews'], ['Community', '/#community']];
-interface Props { title?: string; description?: string }
-const { title, description = SITE.description } = Astro.props;
-const fullTitle = title ? `${title} — ${SITE.name}` : SITE.name;
-// SEO (canonical, OG, JSON-LD) is completed in Phase 5.
+import CookieBanner from '@/components/layout/CookieBanner.astro';
+import { SITE, COMMUNITY, GA4_ID } from '@/consts';
+
+const nav = [['Blog', '/blog/'], ['About', '/about/'], ['Community', '/#community']];
+interface Props {
+  /** Page title without the site name. Omit on the home page. */
+  title?: string;
+  description?: string;
+  /** Absolute or root-relative URL of the social preview image (1200×630). */
+  image?: string;
+  imageAlt?: string;
+  type?: 'website' | 'article';
+  publishedTime?: Date;
+  modifiedTime?: Date;
+  /** Keep this page out of Google (and the sitemap filter in astro.config.mjs). */
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown>;
+}
+const {
+  title, description = SITE.description, image = '/og-default.png', imageAlt = `${SITE.name}: ${SITE.tagline}`,
+  type = 'website', publishedTime, modifiedTime, noindex = false, jsonLd,
+} = Astro.props;
+const fullTitle = title ? `${title} | ${SITE.name}` : SITE.homeTitle;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.url).href;
+const ogImage = new URL(image, Astro.site ?? SITE.url).href;
+const path = Astro.url.pathname;
 ---
 <!doctype html>
 <html lang={SITE.locale}>
@@ -19,6 +39,31 @@ const fullTitle = title ? `${title} — ${SITE.name}` : SITE.name;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta name="author" content={SITE.author} />
+    <meta name="theme-color" content="#060606" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
+
+    <!-- Open Graph + Twitter/X previews -->
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title ?? SITE.name} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta property="og:locale" content="en_GB" />
+    {publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime.toISOString()} />}
+    <meta name="twitter:card" content="summary_large_image" />
+
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+
+    <!-- Vercel Web Analytics: cookieless, production only -->
+    {import.meta.env.PROD && <script is:inline defer src="/_vercel/insights/script.js"></script>}
   </head>
   <body class="bg-bg text-fg">
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:bg-fg focus:p-2 focus:text-bg">Skip to content</a>
@@ -27,7 +72,15 @@ const fullTitle = title ? `${title} — ${SITE.name}` : SITE.name;
         <a href="/" class="no-underline" aria-label={`${SITE.name} home`}><Logo /></a>
         <nav aria-label="Main">
           <ul class="flex gap-4 text-sm sm:gap-5 sm:text-base">
-            {nav.map(([label, href]) => <li><a href={href} class="inline-flex min-h-11 items-center text-fg no-underline hover:text-action">{label}</a></li>)}
+            {nav.map(([label, href]) => (
+              <li>
+                <a
+                  href={href}
+                  aria-current={path.startsWith(href) && href !== '/#community' ? 'page' : undefined}
+                  class="inline-flex min-h-11 items-center text-fg no-underline hover:text-action aria-[current=page]:text-atmo-text"
+                >{label}</a>
+              </li>
+            ))}
           </ul>
         </nav>
       </div>
@@ -36,8 +89,15 @@ const fullTitle = title ? `${title} — ${SITE.name}` : SITE.name;
     <footer class="mt-24 border-t border-line">
       <div class="mx-auto flex max-w-6xl flex-wrap justify-between gap-4 px-4 py-8 text-sm text-muted sm:px-6">
         <p>© {new Date().getFullYear()} {SITE.author}. Written from the front row.</p>
-        <p class="flex gap-4"><a href={COMMUNITY.discord}>Discord</a><a href={COMMUNITY.whatsapp}>WhatsApp</a><a href={COMMUNITY.instagram}>Instagram</a></p>
+        <p class="flex flex-wrap gap-x-4 gap-y-2">
+          <a href={COMMUNITY.whatsapp}>WhatsApp</a>
+          <a href={COMMUNITY.discord}>Discord</a>
+          <a href={COMMUNITY.instagram}>Instagram</a>
+          <a href="/privacy/">Privacy</a>
+          {GA4_ID && <button type="button" data-cookie-settings class="cursor-pointer text-action underline decoration-1 underline-offset-[0.2em] hover:text-action-hover">Cookie settings</button>}
+        </p>
       </div>
     </footer>
+    {GA4_ID && <CookieBanner id={GA4_ID} />}
   </body>
 </html>

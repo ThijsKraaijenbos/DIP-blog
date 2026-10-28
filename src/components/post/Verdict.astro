@@ -1,0 +1,35 @@
+---
+// Review score box. Only the categories filled in are shown, in the order of VERDICT.
+// The overall score is the average of the filled-in scores.
+import { VERDICT, VERDICT_KEYS, type VerdictKey } from '@/consts';
+interface Props { scores: Partial<Record<VerdictKey, number>>; summary?: string }
+const { scores, summary } = Astro.props;
+const rows = VERDICT_KEYS.filter((k) => scores[k] !== undefined).map((k) => [VERDICT[k], scores[k]!] as const);
+const overall = rows.length ? rows.reduce((s, [, v]) => s + v, 0) / rows.length : 0;
+const fmt = (n: number) => (Number.isInteger(n) ? String(n) : n.toFixed(1));
+---
+<section class="not-prose my-12 border border-atmo bg-surface" aria-labelledby="verdict-title">
+  <div class="flex items-end justify-between gap-4 border-b border-atmo px-5 py-4">
+    <h2 id="verdict-title" class="text-3xl">Verdict</h2>
+    <p class="text-right leading-none">
+      <span class="font-display text-4xl text-atmo-text">{fmt(overall)}</span>
+      <span class="font-mono text-sm text-muted">/10<span class="sr-only"> overall</span></span>
+    </p>
+  </div>
+  <dl class="divide-y divide-line px-5">
+    {rows.map(([label, value]) => (
+      <div class="grid grid-cols-[minmax(7.5rem,10rem)_1fr_2.5rem] items-center gap-3 py-2.5">
+        <dt class="font-mono text-xs uppercase tracking-wider text-muted">{label}</dt>
+        <dd class="contents">
+          <span class="grid grid-cols-10 gap-0.5" aria-hidden="true">
+            {Array.from({ length: 10 }, (_, i) => (
+              <span class:list={['h-2.5', i < value ? 'bg-atmo' : 'border border-line']}></span>
+            ))}
+          </span>
+          <span class="text-right font-mono text-sm text-fg">{fmt(value)}<span class="sr-only"> out of 10</span></span>
+        </dd>
+      </div>
+    ))}
+  </dl>
+  {summary && <p class="border-t border-line px-5 py-4 text-fg">{summary}</p>}
+</section>

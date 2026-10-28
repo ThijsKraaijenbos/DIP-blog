@@ -115,3 +115,21 @@
     transition: none !important;
   }
 }
+
+/* Post text (everything you write in an .mdx file). Scannable: clear headings, short blocks. */
+@layer components {
+  .post-body > * + * { margin-top: 1.25em; }
+  .post-body h2 { font-size: var(--text-3xl); margin-top: 1.6em; }
+  .post-body h3 { font-size: var(--text-xl); margin-top: 1.6em; }
+  .post-body h2 + *, .post-body h3 + * { margin-top: 0.75em; }
+  .post-body ul, .post-body ol { padding-left: 1.4em; }
+  .post-body ul { list-style: square; }
+  .post-body ol { list-style: decimal; }
+  .post-body li + li { margin-top: 0.4em; }
+  .post-body li::marker { color: var(--atmo-text); font-family: var(--font-mono); font-size: 0.85em; }
+  .post-body strong { color: var(--color-fg); font-weight: 650; }
+  .post-body blockquote { border-left: 2px solid var(--atmo); padding-left: 1.25em; color: var(--color-fg); font-style: italic; }
+  .post-body hr { border: 0; height: 1px; background: var(--atmo); margin-block: 3em; }
+  .post-body code { font-family: var(--font-mono); font-size: 0.9em; }
+  .post-body figure { margin-block: 2.5em; }
+}

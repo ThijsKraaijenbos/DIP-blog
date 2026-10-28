@@ -1,0 +1,28 @@
+---
+// Email sign-up via Buttondown: a plain HTML form, no script. Hidden until
+// BUTTONDOWN_USERNAME is set in src/consts.ts.
+import { BUTTONDOWN_USERNAME } from '@/consts';
+import { CTA_COPY } from '@/data/copy';
+const c = CTA_COPY.newsletter;
+---
+{BUTTONDOWN_USERNAME && (
+  <div>
+    <h3 class="text-2xl">{c.title}</h3>
+    <p class="mt-2 max-w-prose text-muted">{c.text}</p>
+    <form
+      action={`https://buttondown.com/api/emails/embed-subscribe/${BUTTONDOWN_USERNAME}`}
+      method="post"
+      target="_blank"
+      class="mt-4 flex max-w-md flex-wrap gap-2"
+    >
+      <label for="bd-email" class="sr-only">Email address</label>
+      <input
+        id="bd-email" type="email" name="email" required autocomplete="email" placeholder="you@example.com"
+        class="min-h-11 min-w-0 flex-1 rounded-xs border border-line-strong bg-bg px-3 font-mono text-sm text-fg placeholder:text-subtle focus:border-fg"
+      />
+      <input type="hidden" name="embed" value="1" />
+      <button type="submit" class="min-h-11 rounded-xs border border-cta bg-cta px-5 font-mono text-sm font-bold uppercase tracking-wider text-cta-ink hover:border-fg hover:bg-fg">{c.button}</button>
+    </form>
+    <p class="mt-2 text-xs text-subtle">{c.privacy}</p>
+  </div>
+)}

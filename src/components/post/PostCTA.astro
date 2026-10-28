@@ -1,0 +1,36 @@
+---
+// The CTA block at the end of every post: community invite, newsletter (when set up),
+// a comment prompt and previous/next post links.
+import CommunityCTA from '@/components/ui/CommunityCTA.astro';
+import NewsletterForm from '@/components/post/NewsletterForm.astro';
+import { COMMUNITY, BUTTONDOWN_USERNAME } from '@/consts';
+import { CTA_COPY } from '@/data/copy';
+import { postUrl, type Post } from '@/utils/posts';
+interface Props { newer?: Post; older?: Post }
+const { newer, older } = Astro.props;
+---
+<section class="mt-16 border-y border-atmo" aria-label="Join the conversation">
+  <div class:list={['grid gap-10 py-8', BUTTONDOWN_USERNAME && 'md:grid-cols-2']}>
+    <CommunityCTA as="h2" />
+    <NewsletterForm />
+  </div>
+  <p class="border-t border-line py-4 text-fg">
+    {CTA_COPY.comment.text} <a href={COMMUNITY.instagram} rel="noopener" target="_blank">{CTA_COPY.comment.link}</a>
+  </p>
+  {(older || newer) && (
+    <nav class="grid border-t border-line sm:grid-cols-2" aria-label="Read next">
+      {older && (
+        <a href={postUrl(older)} class="group block py-4 no-underline sm:pr-6">
+          <span class="meta block">Older post</span>
+          <span class="mt-1 block font-display text-xl uppercase leading-tight text-fg group-hover:text-action">{older.data.title}</span>
+        </a>
+      )}
+      {newer && (
+        <a href={postUrl(newer)} class="group block border-line py-4 no-underline sm:col-start-2 sm:border-l sm:pl-6 sm:text-right">
+          <span class="meta block">Newer post</span>
+          <span class="mt-1 block font-display text-xl uppercase leading-tight text-fg group-hover:text-action">{newer.data.title}</span>
+        </a>
+      )}
+    </nav>
+  )}
+</section>

@@ -9,7 +9,13 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://www.kickbacknl.app',
   output: 'static',
-  integrations: [mdx(), react(), sitemap()],
+  trailingSlash: 'always', // one URL per page: /blog/my-post/ (clean, no duplicates)
+  integrations: [
+    mdx(),
+    react(),
+    // Pages marked noindex stay out of the sitemap too.
+    sitemap({ filter: (page) => !page.includes('/styleguide/') }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

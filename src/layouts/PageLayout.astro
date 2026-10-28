@@ -1,0 +1,15 @@
+---
+// Layout for simple text pages written in Markdown (src/pages/about.mdx, privacy.mdx).
+// Frontmatter: title, description, noindex (optional).
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LaserDivider from '@/components/layout/LaserDivider.astro';
+interface Props { frontmatter: { title: string; description: string; noindex?: boolean } }
+const { title, description, noindex } = Astro.props.frontmatter;
+---
+<BaseLayout title={title} description={description} noindex={noindex}>
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <h1 class="mt-12 max-w-4xl text-4xl">{title}</h1>
+    <LaserDivider class="mt-8 max-w-[68ch]" />
+    <div class="post-body mt-8 max-w-[68ch]"><slot /></div>
+  </div>
+</BaseLayout>

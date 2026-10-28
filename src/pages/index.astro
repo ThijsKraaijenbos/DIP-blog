@@ -2,7 +2,10 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import FeatureHero from '@/components/layout/FeatureHero.astro';
 import CommunityCTA from '@/components/ui/CommunityCTA.astro';
-import { SITE } from '@/consts';
+import PostCard from '@/components/ui/PostCard.astro';
+import { SITE, CATEGORIES } from '@/consts';
+import { getPosts, postUrl, readTime } from '@/utils/posts';
+const latest = (await getPosts()).slice(0, 4);
 ---
 <BaseLayout>
   <FeatureHero
@@ -11,13 +14,29 @@ import { SITE } from '@/consts';
   />
   <div class="mx-auto max-w-6xl px-4 sm:px-6">
     <section class="mt-16 max-w-prose" aria-labelledby="about-title">
-      <h2 id="about-title" class="text-3xl">Why this log exists</h2>
-      <p class="mt-4">{SITE.description} No press passes, no lineup hype: just what the night actually felt like, what the sound did, and what I'd wear next time.</p>
+      <h2 id="about-title" class="text-3xl">Why Kickback exists</h2>
+      <p class="mt-4">{SITE.description} No press passes, no lineup hype: just what the night actually felt like, what the sound did, and what I'd wear next time. <a href="/about/">More about me</a></p>
     </section>
     <section id="reviews" class="mt-16 border-t border-line pt-8" aria-labelledby="reviews-title">
-      <h2 id="reviews-title" class="text-3xl">Latest reviews</h2>
-      <p class="mt-4 max-w-prose text-muted">The first reviews are being written. Check back after the next weekend out.</p>
+      <h2 id="reviews-title" class="text-3xl">Latest posts</h2>
+      {latest.length === 0 ? (
+        <p class="mt-4 max-w-prose text-muted">The first reviews are being written. Check back after the next weekend out.</p>
+      ) : (
+        <>
+          <ul class="mt-6 max-w-4xl space-y-4">
+            {latest.map((p) => (
+              <li>
+                <PostCard
+                  href={postUrl(p)} title={p.data.title} description={p.data.description} date={p.data.pubDate}
+                  category={CATEGORIES[p.data.category]} genre={p.data.genre} readTime={readTime(p.body)} theme={p.data.theme}
+                />
+              </li>
+            ))}
+          </ul>
+          <p class="mt-6"><a href="/blog/">All posts</a></p>
+        </>
+      )}
     </section>
-    <div id="community" class="mt-16"><CommunityCTA /></div>
+    <section id="community" class="mt-16 border-y border-atmo py-8" aria-label="Community"><CommunityCTA /></section>
   </div>
 </BaseLayout>

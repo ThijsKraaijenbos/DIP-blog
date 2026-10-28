@@ -1,0 +1,19 @@
+---
+// External sources at the bottom of a post. Numbered because it's a reference list.
+interface Props { sources: { title: string; url: string; publisher?: string }[] }
+const { sources } = Astro.props;
+const host = (u: string) => new URL(u).hostname.replace(/^www\./, '');
+---
+{sources.length > 0 && (
+  <section class="mt-16 border-t border-line pt-6" aria-labelledby="sources-title">
+    <h2 id="sources-title" class="text-2xl">Sources & links</h2>
+    <ol class="mt-4 list-decimal space-y-2 pl-6 marker:font-mono marker:text-sm marker:text-subtle">
+      {sources.map((s) => (
+        <li class="pl-1">
+          <a href={s.url} rel="noopener" target="_blank">{s.title}</a>
+          <span class="font-mono text-xs text-muted"> {s.publisher ?? host(s.url)}</span>
+        </li>
+      ))}
+    </ol>
+  </section>
+)}

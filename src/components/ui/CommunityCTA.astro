@@ -1,13 +1,18 @@
 ---
-// Community call-to-action in the owner's voice: one button (Discord), WhatsApp as a plain link.
+// Community call-to-action: one button (WhatsApp group), Discord as a plain link.
+// Texts live in src/data/copy.ts.
 import Button from '@/components/ui/Button.astro';
 import { COMMUNITY } from '@/consts';
+import { CTA_COPY } from '@/data/copy';
+interface Props { as?: 'h2' | 'h3' }
+const { as: H = 'h2' } = Astro.props;
+const c = CTA_COPY.community;
 ---
-<section class="border-y border-atmo py-8" aria-labelledby="cta-title">
-  <h2 id="cta-title" class="text-3xl">Rave with us</h2>
-  <p class="mt-3 max-w-prose text-muted">I post set times, meetup spots and lost-and-found in the Discord before every event. Come say hi, and bring your crew.</p>
+<div>
+  <H class="text-3xl">{c.title}</H>
+  <p class="mt-3 max-w-prose text-muted">{c.text}</p>
   <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
-    <Button href={COMMUNITY.discord} external>Join the Discord</Button>
-    <a href={COMMUNITY.whatsapp} rel="noopener" target="_blank">or the WhatsApp group</a>
+    <Button href={COMMUNITY.whatsapp} external>{c.button}</Button>
+    <a href={COMMUNITY.discord} rel="noopener" target="_blank">{c.secondary}</a>
   </div>
-</section>
+</div>

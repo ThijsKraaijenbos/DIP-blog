@@ -1,0 +1,26 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PostCard from '@/components/ui/PostCard.astro';
+import { CATEGORIES } from '@/consts';
+import { getPosts, postUrl, readTime } from '@/utils/posts';
+const posts = await getPosts();
+---
+<BaseLayout title="All posts" description="Every Kickback post: rave reviews, upcoming raves, new acts and outfits from the Dutch uptempo, rawstyle and rawtempo scene.">
+  <div class="mx-auto max-w-4xl px-4 sm:px-6">
+    <h1 class="mt-12 text-4xl">All posts</h1>
+    {posts.length === 0 ? (
+      <p class="mt-6 max-w-prose text-muted">The first posts are on their way. Join the group chat on the home page to hear when they're out.</p>
+    ) : (
+      <ul class="mt-10 space-y-4">
+        {posts.map((p) => (
+          <li>
+            <PostCard
+              as="h2" href={postUrl(p)} title={p.data.title} description={p.data.description} date={p.data.pubDate}
+              category={CATEGORIES[p.data.category]} genre={p.data.genre} readTime={readTime(p.body)} theme={p.data.theme}
+            />
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</BaseLayout>
