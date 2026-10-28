@@ -16,7 +16,7 @@ export const GA4_ID = 'G-XLXJXRQ43P';
 
 // Newsletter sign-up (Resend, double opt-in; code in api/). Set to true once Resend is set up
 // and RESEND_API_KEY is added in Vercel. While false, the email form is hidden.
-export const NEWSLETTER_ENABLED = false;
+export const NEWSLETTER_ENABLED = true;
 
 // Community links (placeholders — replace with real invite links).
 export const COMMUNITY = {
