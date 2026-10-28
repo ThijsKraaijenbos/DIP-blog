@@ -9,7 +9,7 @@ export const SITE_URL = 'https://www.kickbacknl.app';
 export const FROM = 'Kickback <newsletter@kickbacknl.app>';
 export const REPLY_TO = 'info@kickbacknl.app';
 // Resend segment that holds confirmed subscribers (not a secret). Set after creating it in Resend.
-export const SEGMENT_ID = '';
+export const SEGMENT_ID = '4db4d0da-f35f-470c-9f3b-bb09e3678b2a';
 // Confirmation links stop working after 7 days.
 export const LINK_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
 
