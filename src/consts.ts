@@ -14,8 +14,9 @@ export const SITE = {
 // GA4 only loads after the visitor accepts cookies (EU rules). Leave empty to disable.
 export const GA4_ID = 'G-XLXJXRQ43P';
 
-// Newsletter (Buttondown). Leave empty to hide the email form until the account exists.
-export const BUTTONDOWN_USERNAME = '';
+// Newsletter sign-up (Resend, double opt-in; code in api/). Set to true once Resend is set up
+// and RESEND_API_KEY is added in Vercel. While false, the email form is hidden.
+export const NEWSLETTER_ENABLED = false;
 
 // Community links (placeholders — replace with real invite links).
 export const COMMUNITY = {

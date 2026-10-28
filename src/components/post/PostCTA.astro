@@ -3,14 +3,14 @@
 // a comment prompt and previous/next post links.
 import CommunityCTA from '@/components/ui/CommunityCTA.astro';
 import NewsletterForm from '@/components/post/NewsletterForm.astro';
-import { COMMUNITY, BUTTONDOWN_USERNAME } from '@/consts';
+import { COMMUNITY, NEWSLETTER_ENABLED } from '@/consts';
 import { CTA_COPY } from '@/data/copy';
 import { postUrl, type Post } from '@/utils/posts';
 interface Props { newer?: Post; older?: Post }
 const { newer, older } = Astro.props;
 ---
 <section class="mt-16 border-y border-atmo" aria-label="Join the conversation">
-  <div class:list={['grid gap-10 py-8', BUTTONDOWN_USERNAME && 'md:grid-cols-2']}>
+  <div class:list={['grid gap-10 py-8', NEWSLETTER_ENABLED && 'md:grid-cols-2']}>
     <CommunityCTA as="h2" />
     <NewsletterForm />
   </div>

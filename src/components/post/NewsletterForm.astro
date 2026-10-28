@@ -1,28 +1,28 @@
 ---
-// Email sign-up via Buttondown: a plain HTML form, no script. Hidden until
-// BUTTONDOWN_USERNAME is set in src/consts.ts.
-import { BUTTONDOWN_USERNAME } from '@/consts';
+// Email sign-up: a plain HTML form (no script) that posts to api/subscribe.ts.
+// That sends a confirmation email via Resend; readers are only added after they click it.
+// Hidden until NEWSLETTER_ENABLED is true in src/consts.ts.
+import { NEWSLETTER_ENABLED } from '@/consts';
 import { CTA_COPY } from '@/data/copy';
 const c = CTA_COPY.newsletter;
 ---
-{BUTTONDOWN_USERNAME && (
+{NEWSLETTER_ENABLED && (
   <div>
     <h3 class="text-2xl">{c.title}</h3>
     <p class="mt-2 max-w-prose text-muted">{c.text}</p>
-    <form
-      action={`https://buttondown.com/api/emails/embed-subscribe/${BUTTONDOWN_USERNAME}`}
-      method="post"
-      target="_blank"
-      class="mt-4 flex max-w-md flex-wrap gap-2"
-    >
-      <label for="bd-email" class="sr-only">Email address</label>
+    <form action="/api/subscribe" method="post" class="mt-4 flex max-w-md flex-wrap gap-2">
+      <label for="nl-email" class="sr-only">Email address</label>
       <input
-        id="bd-email" type="email" name="email" required autocomplete="email" placeholder="you@example.com"
+        id="nl-email" type="email" name="email" required autocomplete="email" placeholder="you@example.com"
         class="min-h-11 min-w-0 flex-1 rounded-xs border border-line-strong bg-bg px-3 font-mono text-sm text-fg placeholder:text-subtle focus:border-fg"
       />
-      <input type="hidden" name="embed" value="1" />
+      <!-- Spam trap: hidden from people, bots fill it in. -->
+      <div class="absolute -left-[9999px]" aria-hidden="true">
+        <label for="nl-website">Website</label>
+        <input id="nl-website" type="text" name="website" tabindex="-1" autocomplete="off" />
+      </div>
       <button type="submit" class="min-h-11 rounded-xs border border-cta bg-cta px-5 font-mono text-sm font-bold uppercase tracking-wider text-cta-ink hover:border-fg hover:bg-fg">{c.button}</button>
     </form>
-    <p class="mt-2 text-xs text-subtle">{c.privacy}</p>
+    <p class="mt-2 text-xs text-subtle">{c.privacy} <a href="/privacy/">Privacy</a></p>
   </div>
 )}

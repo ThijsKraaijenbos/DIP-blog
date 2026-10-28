@@ -1,0 +1,21 @@
+---
+// Shown when a sign-up or confirmation fails. ?reason=email | link adds a specific hint.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LaserDivider from '@/components/layout/LaserDivider.astro';
+---
+<BaseLayout title="Sign-up didn't work" description="Something went wrong with the Kickback newsletter sign-up." noindex>
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <h1 class="mt-12 max-w-4xl text-4xl">Sign-up didn't work</h1>
+    <LaserDivider class="mt-8 max-w-[68ch]" />
+    <div class="post-body mt-8 max-w-[68ch]">
+      <p data-reason="email" hidden>That email address doesn't look right. Go back and check for typos.</p>
+      <p data-reason="link" hidden>This confirmation link is invalid or older than 7 days. Sign up again to get a new one.</p>
+      <p data-reason="" >Something went wrong on my side. Try again in a minute, or email <a href="mailto:info@kickbacknl.app">info@kickbacknl.app</a>.</p>
+      <p><a href="/blog/">Back to the blog</a></p>
+    </div>
+  </div>
+  <script is:inline>
+    const r = new URLSearchParams(location.search).get('reason');
+    if (r) document.querySelectorAll('[data-reason]').forEach((el) => { el.hidden = el.dataset.reason !== r; });
+  </script>
+</BaseLayout>
