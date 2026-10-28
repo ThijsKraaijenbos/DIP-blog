@@ -59,7 +59,7 @@ docs/                  beginner docs (DEPLOY, DESIGN-SYSTEM, ASTRO-GUIDE, WRITIN
 - Type: huge uppercase Anton headlines; Space Mono for dates/venue/genre/read time/tags; Source Serif 4 for body.
 - Lasers only in home/post hero (SVG, one slow sweep disabled under `prefers-reduced-motion`) and as 1px dividers.
 - Sigil: symmetrical, thin tapered thorns. Never demonic/occult (no pentagrams, inverted crosses, horns, goats, skulls, runes).
-- Logo lives in `Logo.astro` only (sigil + "KICKBACK" text from `SITE.name`).
+- Logo: custom KICKBACK wordmark (`public/brand/kickback-logo.svg`) and KB icon (`kickback-icon.svg`), fixed UV violet `#7a3cff`. Only used through `Logo.astro` (site) and the PNGs in `public/brand/` (emails, Buttondown). Themes never recolor it.
 - Themes change **only** the atmosphere colour. Never layout, fonts, logo, nav, background or CTA position. Never recreate event logos/artwork.
 - Avoid AI-slop tells: gradients, Inter, emoji icons, identical rounded card grids, centred hero with two buttons, shadows everywhere.
 

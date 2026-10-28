@@ -1,12 +1,16 @@
 ---
-// TEMPORARY logo: sigil mark + site name. Swap this one file for a custom logo later.
-import Sigil from '@/components/ui/Sigil.astro';
+// The Kickback logo (custom wordmark, UV violet). Source files live in public/brand/.
+// The colour is fixed: themes never change the logo.
 import { SITE } from '@/consts';
 interface Props { size?: 'sm' | 'lg'; class?: string }
 const { size = 'sm', class: className = '' } = Astro.props;
-const big = size === 'lg';
+// The SVG is 1921×793, so width = height × 2.42.
+const h = size === 'lg' ? 120 : 52;
 ---
-<span class:list={['inline-flex items-center gap-2 text-fg', className]}>
-  <Sigil size={big ? 72 : 32} />
-  <span class:list={['font-display uppercase leading-none tracking-wide', big ? 'text-3xl' : 'whitespace-nowrap text-xl']}>{SITE.name}</span>
-</span>
+<img
+  src="/brand/kickback-logo.svg"
+  alt={SITE.name}
+  width={Math.round(h * 2.42)}
+  height={h}
+  class:list={['block h-auto', size === 'lg' ? 'w-[290px]' : 'w-[132px] sm:w-[176px]', className]}
+/>
