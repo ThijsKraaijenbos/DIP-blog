@@ -18,11 +18,13 @@ export const GA4_ID = 'G-XLXJXRQ43P';
 // and RESEND_API_KEY is added in Vercel. While false, the email form is hidden.
 export const NEWSLETTER_ENABLED = true;
 
-// Community links (placeholders — replace with real invite links).
+// Community links. Leave a link empty ('') to hide it everywhere.
+// While there is no WhatsApp/Discord group, the community block points to Instagram and TikTok.
 export const COMMUNITY = {
-  discord: 'https://discord.gg/your-invite',
-  whatsapp: 'https://chat.whatsapp.com/your-invite',
-  instagram: 'https://instagram.com/your-handle',
+  whatsapp: '',
+  discord: '',
+  instagram: 'https://www.instagram.com/thijskraaij06/',
+  tiktok: 'https://www.tiktok.com/@thijskraaij06',
 };
 
 // Post categories (the `category` field in a post). Key = what you type, value = label on the site.

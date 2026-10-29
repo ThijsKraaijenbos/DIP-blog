@@ -14,7 +14,8 @@ export default defineConfig({
     mdx(),
     react(),
     // Pages marked noindex stay out of the sitemap too.
-    sitemap({ filter: (page) => !page.includes('/styleguide/') && !page.includes('/subscribe/') }),
+    // TODO: drop the '/about/' check when noindex is removed from src/pages/about.mdx.
+    sitemap({ filter: (page) => !page.includes('/styleguide/') && !page.includes('/subscribe/') && !page.includes('/about/') }),
   ],
   vite: {
     plugins: [tailwindcss()],

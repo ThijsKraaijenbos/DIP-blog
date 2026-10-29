@@ -1,5 +1,6 @@
 ---
 // Community call-to-action: one button (WhatsApp group), Discord as a plain link.
+// Without group links it falls back to Instagram (button) and TikTok (link).
 // Texts live in src/data/copy.ts.
 import Button from '@/components/ui/Button.astro';
 import { COMMUNITY } from '@/consts';
@@ -12,7 +13,11 @@ const c = CTA_COPY.community;
   <H class="text-3xl">{c.title}</H>
   <p class="mt-3 max-w-prose text-muted">{c.text}</p>
   <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
-    <Button href={COMMUNITY.whatsapp} external>{c.button}</Button>
-    <a href={COMMUNITY.discord} rel="noopener" target="_blank">{c.secondary}</a>
+    {COMMUNITY.whatsapp
+      ? <Button href={COMMUNITY.whatsapp} external>{c.button}</Button>
+      : <Button href={COMMUNITY.instagram} external>{c.followButton}</Button>}
+    {COMMUNITY.discord
+      ? <a href={COMMUNITY.discord} rel="noopener" target="_blank">{c.secondary}</a>
+      : <a href={COMMUNITY.tiktok} rel="noopener" target="_blank">{c.followSecondary}</a>}
   </div>
 </div>
