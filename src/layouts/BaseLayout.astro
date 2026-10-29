@@ -7,6 +7,7 @@ import '@/styles/global.css';
 import Logo from '@/components/ui/Logo.astro';
 import CookieBanner from '@/components/layout/CookieBanner.astro';
 import { SITE, COMMUNITY, GA4_ID } from '@/consts';
+import SpeedInsights from '@vercel/speed-insights/astro';
 
 const nav = [['Blog', '/blog/'], ['About', '/about/'], ['Community', '/#community']];
 interface Props {
@@ -103,5 +104,7 @@ const path = Astro.url.pathname;
       </div>
     </footer>
     {GA4_ID && <CookieBanner id={GA4_ID} />}
+    {/* Vercel Speed Insights: real visitors' loading speed (Core Web Vitals), cookieless, production only */}
+    {import.meta.env.PROD && <SpeedInsights />}
   </body>
 </html>
