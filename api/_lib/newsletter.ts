@@ -70,7 +70,9 @@ export function confirmEmail(link: string) {
     'Hey,',
     '',
     'Someone (hopefully you) signed up for the Kickback newsletter with this address.',
-    'Confirm here to start getting new rave reviews:',
+    'Press confirm if you want to start receiving new rave reviews, scene updates and tips, straight to your inbox.',
+    '',
+    'Confirm here:',
     link,
     '',
     "Didn't sign up? Ignore this email and nothing happens.",
@@ -85,7 +87,7 @@ export function confirmEmail(link: string) {
 </td></tr>
 <tr><td style="padding:28px">
 <p style="margin:0 0 16px;font-size:17px;line-height:1.6">Hey,</p>
-<p style="margin:0 0 24px;font-size:17px;line-height:1.6">Someone (hopefully you) signed up for the Kickback newsletter with this address. Confirm to start getting new rave reviews.</p>
+<p style="margin:0 0 24px;font-size:17px;line-height:1.6">Someone (hopefully you) signed up for the Kickback newsletter with this address. Press confirm if you want to start receiving new rave reviews, scene updates and tips, straight to your inbox.</p>
 <p style="margin:0 0 24px"><a href="${esc(link)}" style="display:inline-block;background:#ff2a1a;color:#060606;font-family:'Courier New',monospace;font-weight:bold;font-size:14px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:14px 22px">Confirm subscription</a></p>
 <p style="margin:0;font-size:14px;line-height:1.6;color:#a8a49c">Didn't sign up? Ignore this email and nothing happens. The link works for 7 days.</p>
 </td></tr>
