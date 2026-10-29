@@ -1,9 +1,8 @@
 // Call-to-action and newsletter texts shown on every post.
-// TODO(Thijs): replace every placeholder below with your own words.
 export const CTA_COPY = {
   community: {
     title: 'Rave with me',
-    text: 'Write your community invite here: what people get in the group chat and why they should join.',
+    text: '', // optional line under the title; leave empty to show none
     button: 'Join the WhatsApp group',
     secondary: 'or the Discord',
     // Used while there is no WhatsApp/Discord group yet (empty links in src/consts.ts).
@@ -12,7 +11,7 @@ export const CTA_COPY = {
     followSecondary: 'Follow me on TikTok',
   },
   comment: {
-    text: 'Write your comment prompt here: ask readers one question about this post.',
+    text: 'Got a tip, a question or a rave I should check out?',
     link: 'Tell me on Instagram',
   },
   // Home page hero, under the big headline.
@@ -23,8 +22,8 @@ export const CTA_COPY = {
     emailLink: 'Or stay in the loop by joining the newsletter!', // links to the form on the About page
   },
   newsletter: {
-    title: 'Get the next review',
-    text: 'Write your newsletter pitch here: what lands in the inbox and how often.',
+    title: 'Stay in the loop',
+    text: "New rave reviews, scene updates and tips, straight to your inbox. Only when there's something new.",
     button: 'Sign up',
     privacy: 'Only used for this newsletter. Unsubscribe with one click.',
   },

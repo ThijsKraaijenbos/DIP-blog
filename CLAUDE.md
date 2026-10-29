@@ -40,7 +40,7 @@ src/
   styles/global.css    Tailwind import + @theme tokens
   assets/images/       images processed by astro:assets
   data/                JSON/TS data (rave log)
-docs/                  beginner docs (DEPLOY, DESIGN-SYSTEM, ASTRO-GUIDE, WRITING-A-POST)
+docs/                  beginner docs (DEPLOY, DESIGN-SYSTEM, NEWSLETTER; email/ holds the Resend template HTML). Writing a post: README.md
 ```
 
 ## Skills — when to use which (in `.claude/skills/`)

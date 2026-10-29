@@ -6,7 +6,7 @@ import { CATEGORY_KEYS, VERDICT_KEYS } from '@/consts';
 
 // Every post is an .mdx file in src/content/blog/. The file name is the URL slug
 // (lowercase-words-with-dashes.mdx → /blog/lowercase-words-with-dashes/).
-// Files starting with _ are ignored. See docs/WRITING-A-POST.md for every field.
+// Files starting with _ are ignored. See src/content/blog/_template.mdx and README.md ("Writing a post") for every field.
 
 const blog = defineCollection({
   loader: glob({ base: './src/content/blog', pattern: '**/[^_]*.{md,mdx}' }),
