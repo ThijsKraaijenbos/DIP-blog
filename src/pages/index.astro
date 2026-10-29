@@ -11,8 +11,18 @@ import { getPosts, postUrl, readTime } from '@/utils/posts';
 const latest = (await getPosts()).slice(0, 4);
 const newest = latest[0];
 const hero = CTA_COPY.hero;
+// Structured data so Google knows the site's name and who writes it.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE.name,
+  url: SITE.url + '/',
+  description: SITE.description,
+  inLanguage: SITE.locale,
+  author: { '@type': 'Person', name: SITE.author, url: SITE.url + '/about/' },
+};
 ---
-<BaseLayout>
+<BaseLayout jsonLd={jsonLd}>
   <FeatureHero
     title="Rave reviews from the front row"
     facts={[['Genres', 'Uptempo'], ['', 'Rawstyle'], ['', 'Rawtempo'], ['Scene', 'NL hardcore']]}
