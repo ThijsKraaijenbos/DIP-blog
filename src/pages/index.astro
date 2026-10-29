@@ -17,16 +17,20 @@ const hero = CTA_COPY.hero;
     title="Rave reviews from the front row"
     facts={[['Genres', 'Uptempo'], ['', 'Rawstyle'], ['', 'Rawtempo'], ['Scene', 'NL hardcore']]}
   >
-    {/* One action above the fold: the newest post once there is one, until then the newsletter. */}
-    {newest ? (
-      <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
-        <Button href={postUrl(newest)}>{newest.data.category === 'review' ? hero.latestReview : hero.latestPost}</Button>
-        {NEWSLETTER_ENABLED && <a href="/about/#newsletter">{hero.emailLink}</a>}
-      </div>
-    ) : NEWSLETTER_ENABLED && (
+    {/* Two actions above the fold: the newsletter form is the primary (red) one, the newest
+        post is the secondary (outline) one. Same pattern as the community block. */}
+    {NEWSLETTER_ENABLED && (
       <div>
         <p class="mb-3 font-mono text-sm uppercase tracking-wider text-fg">{hero.newsletter}</p>
         <NewsletterForm bare />
+      </div>
+    )}
+    {newest && (
+      <div class:list={['flex flex-wrap items-center gap-x-4 gap-y-3', NEWSLETTER_ENABLED && 'mt-5']}>
+        {NEWSLETTER_ENABLED && <span class="meta">{hero.or}</span>}
+        <Button href={postUrl(newest)} variant={NEWSLETTER_ENABLED ? 'secondary' : 'primary'}>
+          {newest.data.category === 'review' ? hero.latestReview : hero.latestPost}
+        </Button>
       </div>
     )}
   </FeatureHero>

@@ -27,6 +27,20 @@ npx vercel deploy --token "$VERCEL_TOKEN"          # preview URL, safe to share 
 npx vercel deploy --prod --token "$VERCEL_TOKEN"   # live site
 ```
 
+## Rolling back a change
+
+Every push is a commit, so an older version can always come back.
+
+- **Fastest (site only):** in Vercel, open the project, go to **Deployments**, pick an older
+  deployment and choose **Instant Rollback**. The code on GitHub stays as it is.
+- **Code too:** ask Claude to revert the commit, for example "revert the two-CTA home hero".
+
+Saved versions worth knowing:
+
+| Version | Commit |
+|---|---|
+| Home hero with one button + small newsletter link (before the two-CTA hero) | `a34cd15` |
+
 ## The site URL
 
 `site` in `astro.config.mjs` and `SITE.url` in `src/consts.ts` are both `https://www.kickbacknl.app` (the custom domain; `kickbacknl.app` redirects to www). If the domain ever changes, change **both** so canonical links, the sitemap and RSS point to the right place.
