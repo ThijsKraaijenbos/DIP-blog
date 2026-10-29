@@ -20,7 +20,7 @@ export const CTA_COPY = {
     newsletter: 'Stay in the loop. Join the newsletter here!', // shown above the email form while there are no posts yet
     latestReview: 'Read the latest review',
     latestPost: 'Read the latest post', // when the newest post is not a review
-    or: 'or', // between the email form and the latest-post button
+    emailLink: 'Or stay in the loop by joining the newsletter!', // links to the form on the About page
   },
   newsletter: {
     title: 'Get the next review',
