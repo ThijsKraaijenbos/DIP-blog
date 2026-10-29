@@ -2,13 +2,14 @@
 // TODO(Thijs): replace every placeholder below with your own words.
 export const CTA_COPY = {
   community: {
-    title: 'Rave with us',
+    title: 'Rave with me',
     text: 'Write your community invite here: what people get in the group chat and why they should join.',
     button: 'Join the WhatsApp group',
     secondary: 'or the Discord',
     // Used while there is no WhatsApp/Discord group yet (empty links in src/consts.ts).
-    followButton: 'Follow on Instagram',
-    followSecondary: 'or on TikTok',
+    followButton: 'Follow me on Instagram',
+    followOr: 'or',
+    followSecondary: 'Follow me on TikTok',
   },
   comment: {
     text: 'Write your comment prompt here: ask readers one question about this post.',
