@@ -61,37 +61,7 @@ export function redirect(path: string, status = 303): Response {
   return new Response(null, { status, headers: { Location: `${SITE_URL}${path}`, 'Cache-Control': 'no-store' } });
 }
 
-const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
-
-/** The confirmation email, in the Kickback style (inline styles: email apps ignore stylesheets). */
-export function confirmEmail(link: string) {
-  const subject = 'Confirm your Kickback subscription';
-  const text = [
-    'Hey,',
-    '',
-    'Someone (hopefully you) signed up for the Kickback newsletter with this address.',
-    'Press confirm if you want to start receiving new rave reviews, scene updates and tips, straight to your inbox.',
-    '',
-    'Confirm here:',
-    link,
-    '',
-    "Didn't sign up? Ignore this email and nothing happens.",
-    '',
-    'Kickback · kickbacknl.app',
-  ].join('\n');
-  const html = `<!doctype html><html><body style="margin:0;background:#060606;padding:32px 16px;font-family:Georgia,'Times New Roman',serif;color:#f2efe8">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;border:1px solid #2b2a29;background:#111112">
-<tr><td style="padding:28px 28px 8px;border-bottom:2px solid #7a3cff" align="center">
-<a href="${SITE_URL}"><img src="${SITE_URL}/brand/kickback-logo-email.png" alt="Kickback" width="220" style="width:220px;max-width:100%;height:auto;border:0;display:block"></a>
-</td></tr>
-<tr><td style="padding:28px">
-<p style="margin:0 0 16px;font-size:17px;line-height:1.6">Hey,</p>
-<p style="margin:0 0 24px;font-size:17px;line-height:1.6">Someone (hopefully you) signed up for the Kickback newsletter with this address. Press confirm if you want to start receiving new rave reviews, scene updates and tips, straight to your inbox.</p>
-<p style="margin:0 0 24px"><a href="${esc(link)}" style="display:inline-block;background:#ff2a1a;color:#060606;font-family:'Courier New',monospace;font-weight:bold;font-size:14px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:14px 22px">Confirm subscription</a></p>
-<p style="margin:0;font-size:14px;line-height:1.6;color:#a8a49c">Didn't sign up? Ignore this email and nothing happens. The link works for 7 days.</p>
-</td></tr>
-<tr><td style="padding:16px 28px;border-top:1px solid #2b2a29;font-family:'Courier New',monospace;font-size:12px;color:#85817a">Kickback · <a href="${SITE_URL}" style="color:#ff5a4d">kickbacknl.app</a></td></tr>
-</table></td></tr></table></body></html>`;
-  return { subject, text, html };
-}
+// The confirmation email is a Resend template (Resend → Templates), so its text and design can be
+// changed there without touching code. A copy of its HTML lives in docs/email/confirmation-mail.html.
+// The template must be published, have this alias, a subject, and one variable: CONFIRM_URL.
+export const CONFIRM_TEMPLATE = 'confirmation-mail';
