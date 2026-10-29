@@ -1,6 +1,7 @@
 ---
 // Hero for the home page / post header, laid out like a flyer: the title runs huge on the
 // left, the event facts sit in a stacked "lineup" block beside it, one CTA below.
+// Pass `href` for a button, or put your own CTA in the slot (the home page does this).
 import LaserHero from '@/components/layout/LaserHero.astro';
 import Button from '@/components/ui/Button.astro';
 interface Props { title: string; facts?: [string, string][]; href?: string; cta?: string; compact?: boolean; sweep?: boolean; as?: 'h1' | 'h2' }
@@ -11,6 +12,7 @@ const { title, facts = [], href, cta = 'Read the review', compact = false, sweep
     <div>
       <H class:list={['max-w-4xl', compact ? 'text-4xl' : 'text-5xl']}>{title}</H>
       {href && <div class="mt-8"><Button href={href}>{cta}</Button></div>}
+      {Astro.slots.has('default') && <div class="mt-8"><slot /></div>}
     </div>
     {facts.length > 0 && (
       <dl class="grid grid-cols-[auto_1fr] gap-x-4 border-t border-atmo pt-3 md:min-w-56">

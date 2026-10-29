@@ -3,15 +3,33 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import FeatureHero from '@/components/layout/FeatureHero.astro';
 import CommunityCTA from '@/components/ui/CommunityCTA.astro';
 import PostCard from '@/components/ui/PostCard.astro';
-import { SITE, CATEGORIES } from '@/consts';
+import Button from '@/components/ui/Button.astro';
+import NewsletterForm from '@/components/post/NewsletterForm.astro';
+import { SITE, CATEGORIES, NEWSLETTER_ENABLED } from '@/consts';
+import { CTA_COPY } from '@/data/copy';
 import { getPosts, postUrl, readTime } from '@/utils/posts';
 const latest = (await getPosts()).slice(0, 4);
+const newest = latest[0];
+const hero = CTA_COPY.hero;
 ---
 <BaseLayout>
   <FeatureHero
     title="Rave reviews from the front row"
     facts={[['Genres', 'Uptempo'], ['', 'Rawstyle'], ['', 'Rawtempo'], ['Scene', 'NL hardcore']]}
-  />
+  >
+    {/* One action above the fold: the newest post once there is one, until then the newsletter. */}
+    {newest ? (
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
+        <Button href={postUrl(newest)}>{newest.data.category === 'review' ? hero.latestReview : hero.latestPost}</Button>
+        {NEWSLETTER_ENABLED && <a href="/about/#newsletter">{hero.emailLink}</a>}
+      </div>
+    ) : NEWSLETTER_ENABLED && (
+      <div>
+        <p class="mb-3 font-mono text-sm uppercase tracking-wider text-fg">{hero.newsletter}</p>
+        <NewsletterForm bare />
+      </div>
+    )}
+  </FeatureHero>
   <div class="mx-auto max-w-6xl px-4 sm:px-6">
     <section class="mt-16 max-w-prose" aria-labelledby="about-title">
       <h2 id="about-title" class="text-3xl">Why Kickback exists</h2>

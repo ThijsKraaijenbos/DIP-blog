@@ -14,6 +14,13 @@ export const CTA_COPY = {
     text: 'Write your comment prompt here: ask readers one question about this post.',
     link: 'Tell me on Instagram',
   },
+  // Home page hero, under the big headline. TODO(Thijs): change these to your own words if you like.
+  hero: {
+    newsletter: 'New reviews in your inbox.', // shown above the email form while there are no posts yet
+    latestReview: 'Read the latest review',
+    latestPost: 'Read the latest post', // when the newest post is not a review
+    emailLink: 'or get new reviews by email', // links to the form on the About page
+  },
   newsletter: {
     title: 'Get the next review',
     text: 'Write your newsletter pitch here: what lands in the inbox and how often.',
