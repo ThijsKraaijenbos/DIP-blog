@@ -30,4 +30,4 @@ Rules for every post (they come from the rubric):
 
 ## Open TODOs
 
-- **About page "Start here":** once the first posts are live, add 2–3 links to your best posts (template is in a comment in `src/pages/about.mdx`), finish the unfinished sentence in "Who I am", then remove `noindex: true`.
+- **About page "Start here":** once the first posts are live, add 2–3 links to your best posts (template is in a comment in `src/pages/about.mdx`), then remove `noindex: true`.

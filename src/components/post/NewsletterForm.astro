@@ -2,15 +2,18 @@
 // Email sign-up: a plain HTML form (no script) that posts to api/subscribe.ts.
 // That sends a confirmation email via Resend; readers are only added after they click it.
 // Hidden until NEWSLETTER_ENABLED is true in src/consts.ts.
+// `bare`: only the form + privacy line (for use inside running text, e.g. the About page).
 import { NEWSLETTER_ENABLED } from '@/consts';
 import { CTA_COPY } from '@/data/copy';
+interface Props { bare?: boolean; id?: string }
+const { bare = false, id } = Astro.props;
 const c = CTA_COPY.newsletter;
 ---
 {NEWSLETTER_ENABLED && (
-  <div>
-    <h3 class="text-2xl">{c.title}</h3>
-    <p class="mt-2 max-w-prose text-muted">{c.text}</p>
-    <form action="/api/subscribe" method="post" class="mt-4 flex max-w-md flex-wrap gap-2">
+  <div id={id} class:list={[bare && 'not-prose']}>
+    {!bare && <h3 class="text-2xl">{c.title}</h3>}
+    {!bare && <p class="mt-2 max-w-prose text-muted">{c.text}</p>}
+    <form action="/api/subscribe" method="post" class:list={['flex max-w-md flex-wrap gap-2', !bare && 'mt-4']}>
       <label for="nl-email" class="sr-only">Email address</label>
       <input
         id="nl-email" type="email" name="email" required autocomplete="email" placeholder="you@example.com"
