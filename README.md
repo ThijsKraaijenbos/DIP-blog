@@ -27,3 +27,7 @@ Rules for every post (they come from the rubric):
 - **Your own voice.** Write from your own experience. AI can help you plan, never paste its text.
 - The CTA block, related posts and older/newer links are added to every post automatically. Their texts live in `src/data/copy.ts`.
 - `draft: true` keeps a post off the live site while you work on it.
+
+## Open TODOs
+
+- **About page "Start here":** once the first posts are live, add 2–3 links to your best posts (template is in a comment in `src/pages/about.mdx`), finish the unfinished sentence in "Who I am", then remove `noindex: true`.

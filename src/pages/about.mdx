@@ -1,71 +1,44 @@
 ---
 layout: '@/layouts/PageLayout.astro'
 title: 'About Kickback'
-description: 'Who writes Kickback: a raver from the Dutch uptempo, rawstyle and rawtempo scene reviewing raves from the front row.'
-# TODO(Thijs): remove the next line once you've written this page, so Google can index it.
+description: 'Who writes Kickback: a raver from the Dutch uptempo and rawstyle scene sharing honest rave reviews, tips and guides for newcomers and veterans.'
+# TODO(Thijs): remove the next line once the TODOs below are done, so Google can index this page.
 noindex: true
 ---
 
 import NewsletterForm from '@/components/post/NewsletterForm.astro';
-import CommunityCTA from '@/components/ui/CommunityCTA.astro';
 
-{/*
-  TODO(Thijs): write each section in your own words and delete the bullet prompts.
-  Keep it short: 2–4 sentences per section. Keep "## " for headings (the page title is the only H1).
-*/}
-
-{/* 1. VALUE PROPOSITION — first thing people read, no heading. 1–2 sentences. */}
-**Write 1–2 sentences here: who Kickback is for and what they get from it.**
-
-- Who: ravers who go to (or want to go to) uptempo, rawstyle and rawtempo events.
-- What they get: honest reviews with scores, so they know which raves are worth the ticket.
+Kickback is specifically made for rave fans within the uptempo and rawstyle scene. In this blog I share my own personal experiences, give honest and detailed reviews about raves and festivals I've been to, and I provide useful tips and guides that are not only useful for newcomers, but also for the scene veterans.
 
 ## Who I am
 
-{/* 2. SHORT BIO + PHOTO. Add a real photo of yourself at a rave, with caption and credit (graded). */}
-
-- Your first name and that you're a raver from the Dutch scene (city or region if you want).
-- Since when you go to raves, and roughly how many events a year.
-- The genres you know best, and that you skip terror.
-
-{/*
-  Photo: put the file in src/assets/images/ and uncomment this:
-  import Figure from '@/components/ui/Figure.astro';
-  import me from '@/assets/images/about-me.jpg';
-  <Figure src={me} alt="Thijs in the crowd at …" caption="Me at … (year)" credit="Photo: own photo" />
-*/}
+{/* TODO(Thijs): the last sentence below is unfinished ("I noticed that this scene …"). Finish or remove it. */}
+My name is Thijs Kraaijenbos. I myself am a big fan of the uptempo hardcore and the rawstyle scene. Especially DJ's like Lekkerfaces, Toza, The Dark Horror, and Dead X. In late 2023 / early 2024 my brother started bringing me along to raves. After my first uptempo rave I very quickly fell in love with the music and started listening to it myself. I noticed that this scene
 
 ## How Kickback started
 
-{/* 3. ORIGIN STORY: why you started, the gap you saw. */}
-
-- The moment you got into hardcore (first event, first track, who took you).
-- What was missing: reviews that tell you what a night actually feels like, not just the line-up hype.
-- Why in English: the international crowd at Dutch raves, and reaching ravers outside the Netherlands.
+Whenever I wanted to know if a rave was worth the ticket, all I could find were aftermovies and lineup hype. I wanted honest reviews from someone who was actually there, and a place to hear what other ravers thought. So I started Kickback to share my own experiences and connect with people from the scene.
 
 ## How I review
 
-{/* 4. CREDIBILITY: your method. This is your unique angle and shows you know your stuff. */}
+I review only raves i've actually been to myself so I can fairly review them. Every review gets scored on serveral factors such as lineup, atmosphere, overall sound quality, location, facilities, etc.
 
-- You only review raves you went to yourself, and you pay for your own tickets.
-- Every review gets scores on 8 points: line-up, atmosphere, sound quality, location, facilities, logistics, decoration and ticket price.
-- One thing you always pay attention to that other blogs skip.
+{/*
+  ⚠️ IMPORTANT TODO(Thijs): add a "Start here" section once your first posts are live.
+  Link 2–3 of your best posts (they count as internal links). Copy this, uncomment and fill in:
 
-## Start here
+  ## Start here
 
-{/* 5. GREATEST HITS: link 2–3 of your best posts once they're live. Replace the dummy links. */}
-
-- [Your first or best review](/blog/) — one line on why it's a good first read.
-- [A tips or outfit post](/blog/) — one line.
-- [Upcoming raves](/blog/) — one line.
+  - [Title of your best review](/blog/file-name-of-the-post/) — one line on why to read it.
+  - [Title of a tips or guide post](/blog/file-name/) — one line.
+*/}
 
 ## Stay in the loop
 
-{/* 6. CALL TO ACTION: the newsletter form and group chat are added automatically below. Write 1 sentence. */}
+Join the newsletter [here](#newsletter)!
 
-**Write 1 sentence here inviting people to join the newsletter or the group chat.**
+Also feel free to follow me on my personal [instagram](https://www.instagram.com/thijskraaij06/) or [TikTok](https://www.tiktok.com/@thijskraaij06).
 
-<div class="not-prose mt-8 grid gap-10 border-y border-atmo py-8">
-  <CommunityCTA as="h3" />
+<div id="newsletter" class="not-prose mt-8 scroll-mt-8 border-y border-atmo py-8">
   <NewsletterForm />
 </div>
