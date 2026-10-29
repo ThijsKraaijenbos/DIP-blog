@@ -34,6 +34,7 @@ export const CATEGORIES = {
   'new-acts': 'New acts',
   outfits: 'Outfits',
   tips: 'Tips',
+  guide: 'Guide',
 } as const;
 export type CategoryKey = keyof typeof CATEGORIES;
 export const CATEGORY_KEYS = Object.keys(CATEGORIES) as [CategoryKey, ...CategoryKey[]];
