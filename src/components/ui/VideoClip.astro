@@ -1,0 +1,23 @@
+---
+// Short self-hosted clip with caption + credit, styled like Figure.astro.
+// Files live in public/videos/ (Astro does not optimize video), so `src` and `poster` are plain paths like "/videos/clip.mp4".
+// `label` describes the clip for screen readers. Clips are muted, so there is no audio track to describe.
+interface Props {
+  src: string; poster: string; label: string; caption: string; credit: string; creditUrl?: string;
+  autoplay?: boolean; class?: string;
+}
+const { src, poster, label, caption, credit, creditUrl, autoplay = false, class: className = '' } = Astro.props;
+---
+<figure class:list={['border border-line', className]}>
+  <video
+    src={src} poster={poster} aria-label={label}
+    muted loop playsinline controls preload="metadata" autoplay={autoplay}
+    class="block h-auto w-full bg-bg"
+  >
+    <a href={src}>Download the clip</a>
+  </video>
+  <figcaption class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-t border-line px-3 py-2">
+    <span class="text-sm text-fg">{caption}</span>
+    <span class="font-mono text-xs text-muted">{creditUrl ? <a href={creditUrl} rel="noopener" target="_blank">{credit}</a> : credit}</span>
+  </figcaption>
+</figure>
