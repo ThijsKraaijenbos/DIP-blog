@@ -1,0 +1,35 @@
+---
+# DEMO: shows the VideoClip component on the preview branch. Delete this file (and public/videos/cat-cucumber.*) before merging to main.
+title: 'Demo: a short video clip in a post'
+metaTitle: 'Demo: VideoClip component'
+description: 'Demo post for the VideoClip component: a short, muted, self-hosted clip with caption and credit, to check how video looks in a Kickback post.'
+intro: 'Not a real post. This page only exists to test how a short video looks between the text.'
+pubDate: 2026-10-30
+category: tips
+tags: ['demo']
+heroImage:
+  src: '../../assets/images/placeholder-crowd.jpg'
+  alt: 'Placeholder photo of a crowd under stage lights'
+  caption: 'Placeholder hero image.'
+  credit: 'Photo: placeholder'
+draft: false
+---
+import VideoClip from '@/components/ui/VideoClip.astro';
+
+This page shows the `VideoClip` component. The clip below is muted, loops and starts when you press play. Videos live in `public/videos/` because Astro does not optimize video; the steps for cutting your own clip are in the README.
+
+## The clip
+
+<VideoClip
+  src="/videos/cat-cucumber.mp4"
+  poster="/videos/cat-cucumber.jpg"
+  label="A black and white cat sniffs and bites a slice of cucumber held out by a hand"
+  caption="Lost in the sauce: the cat versus a cucumber slice."
+  credit="Video: own footage"
+/>
+
+## What to check
+
+- Does the portrait clip fit on your phone screen without scrolling?
+- Do the controls work, and does the poster show before you press play?
+- Does the caption and credit line match the image captions in other posts, like [what to bring to a rave](/blog/what-to-bring-to-a-rave/)?

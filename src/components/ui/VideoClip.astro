@@ -12,7 +12,7 @@ const { src, poster, label, caption, credit, creditUrl, autoplay = false, class:
   <video
     src={src} poster={poster} aria-label={label}
     muted loop playsinline controls preload="metadata" autoplay={autoplay}
-    class="block h-auto w-full bg-bg"
+    class="block h-auto max-h-[80vh] w-full bg-bg object-contain"
   >
     <a href={src}>Download the clip</a>
   </video>
