@@ -1,0 +1,35 @@
+---
+# DEMO: shows VideoClip with a landscape clip on the preview branch. Delete this file (and public/videos/bkjn-release-mix.*) before merging to main.
+title: 'Demo: a landscape video clip in a post'
+metaTitle: 'Demo: VideoClip landscape'
+description: 'Second demo post for the VideoClip component: a short, muted, self-hosted landscape clip with caption and credit, to compare with the portrait demo.'
+intro: 'Not a real post. This page tests how a horizontal clip looks between the text.'
+pubDate: 2026-10-30
+category: tips
+tags: ['demo']
+heroImage:
+  src: '../../assets/images/placeholder-crowd.jpg'
+  alt: 'Placeholder photo of a crowd under stage lights'
+  caption: 'Placeholder hero image.'
+  credit: 'Photo: placeholder'
+draft: false
+---
+import VideoClip from '@/components/ui/VideoClip.astro';
+
+This is the landscape version of the [portrait video demo](/blog/videoclip-demo/). Same component, a 16:9 clip this time.
+
+## The clip
+
+<VideoClip
+  src="/videos/bkjn-release-mix.mp4"
+  poster="/videos/bkjn-release-mix.jpg"
+  label="Screen recording of a SoundCloud player playing the KEMAL x BKJN Future release mix, with listener comments popping up under the waveform"
+  caption="The KEMAL x BKJN Future release mix on SoundCloud."
+  credit="Screen recording: own, mix by BKJN Events"
+/>
+
+## What to check
+
+- Does the clip fill the column width on desktop and phone?
+- Do the controls work, and does the poster show before you press play?
+- Compare it with the [portrait demo](/blog/videoclip-demo/).
