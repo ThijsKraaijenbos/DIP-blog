@@ -17,8 +17,9 @@ export const THEMES = {
   uptempo: { label: 'Uptempo', kind: 'genre', atmosphere: '#c6ff1a' },
   rawstyle: { label: 'Rawstyle', kind: 'genre', atmosphere: '#1ec8ff' },
   rawtempo: { label: 'Rawtempo', kind: 'genre', atmosphere: '#ff9f1a' },
-  // Events (placeholders — edit colours/names freely)
-  'event-rebirth': { label: 'Rebirth (placeholder)', kind: 'event', atmosphere: '#16c79a' },
+  // Events (placeholders unless noted — edit colours/names freely)
+  // REBiRTH: magenta accent from rebirth-festival.nl (their site CSS + logo). Their cyan #4ffff7 and green #18ff52 don't fit the one-colour slot.
+  'event-rebirth': { label: 'REBiRTH', kind: 'event', atmosphere: '#fe0ac0' },
   'event-dominator': { label: 'Dominator (placeholder)', kind: 'event', atmosphere: '#e01e1e', ctaOverride: '#f2efe8' },
   'event-intents': { label: 'Intents (placeholder)', kind: 'event', atmosphere: '#ff3fb4' },
 } satisfies Record<string, ThemePreset>;
