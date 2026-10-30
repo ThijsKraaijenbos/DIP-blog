@@ -3,13 +3,18 @@
 // Files live in public/videos/ (Astro does not optimize video), so `src` and `poster` are plain paths like "/videos/clip.mp4".
 // `label` describes the clip for screen readers. The caption goes between the tags (it may contain links).
 // Clips keep their sound and only play when the reader presses play. Sized for portrait (9:16) phone clips.
+// On desktop (lg+) the clip floats in the empty space to the right of the text column, next to the paragraphs that follow it.
 interface Props {
   src: string; poster: string; label: string; credit: string; creditUrl?: string;
   width?: number; height?: number; class?: string;
 }
 const { src, poster, label, credit, creditUrl, width = 540, height = 960, class: className = '' } = Astro.props;
 ---
-<figure class:list={['mx-auto w-full max-w-[360px] border border-line', className]}>
+<figure class:list={[
+  'mx-auto w-full max-w-[360px] border border-line',
+  'lg:float-right lg:mt-[1.25em] lg:mb-0 lg:-mr-[calc(300px+2rem)] lg:w-[300px] lg:max-w-none xl:-mr-[calc(360px+3rem)] xl:w-[360px]',
+  className,
+]}>
   <video
     src={src} poster={poster} aria-label={label} width={width} height={height}
     controls playsinline preload="metadata"
