@@ -92,9 +92,17 @@ How it works:
 4. `textSafeTint()` mixes the colour toward white until it reaches **5:1** on the background (AA needs 4.5; the extra margin helps the thin mono text). This is computed in TypeScript, so the contrast is guaranteed and shown on the style guide. It isn't left to `color-mix()` in the browser.
 5. `ctaOverride` is used when an event colour clashes with the red CTA. The Dominator placeholder is red itself, so its CTA becomes off-white.
 
-**Event colours come from the event's own branding.** REBiRTH (`event-rebirth`) uses magenta `#fe0ac0`, the main accent on rebirth-festival.nl (taken from their site stylesheet and logo). It's 5.8:1 on our black, so it's safe even for small text and needs no tint. Their palette also has cyan `#4ffff7`, neon green `#18ff52` and a deep purple `#280066` background, but a theme has one colour slot, so those aren't used. The red CTA stays: magenta and red are different enough in hue.
+6. `actionOverride` is a second event colour that takes over the whole action role (links **and** buttons) inside that post. Use it when the atmosphere colour sits too close to red, so the page doesn't end up with two almost-matching hot colours plus a third accent. It must reach 4.5:1 on black; hover is generated (mixed halfway to white). The site header, footer and cookie banner stay red.
 
-What a theme may change: **only the atmosphere colour** (and the CTA colour in a clash). Layout, fonts, logo, navigation, background and CTA position never change. Themes are colours only, so never recreate event logos or artwork.
+**Event colours come from the event's own branding.** REBiRTH (`event-rebirth`) uses two colours from rebirth-festival.nl (taken from their site stylesheet and logo):
+- **Magenta `#fe0ac0`** = atmosphere: lasers, tags, dividers, verdict bars. 5.8:1 on black, so it needs no tint.
+- **Cyan `#4ffff7`** = action: links and buttons. 16.4:1 on black; button text is black (16.4:1).
+
+Why this split: magenta and red are nearly the same brightness (1.1:1 between them), so red links next to magenta tags look like a colour mistake. Cyan is magenta's opposite, so "decoration" and "clickable" are instantly different, and each colour still has exactly one job. Links stay underlined, so colour is never the only cue. Their neon green `#18ff52` and deep purple `#280066` background are left out: a third accent turns into chaos, green reads as "success", and the purple disappears on black.
+
+**Rule of thumb for mixing colours:** at most two accent colours per page, and each one gets a role (atmosphere or action), never "random decoration".
+
+What a theme may change: **only the atmosphere colour** (and the action/CTA colour in a clash). Layout, fonts, logo, navigation, background and CTA position never change. Themes are colours only, so never recreate event logos or artwork.
 
 **Add a new event theme:** add one line to `THEMES` (with a key like `event-qlimax`), then check its row in the contrast table on `/styleguide`. Posts can use it once Phase 4 adds the `theme` frontmatter field.
 
