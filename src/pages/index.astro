@@ -24,8 +24,8 @@ const jsonLd = {
 ---
 <BaseLayout jsonLd={jsonLd}>
   <FeatureHero
-    title="Rave reviews from the front row"
-    facts={[['Genres', 'Uptempo'], ['', 'Rawstyle'], ['', 'Rawtempo'], ['Scene', 'NL hardcore']]}
+    title={SITE.tagline} compact
+    facts={[['Genres', 'Uptempo'], ['', 'Raw'], ['', 'Zaag'], ['Scene', 'NL hardcore']]}
   >
     {/* One action above the fold: the newest post once there is one, until then the newsletter. */}
     {newest ? (
@@ -62,7 +62,7 @@ const jsonLd = {
               </li>
             ))}
           </ul>
-          <p class="mt-6"><a href="/blog/">All posts</a></p>
+          <div class="mt-6"><Button href="/blog/" variant="secondary">All posts</Button></div>
         </>
       )}
     </section>
