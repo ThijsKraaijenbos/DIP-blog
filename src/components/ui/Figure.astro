@@ -1,7 +1,7 @@
 ---
 // Image with caption + credit line (credits are graded, so both are required).
 // `credit` is the full line, e.g. "Photo: own photo" or "Image generated with ChatGPT (OpenAI, 2026)".
-import { Image } from 'astro:assets';
+import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 interface Props {
   src: ImageMetadata; alt: string; caption: string; credit: string; creditUrl?: string;
@@ -10,8 +10,8 @@ interface Props {
 const { src, alt, caption, credit, creditUrl, class: className = '', priority = false, sizes = '(min-width: 768px) 768px, 100vw' } = Astro.props;
 ---
 <figure class:list={['border border-line', className]}>
-  <Image
-    src={src} alt={alt} widths={[480, 800, 1200, 1600]} {sizes}
+  <Picture
+    src={src} alt={alt} widths={[480, 800, 1200, 1600]} {sizes} formats={['avif', 'webp']} fallbackFormat="webp"
     loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : 'auto'}
     class="block h-auto w-full"
   />

@@ -1,7 +1,7 @@
 ---
 // One layout for every post. Everything comes from the post's frontmatter;
 // the post body (your text) goes in the <slot />.
-import { getImage, Image } from 'astro:assets';
+import { getImage, Picture } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import LaserHero from '@/components/layout/LaserHero.astro';
 import Tag from '@/components/ui/Tag.astro';
@@ -45,8 +45,10 @@ const jsonLd = {
   <article style={themeStyle(d.theme)}>
     {/* Hero image sits behind the header. Small labels (date row, tags) get a solid black backing so they keep AA contrast over the photo. */}
     <LaserHero>
-      <Image
+      {/* AVIF first (smallest), WebP for browsers without AVIF. */}
+      <Picture
         slot="bg" src={d.heroImage.src} alt={d.heroImage.alt} widths={[800, 1200, 1600, 2000]} sizes="100vw"
+        formats={['avif', 'webp']} fallbackFormat="webp"
         loading="eager" fetchpriority="high" class="absolute inset-0 h-full w-full object-cover"
       />
       <header class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">

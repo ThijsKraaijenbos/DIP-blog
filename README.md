@@ -30,7 +30,7 @@ Rules for every post (they come from the rubric):
 
 ### Adding a short video
 
-Astro does not optimize video, so put the clip and its poster image in `public/videos/` (for example `public/videos/rebirth-mainstage.mp4` and `rebirth-mainstage.jpg`). Keep each clip under about 5 MB.
+Astro does not optimize video, so put the clip and its poster image in `public/videos/` (for example `public/videos/rebirth-mainstage.mp4` and `rebirth-mainstage.webp`). Keep each clip under about 5 MB.
 
 In the `.mdx` post, import the component below the frontmatter and use it like `Figure`. The caption goes between the tags, so it can contain a link:
 
@@ -39,7 +39,7 @@ import VideoClip from '@/components/ui/VideoClip.astro';
 
 <VideoClip
   src="/videos/rebirth-mainstage.mp4"
-  poster="/videos/rebirth-mainstage.jpg"
+  poster="/videos/rebirth-mainstage.webp"
   label="Crowd jumping under red lasers at the Rebirth mainstage"
   credit="Video: own footage"
 >
@@ -84,8 +84,16 @@ Then replace the original with `clip-quieter.mp4`.
 If the file is still over 5 MB, raise `-crf` (30 or 32) or shorten `-t`. Grab the first frame as poster image:
 
 ```sh
-ffmpeg -i public/videos/rebirth-mainstage.mp4 -frames:v 1 -q:v 3 public/videos/rebirth-mainstage.jpg
+ffmpeg -i public/videos/rebirth-mainstage.mp4 -frames:v 1 -c:v libwebp -quality 82 public/videos/rebirth-mainstage.webp
 ```
+
+**Smaller download (optional, ~30% less):** also make an AV1 copy with the same name plus `-av1`. `VideoClip` picks it up automatically: browsers that can play AV1 download that one, the rest get the normal `.mp4`. It looks the same; encoding takes a minute or two.
+
+```sh
+ffmpeg -i public/videos/rebirth-mainstage.mp4 -c:v libsvtav1 -preset 3 -crf 36 -g 150 -pix_fmt yuv420p -svtav1-params tune=0 -c:a copy -movflags +faststart public/videos/rebirth-mainstage-av1.mp4
+```
+
+Images in `src/assets/images/` need nothing: Astro turns them into AVIF and WebP in several sizes when it builds. Upload the best quality you have (JPG or PNG is fine).
 
 ## Open TODOs
 
