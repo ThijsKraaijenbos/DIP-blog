@@ -2,16 +2,19 @@
 // Shared click-to-load frame for TikTokEmbed and InstagramEmbed (use those two in posts, not this one).
 // Privacy: nothing from the platform loads until the reader presses the button. Before that it's our own
 // placeholder card; after the click a small script swaps it for the platform's official player iframe.
+// The clicked video starts playing right away (TikTok only: Instagram's embed has no autoplay option).
+// The click is remembered per platform (localStorage), so that platform's other videos load by themselves,
+// on this page and on later visits. "Reject" in the cookie panel forgets it (CookieBanner.astro).
 // The plain link in the caption always works, also without JavaScript or when the embed fails.
 // Styled like VideoClip.astro (portrait frame, max 360px wide) so it also works inside <MediaSection>.
 interface Props {
   platform: 'TikTok' | 'Instagram';
-  embedSrc: string; url: string; label: string; credit: string; creditUrl?: string; class?: string;
+  embedSrc: string; autoplaySrc?: string; url: string; label: string; credit: string; creditUrl?: string; class?: string;
 }
-const { platform, embedSrc, url, label, credit, creditUrl, class: className = '' } = Astro.props;
+const { platform, embedSrc, autoplaySrc = embedSrc, url, label, credit, creditUrl, class: className = '' } = Astro.props;
 ---
 <figure class:list={['mx-auto w-full max-w-[360px] border border-line', className]}>
-  <div class="social-embed aspect-[9/16] w-full bg-surface" data-embed-src={embedSrc} data-embed-title={label}>
+  <div class="social-embed aspect-[9/16] w-full bg-surface" data-platform={platform} data-embed-src={embedSrc} data-autoplay-src={autoplaySrc} data-embed-title={label}>
     <div class="flex h-full flex-col items-center justify-center gap-4 px-6 text-center">
       <span class="meta">{platform} video</span>
       <button
@@ -20,7 +23,7 @@ const { platform, embedSrc, url, label, credit, creditUrl, class: className = ''
         class="inline-flex min-h-11 cursor-pointer items-center rounded-xs border border-cta bg-cta px-5 font-mono text-sm font-bold uppercase tracking-wider text-cta-ink transition-colors duration-[var(--duration-fast)] hover:border-fg hover:bg-fg hover:text-bg"
       >Load {platform} video</button>
       <p class="m-0 max-w-[28ch] font-mono text-xs leading-relaxed text-muted">
-        Clicking loads content from {platform}, which can set its own cookies.
+        Clicking loads videos from {platform}, which can set its own cookies. Your choice is remembered.
       </p>
     </div>
   </div>
@@ -34,18 +37,36 @@ const { platform, embedSrc, url, label, credit, creditUrl, class: className = ''
 </figure>
 
 <script>
-  // One listener for every embed on the page. Runs only after a click, so nothing loads before consent.
-  document.addEventListener('click', (event) => {
-    const button = (event.target as Element).closest('.social-embed button');
-    const box = button?.closest<HTMLElement>('.social-embed');
-    if (!box?.dataset.embedSrc) return;
+  // Runs nothing from TikTok/Instagram until the reader has clicked a video of that platform (now or on an earlier visit).
+  const key = (platform: string) => `kickback-embeds-${platform}`;
+  const remembered = (platform: string) => { try { return localStorage.getItem(key(platform)) === 'on'; } catch { return false; } };
+
+  function load(box: HTMLElement, clicked: boolean) {
     const iframe = document.createElement('iframe');
-    iframe.src = box.dataset.embedSrc;
+    iframe.src = (clicked ? box.dataset.autoplaySrc : box.dataset.embedSrc) ?? '';
     iframe.title = box.dataset.embedTitle ?? '';
-    iframe.allow = 'encrypted-media; fullscreen; picture-in-picture';
+    iframe.allow = 'autoplay; encrypted-media; fullscreen; picture-in-picture';
     iframe.allowFullscreen = true;
+    if (!clicked) iframe.loading = 'lazy';
     iframe.className = 'block h-full w-full border-0';
     box.replaceChildren(iframe);
-    iframe.focus();
+    if (clicked) iframe.focus();
+  }
+
+  // Load every not-yet-loaded embed of a platform (except the one just clicked).
+  const loadAll = (platform: string) =>
+    document.querySelectorAll<HTMLElement>(`.social-embed[data-platform="${platform}"]:has(button)`).forEach((box) => load(box, false));
+
+  document.querySelectorAll<HTMLElement>('.social-embed').forEach((box) => {
+    if (remembered(box.dataset.platform ?? '')) load(box, false);
+  });
+
+  document.addEventListener('click', (event) => {
+    const box = (event.target as Element).closest('.social-embed button')?.closest<HTMLElement>('.social-embed');
+    const platform = box?.dataset.platform;
+    if (!box || !platform) return;
+    try { localStorage.setItem(key(platform), 'on'); } catch {}
+    load(box, true);
+    loadAll(platform);
   });
 </script>

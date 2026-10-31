@@ -97,7 +97,7 @@ Images in `src/assets/images/` need nothing: Astro turns them into AVIF and WebP
 
 ### Adding a TikTok or Instagram video
 
-For someone else's video, embed it instead of downloading it. Readers first see a "Load video" card; TikTok or Instagram only loads (and can set cookies) after they click it. A plain "Watch on…" link is always shown too.
+For someone else's video, embed it instead of downloading it. Readers first see a "Load video" card; TikTok or Instagram only loads (and can set cookies) after they click it. A clicked TikTok starts playing right away, and the choice is remembered: after that, videos from that platform load by themselves ("Reject" in Cookie settings resets it). A plain "Watch on…" link is always shown too.
 
 ```mdx
 import TikTokEmbed from '@/components/ui/TikTokEmbed.astro';
