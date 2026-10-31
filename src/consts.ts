@@ -41,7 +41,7 @@ export const CATEGORY_KEYS = Object.keys(CATEGORIES) as [CategoryKey, ...Categor
 
 // Review scoring categories (the `verdict.scores` field), in display order.
 export const VERDICT = {
-  lineup: 'Line-up',
+  lineup: 'Lineup',
   atmosphere: 'Atmosphere',
   sound: 'Sound quality',
   location: 'Location',
