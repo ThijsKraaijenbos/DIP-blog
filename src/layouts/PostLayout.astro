@@ -13,8 +13,8 @@ import { SITE, CATEGORIES } from '@/consts';
 import { themeStyle } from '@/themes';
 import { formatDate, readTime, type Post } from '@/utils/posts';
 
-interface Props { post: Post; related: Post[]; newer?: Post; older?: Post }
-const { post, related, newer, older } = Astro.props;
+interface Props { post: Post; related: Post[] }
+const { post, related } = Astro.props;
 const d = post.data;
 
 // Social preview: the hero image cropped to 1200×630.
@@ -83,7 +83,7 @@ const jsonLd = {
         <div class="post-body mt-10"><slot /></div>
         {d.verdict && <Verdict scores={d.verdict.scores} summary={d.verdict.summary} />}
         <Sources sources={d.sources} />
-        <PostCTA newer={newer} older={older} />
+        <PostCTA />
       </div>
 
       <div class="max-w-4xl"><RelatedPosts posts={related} /></div>
