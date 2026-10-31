@@ -104,9 +104,9 @@ Why this split: magenta and red are nearly the same brightness (1.1:1 between th
 
 Their deep purple `#280066` background is left out: it disappears on black.
 
-Two more event-post options:
-- **`titleAccent`** (post frontmatter): a phrase from the title shown in the atmosphere colour, e.g. `titleAccent: 'REBiRTH 2026'`. Must match the title exactly.
-- **`tagColors`** (theme): a colour per tag on the post page, e.g. `{ rebirth: '#fe0ac0', festival: '#4ffff7' }`. Use with care: tags aren't links, so a tag in the action colour (cyan) can look clickable.
+**`titleAccent`** (post frontmatter): a phrase from the title shown in the atmosphere colour, e.g. `titleAccent: 'REBiRTH 2026'`. Must match the title exactly.
+
+Tags always use the atmosphere colour (or their genre colour). Giving each tag its own colour was tried on the REBiRTH post and dropped: tags aren't links, so a cyan tag looked clickable, and the mix read as random decoration.
 
 **Rule of thumb for mixing colours:** every accent colour gets exactly one role (atmosphere, action, or highlight for scores), never "random decoration". A third colour is only OK when it stays inside one component, like the scores. Themes set it with the optional `highlight` field; without it, scores use the atmosphere colour.
 
