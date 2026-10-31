@@ -64,7 +64,7 @@ All fonts are self-hosted with Fontsource and imported in `src/layouts/BaseLayou
 | LaserHero | `src/components/layout/LaserHero.astro` | SVG laser fan behind any content. One slow sweep. With a `bg` photo (post headers use the hero image) the lasers are left out and the photo sits under a flat 80% black layer; small labels get a solid black backing for AA contrast. |
 | FeatureHero | `src/components/layout/FeatureHero.astro` | Home/post hero: left-aligned headline, meta row, **one** CTA. |
 | Button | `src/components/ui/Button.astro` | `primary` (CTA colour) or `secondary` (outline). At least 44px tall. |
-| Tag | `src/components/ui/Tag.astro` | Genre tags automatically use their genre colour. |
+| Tag | `src/components/ui/Tag.astro` | Every tag uses the post's theme colour (one colour per post, so it never gets busy). The genre colours are themes a post can pick. |
 | PostCard | `src/components/ui/PostCard.astro` | Hard-bordered teaser with a sigil watermark. The whole card is clickable. |
 | Figure | `src/components/ui/Figure.astro` | Optimised image + caption + **required** credit. |
 | VideoClip | `src/components/ui/VideoClip.astro` | Self-hosted portrait clip with sound (plays on click), caption slot + credit. Max 360px wide. |
