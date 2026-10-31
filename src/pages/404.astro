@@ -1,0 +1,20 @@
+---
+// Shown for any URL that doesn't exist (Vercel serves dist/404.html automatically).
+// Posts that are planned but not written yet get ComingSoon instead (see src/pages/blog/[...slug].astro).
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LaserHero from '@/components/layout/LaserHero.astro';
+import Button from '@/components/ui/Button.astro';
+---
+<BaseLayout title="Page not found" description="This page doesn't exist." noindex>
+  <LaserHero>
+    <header class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+      <p class="meta text-atmo-text">Error 404</p>
+      <h1 class="mt-4 max-w-4xl text-4xl">This page doesn't exist</h1>
+      <p class="mt-6 max-w-2xl text-lg text-fg">The link might be broken, or the page was moved. Try the blog instead.</p>
+      <div class="mt-8 flex flex-wrap items-center gap-4">
+        <Button href="/blog/">Go to the blog</Button>
+        <a href="/">Back to the home page</a>
+      </div>
+    </header>
+  </LaserHero>
+</BaseLayout>

@@ -1,8 +1,11 @@
 ---
 // Builds one page per post: /blog/<file-name>/
+// Drafts get a "not written yet" page at their future URL instead (production only;
+// in `npm run dev` you see the real draft), so links to planned posts never 404.
 import { render } from 'astro:content';
 import PostLayout from '@/layouts/PostLayout.astro';
-import { getPosts, relatedPosts } from '@/utils/posts';
+import ComingSoon from '@/components/post/ComingSoon.astro';
+import { getPosts, getDrafts, relatedPosts, type Post } from '@/utils/posts';
 
 export async function getStaticPaths() {
   const posts = await getPosts(); // newest first
@@ -11,15 +14,22 @@ export async function getStaticPaths() {
     if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(p.id)) throw new Error(`Post file name "${p.id}" must be lowercase words with dashes, e.g. rebirth-2026-review.mdx`);
     if (/^#\s/m.test(p.body ?? '')) throw new Error(`Post "${p.id}" uses "# " in the text. The title is the only H1: start sections with "## ".`);
   }
-  return posts.map((post, i) => ({
+  const published = posts.map((post, i) => ({
     params: { slug: post.id },
-    props: { post, newer: posts[i - 1], older: posts[i + 1], related: relatedPosts(post, posts) },
+    props: { post, newer: posts[i - 1], older: posts[i + 1], related: relatedPosts(post, posts) } as Props,
   }));
+  const upcoming = (await getDrafts()).map((d) => ({ params: { slug: d.id }, props: { post: undefined } as Props }));
+  return [...published, ...upcoming];
 }
 
-const { post, newer, older, related } = Astro.props;
-const { Content } = await render(post);
+interface Props { post?: Post; newer?: Post; older?: Post; related?: Post[] }
+const { post, newer, older, related = [] } = Astro.props;
+const Content = post ? (await render(post)).Content : undefined;
 ---
-<PostLayout post={post} newer={newer} older={older} related={related}>
-  <Content />
-</PostLayout>
+{post && Content ? (
+  <PostLayout post={post} newer={newer} older={older} related={related}>
+    <Content />
+  </PostLayout>
+) : (
+  <ComingSoon />
+)}
