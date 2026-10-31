@@ -18,7 +18,7 @@ const blog = defineCollection({
       titleAccent: z.string().optional(),
       // SEO: what Google shows. Falls back to title. Keep it under ~60 characters.
       metaTitle: z.string().max(60).optional(),
-      // SEO: meta description + social preview text. Aim for 120–160 characters.
+      // SEO: meta description + social preview text. Keep it under 160 characters.
       description: z.string().min(50).max(170),
       // Short intro under the title (1–2 sentences, your own voice).
       intro: z.string(),
