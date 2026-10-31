@@ -19,7 +19,7 @@ const d = post.data;
 
 // Social preview: the hero image cropped to 1200×630.
 const og = await getImage({ src: d.heroImage.src, width: 1200, height: 630, fit: 'cover', format: 'jpg' });
-// Optional phrase in the title shown in the atmosphere colour (frontmatter `titleAccent`).
+// Optional phrase in the title shown in the action colour (frontmatter `titleAccent`; cyan on REBiRTH posts).
 const accentAt = d.titleAccent ? d.title.indexOf(d.titleAccent) : -1;
 const url = new URL(Astro.url.pathname, Astro.site ?? SITE.url).href;
 const jsonLd = {
@@ -58,7 +58,7 @@ const jsonLd = {
         </p>
         <h1 class="mt-4 max-w-5xl text-4xl">
           {accentAt >= 0 && d.titleAccent ? (
-            <>{d.title.slice(0, accentAt)}<span class="text-atmo-text">{d.titleAccent}</span>{d.title.slice(accentAt + d.titleAccent.length)}</>
+            <>{d.title.slice(0, accentAt)}<span class="text-action">{d.titleAccent}</span>{d.title.slice(accentAt + d.titleAccent.length)}</>
           ) : d.title}
         </h1>
         <p class="mt-6 max-w-2xl text-lg text-fg sm:text-xl">{d.intro}</p>

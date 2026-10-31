@@ -12,8 +12,6 @@ export type ThemePreset = {
   /** Optional second event colour for the whole action role (links + buttons) when the atmosphere sits too close to red.
    *  Must reach 4.5:1 on the background. Use it instead of ctaOverride, never both. */
   actionOverride?: string;
-  /** Optional third event colour, ONLY for review scores (verdict bars + overall score). Must reach 4.5:1 on the background. */
-  highlight?: string;
 };
 
 export const THEMES = {
@@ -24,8 +22,8 @@ export const THEMES = {
   rawtempo: { label: 'Rawtempo', kind: 'genre', atmosphere: '#ff9f1a' },
   // Events (placeholders unless noted — edit colours/names freely)
   // REBiRTH: magenta + cyan from rebirth-festival.nl (their site CSS + logo). Magenta is too close to the red links,
-  // so cyan takes over links and buttons on REBiRTH posts. Their neon green is the highlight (scores, secondary button).
-  'event-rebirth': { label: 'REBiRTH', kind: 'event', atmosphere: '#fe0ac0', actionOverride: '#4ffff7', highlight: '#18ff52' },
+  // so cyan takes over links and buttons on REBiRTH posts. Their green #18ff52 is left out (a third accent gets chaotic).
+  'event-rebirth': { label: 'REBiRTH', kind: 'event', atmosphere: '#fe0ac0', actionOverride: '#4ffff7' },
   'event-dominator': { label: 'Dominator (placeholder)', kind: 'event', atmosphere: '#e01e1e', ctaOverride: '#f2efe8' },
   'event-intents': { label: 'Intents (placeholder)', kind: 'event', atmosphere: '#ff3fb4' },
 } satisfies Record<string, ThemePreset>;
@@ -68,7 +66,6 @@ export function themeStyle(key: ThemeKey = 'default'): string {
   const t: ThemePreset = THEMES[key] ?? THEMES.default;
   const vars = [`--atmo:${t.atmosphere}`, `--atmo-text:${textSafeTint(t.atmosphere)}`];
   if (t.ctaOverride) vars.push(`--cta:${t.ctaOverride}`, `--cta-ink:${CTA_INK}`);
-  if (t.highlight) vars.push(`--highlight:${t.highlight}`);
   if (t.actionOverride) {
     const hover = toHex(toRgb(t.actionOverride).map((v) => v + (255 - v) * 0.5));
     vars.push(`--action:${t.actionOverride}`, `--action-hover:${hover}`, `--cta:${t.actionOverride}`, `--cta-ink:${CTA_INK}`);
