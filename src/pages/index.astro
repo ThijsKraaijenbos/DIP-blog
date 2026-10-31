@@ -5,7 +5,7 @@ import CommunityCTA from '@/components/ui/CommunityCTA.astro';
 import PostCard from '@/components/ui/PostCard.astro';
 import Button from '@/components/ui/Button.astro';
 import NewsletterForm from '@/components/post/NewsletterForm.astro';
-import { SITE, CATEGORIES, NEWSLETTER_ENABLED } from '@/consts';
+import { SITE, CATEGORIES, NEWSLETTER_ENABLED, COMMUNITY } from '@/consts';
 import { CTA_COPY } from '@/data/copy';
 import { getPosts, postUrl, readTime } from '@/utils/posts';
 const latest = (await getPosts()).slice(0, 4);
@@ -43,7 +43,8 @@ const jsonLd = {
   <div class="mx-auto max-w-6xl px-4 sm:px-6">
     <section class="mt-16 max-w-prose" aria-labelledby="about-title">
       <h2 id="about-title" class="text-3xl">Why Kickback exists</h2>
-      <p class="mt-4">{SITE.description} No press passes, no lineup hype: just what the night actually felt like, what the sound did, and what I'd wear next time. <a href="/about/">More about me</a></p>
+      <p class="mt-4">Kickback is my blog about uptempo and rawstyle raves and festivals in the Netherlands. Here I'll write honest reviews based on my own experience, including how much a festival actually cost me and whether it was worth the money in my opinion. Additionally I'll share tips for people who are new to the scene. For example how you can hear the difference between the genres and what to bring to your first big festival. Feel free to follow me on <a href={COMMUNITY.instagram} rel="noopener" target="_blank">Instagram</a> or <a href={COMMUNITY.tiktok} rel="noopener" target="_blank">TikTok</a> if you want to share your own thoughts!</p>
+      <p class="mt-4"><a href="/about/">More about me &amp; Kickback</a></p>
     </section>
     <section id="reviews" class="mt-16 border-t border-line pt-8" aria-labelledby="reviews-title">
       <h2 id="reviews-title" class="text-3xl">Latest posts</h2>
