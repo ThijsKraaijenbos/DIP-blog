@@ -9,4 +9,4 @@ const { url, ...rest } = Astro.props;
 const id = url.match(/^https:\/\/(?:www\.|m\.)?tiktok\.com\/@[\w.-]+\/video\/(\d+)/)?.[1];
 if (!id) throw new Error(`TikTokEmbed: "${url}" is not a TikTok video URL. Use the full link, like https://www.tiktok.com/@user/video/1234567890123456789`);
 ---
-<SocialEmbed platform="TikTok" embedSrc={`https://www.tiktok.com/player/v1/${id}?rel=0`} autoplaySrc={`https://www.tiktok.com/player/v1/${id}?rel=0&autoplay=1`} {url} {...rest}><slot /></SocialEmbed>
+<SocialEmbed platform="TikTok" hasCaption={Astro.slots.has('default')} embedSrc={`https://www.tiktok.com/player/v1/${id}?rel=0`} autoplaySrc={`https://www.tiktok.com/player/v1/${id}?rel=0&autoplay=1`} {url} {...rest}><slot /></SocialEmbed>

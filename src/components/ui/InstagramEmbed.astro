@@ -9,4 +9,4 @@ const { url, ...rest } = Astro.props;
 const id = url.match(/^https:\/\/(?:www\.)?instagram\.com\/(?:[\w.]+\/)?(?:p|reels?)\/([\w-]+)/)?.[1];
 if (!id) throw new Error(`InstagramEmbed: "${url}" is not an Instagram post or reel URL. Use a link like https://www.instagram.com/reel/ABC123xyz/`);
 ---
-<SocialEmbed platform="Instagram" embedSrc={`https://www.instagram.com/p/${id}/embed/`} {url} {...rest}><slot /></SocialEmbed>
+<SocialEmbed platform="Instagram" hasCaption={Astro.slots.has('default')} embedSrc={`https://www.instagram.com/p/${id}/embed/`} {url} {...rest}><slot /></SocialEmbed>

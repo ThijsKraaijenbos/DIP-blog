@@ -9,9 +9,9 @@
 // Styled like VideoClip.astro (portrait frame, max 360px wide) so it also works inside <MediaSection>.
 interface Props {
   platform: 'TikTok' | 'Instagram';
-  embedSrc: string; autoplaySrc?: string; url: string; label: string; credit: string; creditUrl?: string; class?: string;
+  hasCaption: boolean; embedSrc: string; autoplaySrc?: string; url: string; label: string; credit: string; creditUrl?: string; class?: string;
 }
-const { platform, embedSrc, autoplaySrc = embedSrc, url, label, credit, creditUrl, class: className = '' } = Astro.props;
+const { platform, hasCaption, embedSrc, autoplaySrc = embedSrc, url, label, credit, creditUrl, class: className = '' } = Astro.props;
 ---
 <figure class:list={['mx-auto w-full max-w-[360px] border border-line', className]}>
   <div class="social-embed aspect-[9/16] w-full bg-surface" data-platform={platform} data-embed-src={embedSrc} data-autoplay-src={autoplaySrc} data-embed-title={label}>
@@ -28,10 +28,8 @@ const { platform, embedSrc, autoplaySrc = embedSrc, url, label, credit, creditUr
     </div>
   </div>
   <figcaption class="flex flex-col gap-1 border-t border-line px-3 py-2">
-    <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-      <div class="text-sm text-fg [&_p]:m-0"><slot /></div>
-      <span class="font-mono text-xs text-muted">{creditUrl ? <a href={creditUrl} rel="noopener" target="_blank">{credit}</a> : credit}</span>
-    </div>
+    {hasCaption && <div class="text-sm text-fg [&_p]:m-0"><slot /></div>}
+    <span class="font-mono text-xs text-muted">{creditUrl ? <a href={creditUrl} rel="noopener" target="_blank">{credit}</a> : credit}</span>
     <a href={url} rel="noopener" target="_blank" class="font-mono text-xs">Watch on {platform} ↗</a>
   </figcaption>
 </figure>
