@@ -121,7 +121,7 @@
 /* Post text (everything you write in an .mdx file). Scannable: clear headings, short blocks. */
 @layer components {
   .post-body > * + * { margin-top: 1.25em; }
-  .post-body h2 { font-size: var(--text-3xl); margin-top: 1.6em; }
+  .post-body h2 { font-size: var(--text-3xl); margin-top: 1.6em; clear: right; /* a floated clip never runs into the next section */ }
   .post-body h3 { font-size: var(--text-xl); margin-top: 1.6em; }
   .post-body h2 + *, .post-body h3 + * { margin-top: 0.75em; }
   .post-body ul, .post-body ol { padding-left: 1.4em; }
