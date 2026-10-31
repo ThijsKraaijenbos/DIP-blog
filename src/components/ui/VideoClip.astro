@@ -3,19 +3,18 @@
 // Files live in public/videos/ (Astro does not optimize video), so `src` and `poster` are plain paths like "/videos/clip.mp4".
 // `label` describes the clip for screen readers. The caption goes between the tags (it may contain links).
 // Clips keep their sound and only play when the reader presses play. Sized for portrait (9:16) phone clips.
-// `volume` (0–1, default 0.2) is the starting volume, set by the tiny script below; readers can turn it up.
-// iPhones/iPads ignore it (iOS only allows the device's own volume buttons).
+// Too loud? Lower the audio in the file itself (README → "Adding a short video"); that works on every device, iPhones included.
 // To show it next to a section's text on desktop, wrap that section in <MediaSection> (src/components/post/MediaSection.astro).
 interface Props {
   src: string; poster: string; label: string; credit: string; creditUrl?: string;
-  width?: number; height?: number; volume?: number; class?: string;
+  width?: number; height?: number; class?: string;
 }
-const { src, poster, label, credit, creditUrl, width = 540, height = 960, volume = 0.2, class: className = '' } = Astro.props;
+const { src, poster, label, credit, creditUrl, width = 540, height = 960, class: className = '' } = Astro.props;
 ---
 <figure class:list={['mx-auto w-full max-w-[360px] border border-line', className]}>
   <video
     src={src} poster={poster} aria-label={label} width={width} height={height}
-    controls playsinline preload="metadata" data-volume={volume}
+    controls playsinline preload="metadata"
     class="block h-auto w-full bg-bg"
   >
     <a href={src}>Download the clip</a>
@@ -25,8 +24,3 @@ const { src, poster, label, credit, creditUrl, width = 540, height = 960, volume
     <span class="font-mono text-xs text-muted">{creditUrl ? <a href={creditUrl} rel="noopener" target="_blank">{credit}</a> : credit}</span>
   </figcaption>
 </figure>
-
-<script>
-  // Start every clip at its data-volume (HTML has no volume attribute).
-  for (const v of document.querySelectorAll<HTMLVideoElement>('video[data-volume]')) v.volume = Number(v.dataset.volume);
-</script>
