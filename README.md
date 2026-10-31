@@ -79,6 +79,25 @@ Clip too loud? Lower the sound in the file itself (`volume=0.5` = half as loud; 
 ffmpeg -i public/videos/clip.mp4 -c:v copy -af "volume=0.5" -c:a aac -b:a 128k -movflags +faststart clip-quieter.mp4
 ```
 
+### Adding a TikTok video
+
+Use `TikTokEmbed` for a video that lives on TikTok (keep `VideoClip` for your own clips). Copy the video's url from TikTok (Share → Copy link, the long `tiktok.com/@user/video/…` form):
+
+```mdx
+import TikTokEmbed from '@/components/ui/TikTokEmbed.astro';
+
+<TikTokEmbed
+  url="https://www.tiktok.com/@thestraikerz/video/7665743343300660513"
+  label="TikTok video by The Straikerz about kickrolls"
+  credit="Video: @thestraikerz on TikTok"
+  creditUrl="https://www.tiktok.com/@thestraikerz"
+>
+  What a kickroll sounds like.
+</TikTokEmbed>
+```
+
+Nothing from TikTok loads until the reader clicks the "Load TikTok video" card (TikTok can set cookies, see the privacy page). A "Watch on TikTok" link is always shown below it. Short `vm.tiktok.com/…` links don't work: the build stops with an error, so open them in a browser first and copy the full url. It works inside `<MediaSection>` just like `VideoClip`.
+
 Then replace the original with `clip-quieter.mp4`.
 
 If the file is still over 5 MB, raise `-crf` (30 or 32) or shorten `-t`. Grab the first frame as poster image:

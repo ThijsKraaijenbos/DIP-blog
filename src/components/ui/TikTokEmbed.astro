@@ -1,0 +1,57 @@
+---
+// TikTok video with caption + credit, styled like VideoClip.astro (portrait 9:16 frame, max 360px wide).
+// Click to load: nothing from TikTok (script, iframe, thumbnail) loads until the reader presses the button,
+// because TikTok can set its own cookies (see the privacy page). After the click TikTok's official player iframe loads.
+// A plain "Watch on TikTok" link is always shown as a fallback (no JS, or the embed fails).
+// `url` must be a TikTok video url like https://www.tiktok.com/@user/video/1234567890 (the build fails otherwise).
+// `label` describes the video for screen readers. The caption goes between the tags (it may contain links).
+// Works inside <MediaSection> the same way VideoClip does.
+interface Props {
+  url: string; label: string; credit: string; creditUrl?: string; class?: string;
+}
+const { url, label, credit, creditUrl, class: className = '' } = Astro.props;
+const match = url.match(/^https:\/\/(?:www\.|m\.)?tiktok\.com\/@[\w.-]+\/video\/(\d+)/);
+if (!match) {
+  throw new Error(`TikTokEmbed: "${url}" is not a TikTok video url. Use the form https://www.tiktok.com/@user/video/1234567890`);
+}
+const id = match[1];
+// TikTok's embed player: https://developers.tiktok.com/doc/embed-player
+const playerSrc = `https://www.tiktok.com/player/v1/${id}?autoplay=1&rel=0&description=1&music_info=1`;
+---
+<figure class:list={['mx-auto w-full max-w-[360px] border border-line', className]}>
+  <div class="tiktok-frame relative aspect-[9/16] w-full bg-surface" data-src={playerSrc} data-title={label}>
+    <button
+      type="button"
+      aria-label={`Load TikTok video: ${label}`}
+      class="group flex h-full w-full cursor-pointer flex-col items-center justify-center gap-5 px-6 text-center"
+    >
+      <span aria-hidden="true" class="flex size-16 items-center justify-center rounded-xs border border-action text-action transition-colors duration-[var(--duration-fast)] group-hover:bg-action group-hover:text-bg motion-reduce:transition-none">
+        <svg viewBox="0 0 24 24" class="ml-1 size-7" fill="currentColor"><path d="M7 4.5v15l12-7.5z" /></svg>
+      </span>
+      <span class="font-display text-2xl uppercase leading-none text-fg">Load TikTok video</span>
+      <span class="max-w-[24ch] font-mono text-xs text-muted">Clicking loads content from TikTok, which can set its own cookies.</span>
+    </button>
+  </div>
+  <figcaption class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-t border-line px-3 py-2">
+    <div class="text-sm text-fg [&_p]:m-0"><slot /></div>
+    <span class="font-mono text-xs text-muted">{creditUrl ? <a href={creditUrl} rel="noopener" target="_blank">{credit}</a> : credit}</span>
+    <a href={url} rel="noopener" target="_blank" class="w-full font-mono text-xs">Watch on TikTok</a>
+  </figcaption>
+</figure>
+
+<script>
+  // Swap the placeholder for TikTok's player only after a click (Astro bundles this once per page).
+  document.querySelectorAll<HTMLElement>('.tiktok-frame').forEach((frame) => {
+    frame.querySelector('button')?.addEventListener('click', () => {
+      const iframe = document.createElement('iframe');
+      iframe.src = frame.dataset.src!;
+      iframe.title = frame.dataset.title!;
+      iframe.allow = 'autoplay; encrypted-media; fullscreen; picture-in-picture';
+      iframe.allowFullscreen = true;
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      iframe.className = 'absolute inset-0 h-full w-full border-0';
+      frame.replaceChildren(iframe);
+      iframe.focus();
+    }, { once: true });
+  });
+</script>
