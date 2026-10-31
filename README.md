@@ -47,7 +47,7 @@ import VideoClip from '@/components/ui/VideoClip.astro';
 </VideoClip>
 ```
 
-`label` is read out by screen readers, so describe what happens in the clip. Add `creditUrl` for third-party footage. Clips keep their sound and never autoplay or loop: they start when the reader presses play. The frame is sized for portrait phone clips (540×960, shown max 360px wide); pass `width`/`height` if your clip has a different size.
+`label` is read out by screen readers, so describe what happens in the clip. Add `creditUrl` for third-party footage. Clips keep their sound and never autoplay or loop: they start when the reader presses play. They start at 20% volume (readers can turn it up); add `volume={0.5}` for another level. iPhones ignore this and use the phone's own volume. The frame is sized for portrait phone clips (540×960, shown max 360px wide); pass `width`/`height` if your clip has a different size.
 
 **Video next to a section's text (desktop):** wrap the whole section (heading, text and the clip) in `<MediaSection>`. On desktop the text goes left and the clip right, centred against the section; on phones everything stays in the order you wrote it, so place the clip where it should appear on a phone. Leave blank lines around the markdown inside:
 
