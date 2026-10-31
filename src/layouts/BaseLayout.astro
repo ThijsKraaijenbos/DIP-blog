@@ -24,8 +24,11 @@ interface Props {
   noindex?: boolean;
   jsonLd?: Record<string, unknown>;
 }
+// Default social preview image. Changed public/og-default.png? Bump ?v= so Discord, WhatsApp etc. fetch the new one
+// (they cache images by URL, so the same address keeps showing the old picture).
+const DEFAULT_OG_IMAGE = '/og-default.png?v=2';
 const {
-  title, description = SITE.description, image = '/og-default.png', imageAlt = `${SITE.name}: ${SITE.tagline}`,
+  title, description = SITE.description, image = DEFAULT_OG_IMAGE, imageAlt = `${SITE.name}: ${SITE.tagline}`,
   type = 'website', publishedTime, modifiedTime, noindex = false, jsonLd,
 } = Astro.props;
 const fullTitle = title ? `${title} | ${SITE.name}` : SITE.homeTitle;
