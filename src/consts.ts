@@ -1,10 +1,11 @@
 // Single source of truth for site-wide settings. Change the name here only.
 export const SITE = {
   name: 'Kickback',
-  tagline: 'Uptempo, rawstyle & rawtempo — from the front row.',
-  homeTitle: 'Kickback | Dutch uptempo & rawstyle rave reviews', // <title> of the home page (keep under 60 characters)
+  tagline: 'All things uptempo and rawstyle, from a raver’s point of view', // also the home page H1 and the social preview image text
+  homeTitle: 'Kickback | Uptempo & rawstyle rave reviews and tips', // <title> of the home page (keep under 60 characters)
+  // Meta description (Google + social previews, RSS). The "Why Kickback exists" text on the home page is separate.
   description:
-    'Personal rave reviews, upcoming events, new DJ acts and rave outfits from the Dutch hardcore scene: uptempo, rawstyle and rawtempo.',
+    'Uptempo and rawstyle rave reviews from my own experience: what it cost, how it scored and if it was worth it. Plus tips for your first big hardcore festival.',
   url: 'https://www.kickbacknl.app', // keep in sync with `site` in astro.config.mjs
   locale: 'en',
   author: 'Thijs Kraaijenbos',

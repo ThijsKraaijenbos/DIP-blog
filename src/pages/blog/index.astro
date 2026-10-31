@@ -5,7 +5,7 @@ import { CATEGORIES } from '@/consts';
 import { getPosts, postUrl, readTime } from '@/utils/posts';
 const posts = await getPosts();
 ---
-<BaseLayout title="All posts" description="Every Kickback post: rave reviews, upcoming raves, new acts and outfits from the Dutch uptempo, rawstyle and rawtempo scene.">
+<BaseLayout title="All posts" description="All my uptempo and rawstyle rave reviews and tips in one place. Find out what a festival cost me, how it scored and what to know before your first one.">
   <div class="mx-auto max-w-4xl px-4 sm:px-6">
     <h1 class="mt-12 text-4xl">All posts</h1>
     {posts.length === 0 ? (
