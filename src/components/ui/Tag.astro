@@ -1,10 +1,10 @@
 ---
-// Tag chip. Genre tags use their genre colour; other tags use the current atmosphere.
-import { themeStyle, GENRES, type ThemeKey } from '@/themes';
-interface Props { tag: string; href?: string }
-const { tag, href } = Astro.props;
+// Tag chip. `color` (hex) wins; then genre tags use their genre colour; other tags use the current atmosphere.
+import { themeStyle, colorStyle, GENRES, type ThemeKey } from '@/themes';
+interface Props { tag: string; href?: string; color?: string }
+const { tag, href, color } = Astro.props;
 const key = tag.toLowerCase();
-const style = (GENRES as readonly string[]).includes(key) ? themeStyle(key as ThemeKey) : undefined;
+const style = color ? colorStyle(color) : (GENRES as readonly string[]).includes(key) ? themeStyle(key as ThemeKey) : undefined;
 const El = href ? 'a' : 'span';
 ---
 <El

@@ -100,9 +100,13 @@ How it works:
 - **Magenta `#fe0ac0`** = atmosphere: lasers, tags, dividers, verdict bars. 5.8:1 on black, so it needs no tint.
 - **Cyan `#4ffff7`** = action: links and buttons. 16.4:1 on black; button text is black (16.4:1).
 
-Why this split: magenta and red are nearly the same brightness (1.1:1 between them), so red links next to magenta tags look like a colour mistake. Cyan is magenta's opposite, so "decoration" and "clickable" are instantly different, and each colour still has exactly one job. Links stay underlined, so colour is never the only cue. - **Neon green `#18ff52`** = highlight: **only** the review scores (verdict bars and the overall score). 14.9:1 on black. Green reads as "good / rating", and because it lives in one box it doesn't compete with the other two.
+Why this split: magenta and red are nearly the same brightness (1.1:1 between them), so red links next to magenta tags look like a colour mistake. Cyan is magenta's opposite, so "decoration" and "clickable" are instantly different, and each colour still has exactly one job. Links stay underlined, so colour is never the only cue. - **Neon green `#18ff52`** = highlight: the review scores (verdict bars and the overall score) and the outline of secondary buttons (e.g. "Follow me on TikTok"). 14.9:1 on black. Green reads as "good / rating", and because it lives in one box it doesn't compete with the other two.
 
 Their deep purple `#280066` background is left out: it disappears on black.
+
+Two more event-post options:
+- **`titleAccent`** (post frontmatter): a phrase from the title shown in the atmosphere colour, e.g. `titleAccent: 'REBiRTH 2026'`. Must match the title exactly.
+- **`tagColors`** (theme): a colour per tag on the post page, e.g. `{ rebirth: '#fe0ac0', festival: '#4ffff7' }`. Use with care: tags aren't links, so a tag in the action colour (cyan) can look clickable.
 
 **Rule of thumb for mixing colours:** every accent colour gets exactly one role (atmosphere, action, or highlight for scores), never "random decoration". A third colour is only OK when it stays inside one component, like the scores. Themes set it with the optional `highlight` field; without it, scores use the atmosphere colour.
 

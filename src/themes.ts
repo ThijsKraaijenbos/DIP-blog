@@ -14,6 +14,8 @@ export type ThemePreset = {
   actionOverride?: string;
   /** Optional third event colour, ONLY for review scores (verdict bars + overall score). Must reach 4.5:1 on the background. */
   highlight?: string;
+  /** Optional colour per tag on the post page (tag name → hex, each ≥ 4.5:1 on the background). Other tags use the atmosphere. */
+  tagColors?: Record<string, string>;
 };
 
 export const THEMES = {
@@ -24,8 +26,11 @@ export const THEMES = {
   rawtempo: { label: 'Rawtempo', kind: 'genre', atmosphere: '#ff9f1a' },
   // Events (placeholders unless noted — edit colours/names freely)
   // REBiRTH: magenta + cyan from rebirth-festival.nl (their site CSS + logo). Magenta is too close to the red links,
-  // so cyan takes over links and buttons on REBiRTH posts. Their neon green is used only for the review scores.
-  'event-rebirth': { label: 'REBiRTH', kind: 'event', atmosphere: '#fe0ac0', actionOverride: '#4ffff7', highlight: '#18ff52' },
+  // so cyan takes over links and buttons on REBiRTH posts. Their neon green is the highlight (scores, secondary button).
+  'event-rebirth': {
+    label: 'REBiRTH', kind: 'event', atmosphere: '#fe0ac0', actionOverride: '#4ffff7', highlight: '#18ff52',
+    tagColors: { rebirth: '#fe0ac0', festival: '#4ffff7', review: '#18ff52' },
+  },
   'event-dominator': { label: 'Dominator (placeholder)', kind: 'event', atmosphere: '#e01e1e', ctaOverride: '#f2efe8' },
   'event-intents': { label: 'Intents (placeholder)', kind: 'event', atmosphere: '#ff3fb4' },
 } satisfies Record<string, ThemePreset>;
@@ -62,6 +67,9 @@ export function textSafeTint(hex: string, min = 5): string {
   }
   return '#ffffff';
 }
+
+/** Inline CSS variables that give one element (e.g. a tag) its own atmosphere colour. */
+export const colorStyle = (hex: string) => `--atmo:${hex};--atmo-text:${textSafeTint(hex)}`;
 
 /** Inline CSS variables for a theme. Tailwind tokens (bg-atmo, text-atmo-text, …) read these. */
 export function themeStyle(key: ThemeKey = 'default'): string {

@@ -37,6 +37,9 @@
   /* Highlight (review scores). Falls back to the atmosphere colour unless a theme sets `highlight`. */
   --color-highlight: var(--highlight, var(--atmo));
   --color-highlight-text: var(--highlight, var(--atmo-text));
+  /* Secondary (outline) buttons: grey/off-white, or the highlight colour when a theme sets one. */
+  --color-secondary-line: var(--highlight, #4a4845);
+  --color-secondary-fg: var(--highlight, #f2efe8);
 
   /* Fonts */
   --font-display: 'Anton', 'Impact', 'Arial Narrow', sans-serif;

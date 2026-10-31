@@ -10,7 +10,7 @@ import Sources from '@/components/post/Sources.astro';
 import PostCTA from '@/components/post/PostCTA.astro';
 import RelatedPosts from '@/components/post/RelatedPosts.astro';
 import { SITE, CATEGORIES } from '@/consts';
-import { themeStyle } from '@/themes';
+import { THEMES, themeStyle, type ThemePreset } from '@/themes';
 import { formatDate, readTime, type Post } from '@/utils/posts';
 
 interface Props { post: Post; related: Post[]; newer?: Post; older?: Post }
@@ -19,6 +19,9 @@ const d = post.data;
 
 // Social preview: the hero image cropped to 1200×630.
 const og = await getImage({ src: d.heroImage.src, width: 1200, height: 630, fit: 'cover', format: 'jpg' });
+// Optional per-tag colours from the event theme, and an optional pink (atmosphere) phrase in the title.
+const tagColors: Record<string, string> = (THEMES[d.theme] as ThemePreset).tagColors ?? {};
+const accentAt = d.titleAccent ? d.title.indexOf(d.titleAccent) : -1;
 const url = new URL(Astro.url.pathname, Astro.site ?? SITE.url).href;
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -54,13 +57,17 @@ const jsonLd = {
           {d.updatedDate && <span>Updated <time datetime={d.updatedDate.toISOString()}>{formatDate(d.updatedDate)}</time></span>}
           <span>{readTime(post.body)}</span>
         </p>
-        <h1 class="mt-4 max-w-5xl text-4xl">{d.title}</h1>
+        <h1 class="mt-4 max-w-5xl text-4xl">
+          {accentAt >= 0 && d.titleAccent ? (
+            <>{d.title.slice(0, accentAt)}<span class="text-atmo-text">{d.titleAccent}</span>{d.title.slice(accentAt + d.titleAccent.length)}</>
+          ) : d.title}
+        </h1>
         <p class="mt-6 max-w-2xl text-lg text-fg sm:text-xl">{d.intro}</p>
         {(d.persona || d.genre || d.tags.length > 0) && (
           <div class="mt-6 flex flex-wrap items-center gap-2">
             {d.persona && <span class="inline-flex min-h-6 items-center border border-line-strong bg-bg px-2 font-mono text-xs uppercase tracking-wider text-muted">For: {d.persona}</span>}
-            {d.genre && <Tag tag={d.genre} />}
-            {d.tags.filter((t) => t !== d.genre).map((t) => <Tag tag={t} />)}
+            {d.genre && <Tag tag={d.genre} color={tagColors[d.genre]} />}
+            {d.tags.filter((t) => t !== d.genre).map((t) => <Tag tag={t} color={tagColors[t]} />)}
           </div>
         )}
         <p class="mt-10 flex max-w-4xl flex-wrap items-baseline gap-x-4 gap-y-1 text-xs text-muted">
