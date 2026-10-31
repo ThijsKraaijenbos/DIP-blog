@@ -1,0 +1,43 @@
+---
+// Wrap one post section (its heading + text) together with ONE figure or VideoClip.
+// Desktop (lg+): text on the left, the figure in a column on the right, vertically centred
+// against the whole section. Phones/tablets: everything stays in normal reading order,
+// so put the figure where it should appear on a phone.
+// Usage in .mdx (leave blank lines around the markdown inside):
+//   <MediaSection>
+//
+//   ## Heading
+//
+//   Text…
+//
+//   <VideoClip … />
+//
+//   </MediaSection>
+---
+<div class="media-section post-body"><slot /></div>
+
+<style>
+  @media (min-width: 1024px) {
+    .media-section {
+      display: grid;
+      grid-template-columns: 68ch 300px;
+      column-gap: 2rem;
+      width: max-content;
+      margin-top: calc(1.6 * var(--text-3xl)); /* same gap as above any other h2 */
+    }
+    /* The gap above the heading lives on the section, so the figure centres on the visible text. */
+    .media-section > :global(:first-child) { margin-top: 0; }
+    .media-section > :global(*) { grid-column: 1; }
+    .media-section > :global(figure) {
+      grid-column: 2;
+      grid-row: 1 / span 30; /* spans the whole section (up to 30 blocks of text) */
+      align-self: center;
+      margin: 0;
+      width: 100%;
+      max-width: none;
+    }
+  }
+  @media (min-width: 1280px) {
+    .media-section { grid-template-columns: 68ch 360px; column-gap: 3rem; }
+  }
+</style>

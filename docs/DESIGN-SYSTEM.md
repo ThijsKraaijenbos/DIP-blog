@@ -61,12 +61,14 @@ All fonts are self-hosted with Fontsource and imported in `src/layouts/BaseLayou
 | Sigil (KB icon) | `src/components/ui/Sigil.astro` | Draws the KB icon inline so it takes the theme colour. Props: `size` (height), `tone` (`atmo` / `fg` / `watermark`), `label`. Decorative by default (`aria-hidden`). |
 | Logo | `src/components/ui/Logo.astro` | Custom KICKBACK wordmark in UV violet (`public/brand/kickback-logo.svg`). The KB icon (`kickback-icon.svg`) is the favicon. PNG copies in `public/brand/` are for emails, since email apps don't show SVG. |
 | LaserDivider | `src/components/layout/LaserDivider.astro` | 1px atmosphere line, with an optional small sigil mark. |
-| LaserHero | `src/components/layout/LaserHero.astro` | SVG laser fan behind any content (two red beams). One slow sweep. |
+| LaserHero | `src/components/layout/LaserHero.astro` | SVG laser fan behind any content. One slow sweep. With a `bg` photo (post headers use the hero image) the lasers are left out and the photo sits under a flat 80% black layer; small labels get a solid black backing for AA contrast. |
 | FeatureHero | `src/components/layout/FeatureHero.astro` | Home/post hero: left-aligned headline, meta row, **one** CTA. |
 | Button | `src/components/ui/Button.astro` | `primary` (CTA colour) or `secondary` (outline). At least 44px tall. |
 | Tag | `src/components/ui/Tag.astro` | Genre tags automatically use their genre colour. |
 | PostCard | `src/components/ui/PostCard.astro` | Hard-bordered teaser with a sigil watermark. The whole card is clickable. |
 | Figure | `src/components/ui/Figure.astro` | Optimised image + caption + **required** credit. |
+| VideoClip | `src/components/ui/VideoClip.astro` | Self-hosted portrait clip with sound (plays on click), caption slot + credit. Max 360px wide. |
+| MediaSection | `src/components/post/MediaSection.astro` | Wraps one post section + one figure/clip: text left, media right (centred) on desktop; normal order on phones. |
 | Callout | `src/components/ui/Callout.astro` | Aside with a text label (colour is never the only cue). |
 | CommunityCTA | `src/components/ui/CommunityCTA.astro` | Discord (primary), WhatsApp (secondary), small notify form. |
 

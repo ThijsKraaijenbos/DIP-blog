@@ -47,7 +47,25 @@ import VideoClip from '@/components/ui/VideoClip.astro';
 </VideoClip>
 ```
 
-`label` is read out by screen readers, so describe what happens in the clip. Add `creditUrl` for third-party footage. Clips keep their sound and never autoplay or loop: they start when the reader presses play. The frame is sized for portrait phone clips (540×960, shown max 360px wide); pass `width`/`height` if your clip has a different size. On desktop the clip sits in the empty space to the right of the text, next to the paragraphs that follow it; on phones it sits between the paragraphs.
+`label` is read out by screen readers, so describe what happens in the clip. Add `creditUrl` for third-party footage. Clips keep their sound and never autoplay or loop: they start when the reader presses play. The frame is sized for portrait phone clips (540×960, shown max 360px wide); pass `width`/`height` if your clip has a different size.
+
+**Video next to a section's text (desktop):** wrap the whole section (heading, text and the clip) in `<MediaSection>`. On desktop the text goes left and the clip right, centred against the section; on phones everything stays in the order you wrote it, so place the clip where it should appear on a phone. Leave blank lines around the markdown inside:
+
+```mdx
+import MediaSection from '@/components/post/MediaSection.astro';
+
+<MediaSection>
+
+## The lineup and the sound
+
+Your text…
+
+<VideoClip … >Caption</VideoClip>
+
+More text…
+
+</MediaSection>
+```
 
 Cut a clip to max 20 seconds (here starting at 1:05), scale it to 540px wide and compress it (add `-an` to drop the sound):
 
