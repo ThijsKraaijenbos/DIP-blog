@@ -1,0 +1,27 @@
+---
+// Shown at the URL of a post that is still a draft (draft: true), so links from other
+// posts don't hit a dead end. It never shows the draft's title or text, and stays out of Google.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LaserHero from '@/components/layout/LaserHero.astro';
+import NewsletterForm from '@/components/post/NewsletterForm.astro';
+import Button from '@/components/ui/Button.astro';
+import { NEWSLETTER_ENABLED } from '@/consts';
+---
+<BaseLayout title="Coming soon" description="This post hasn't been written yet. Sign up to hear when it's out." noindex>
+  <LaserHero>
+    <header class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+      <p class="meta text-atmo-text">Coming soon</p>
+      <h1 class="mt-4 max-w-4xl text-4xl">Oops, looks like this post hasn't been written yet!</h1>
+    </header>
+  </LaserHero>
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    {NEWSLETTER_ENABLED && (
+      <section class="mt-12 max-w-2xl border border-atmo p-6 sm:p-8" aria-labelledby="soon-title">
+        <h2 id="soon-title" class="text-3xl">Stay in the loop</h2>
+        <p class="mt-2 text-muted">Be the first to know when the next post comes out!</p>
+        <div class="mt-6"><NewsletterForm bare /></div>
+      </section>
+    )}
+    <div class="mt-10"><Button href="/blog/" variant="secondary">Read the posts that are out</Button></div>
+  </div>
+</BaseLayout>

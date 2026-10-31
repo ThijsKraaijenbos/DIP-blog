@@ -1,56 +1,143 @@
 ---
-# Post 1 of 6 (topic plan T2). Keyword: rebirth festival (9.9K/month NL, difficulty 21). Format: review: 8 scoring categories + full story + tips.
-# Set draft to false when it's finished; until then it never shows on the live site.
-title: 'Rebirth 2026: was it worth the money? My honest review'
-# SUGGESTION: metaTitle and description (rewrite them in your own words if you like).
-metaTitle: 'Rebirth Festival 2026 review: worth the money?'
-description: 'My honest Rebirth Festival 2026 review: line-up, sound, crowd, facilities and ticket price, scored in 8 categories, plus tips for your first Rebirth.'
-intro: 'TODO(Thijs): one or two sentences under the title, in your own voice.'
+# Post 1 of 6 (topic plan T2). Keyword: rebirth festival. Format: review (HubSpot + 8 D42 categories).
+title: 'REBiRTH 2026: was it worth the money? My honest review'
+titleAccent: 'REBiRTH 2026'
+# Meta title + description: option 3 from the meta chat (Anthropic, 2026f), A13.11.
+metaTitle: 'REBiRTH Festival 2026: Worth the Money? My Honest Review'
+description: 'REBiRTH festival Sunday cost me about €96 all in and it was absolutely worth it. My honest review with an 8.3/10 score, pros, cons and final tips.'
+intro: 'I visited REBiRTH 2026 on Sunday. This was my experience, how much it cost me, the score I gave it, and some final tips for your first time at REBiRTH.'
 pubDate: 2026-10-29
 category: review
-# persona is shown on the post as "For: …", so use a reader label (e.g. 'first-timers'), not the internal name (Lars).
-# persona: ''
+persona: 'ravers on a budget'
 theme: event-rebirth
 tags: ['rebirth', 'festival', 'review']
 heroImage:
-  # TODO(Thijs): put your own photo in src/assets/images/ and point to it here.
-  src: '../../assets/images/placeholder-crowd.jpg'
-  alt: 'TODO(Thijs): what is in the picture'
-  caption: 'TODO(Thijs): one line about the picture'
-  credit: 'Photo: own photo'
-# Reviews: uncomment and fill in your scores (1 to 10) for the categories you can judge.
-# verdict:
-#   scores: { lineup: , atmosphere: , sound: , location: , facilities: , logistics: , decoration: , price:  }
-#   summary: 'One sentence that sums up the night.'
-# TODO(Thijs): external sources (counts toward the 6+ links), e.g. the official festival site.
-sources: []
-related: ['uptempo-vs-rawstyle-vs-frenchcore']
-draft: true
+  src: '../../assets/images/rebirth-2026-header.jpg'
+  alt: 'AI generated recreation of REBiRTH 2026 mainstage showing a sunny blue sky with some clouds and a large crowd.'
+  caption: "AI generated recreation of REBiRTH 2026's mainstage. (Disclaimer: this is NOT an official REBiRTH photo. It's based on a picture I took of the stage)"
+  credit: 'Image generated with ChatGPT (OpenAI, 2026)'
+  creditUrl: 'https://chatgpt.com/share/6ae5125d-1d74-83ed-8ccd-7743cc918774'
+verdict:
+  scores: { lineup: 8, atmosphere: 9, sound: 9, location: 7.5, facilities: 8, logistics: 8, decoration: 8.5, price: 8.5 }
+  summary: "My second edition of REBiRTH and it's still one of my favorite festivals, absolutely worth the price in my opinion. I 100% recommend going to REBiRTH."
+sources:
+  - { title: 'REBiRTH Festival 2026', url: 'https://partyflock.nl/party/483653:REBiRTH-Festival', publisher: 'Partyflock' }
+  - { title: 'REBiRTH Festival Sunday', url: 'https://eleventravel.nl/evenementen/rebirth-festival-zondag/?search=rotterdam', publisher: 'Eleven Travel' }
+  - { title: 'Travel and location', url: 'https://www.rebirth-festival.nl/en/travel-location/', publisher: 'REBiRTH Festival' }
+  - { title: 'TOZA', url: 'https://open.spotify.com/artist/4EGv5uSV4xrFpAfrkvW71L', publisher: 'Spotify' }
+  - { title: 'Anderex', url: 'https://open.spotify.com/artist/7wXBtpPB5GFddtz9OeBlPW', publisher: 'Spotify' }
+  - { title: 'REAL INSANITY (Lekkerfaces, TOZA, Teal)', url: 'https://open.spotify.com/track/0uae3IV9OzGI4KZ8esmjjo', publisher: 'Spotify' }
+  - { title: 'Detailed', url: 'https://open.spotify.com/artist/4iqEVZEav7vIiv1HStr6Gx', publisher: 'Spotify' }
+  - { title: 'Sparkz', url: 'https://open.spotify.com/artist/0kXJAI2hR2vdzVHsu9OLka', publisher: 'Spotify' }
+  - { title: 'Unload', url: 'https://open.spotify.com/artist/1Y19qzpsF8wvNVz4uvg6Pm', publisher: 'Spotify' }
+  - { title: 'Appic: Festivals & More', url: 'https://apps.apple.com/app/id968362389', publisher: 'App Store' }
+  - { title: 'FAQ', url: 'https://www.rebirth-festival.nl/faq/', publisher: 'REBiRTH Festival' }
+  - { title: 'REBiRTH Festival presenteert volledige line-up', url: 'https://www.festivalinfo.nl/news/57761/REBiRTH-Festival-presenteert-volledige-line-up-met-o-a-Sub-Zero-Project-en-D-Block-S-te-Fan/', publisher: 'Festivalinfo' }
+  - { title: 'REBiRTH Festival', url: 'https://www.rebirth-festival.nl/', publisher: 'REBiRTH Festival' }
+  - { title: 'Create festival header image [Generative AI chat]', url: 'https://chatgpt.com/share/6ae5125d-1d74-83ed-8ccd-7743cc918774', publisher: 'OpenAI (2026), ChatGPT' }
+related: ['uptempo-vs-rawstyle-vs-zaag']
+draft: false
 ---
 
-{/* TODO(Thijs): write every section in your own words. Aim for 6+ links (internal + external). Delete these comments when done. */}
+import VideoClip from '@/components/ui/VideoClip.astro';
+import MediaSection from '@/components/post/MediaSection.astro';
 
-Opening paragraph: hook + your answer to "was it worth the money?" in one or two sentences.
+Last year’s edition of REBiRTH was the first big outdoor festival I went to, and it was one of my favorite festivals I’ve ever been to. So obviously I went to this year’s edition as well to see if it would be as much of a success as last year’s edition.
 
-## Getting there
-{/* TODO(Thijs): travel, shuttle/parking, queue at the entrance, lockers. */}
+(Spoiler: It ABSOLUTELY was worth it!)
 
-## The line-up
-{/* TODO(Thijs): who you saw, best and worst sets. Link artists or the timetable (external). */}
+## REBiRTH festival in short
 
-## Atmosphere and crowd
-{/* TODO(Thijs): the vibe, the crowd, a moment you remember. */}
+REBiRTH festival is a full weekend festival in Haaren, near Tilburg / ‘s-Hertogenbosch. This year’s edition was from 10-12 April with a large and diverse lineup spread throughout various stages. (The full lineup can be found on [Partyflock](https://partyflock.nl/party/483653:REBiRTH-Festival)). I was only there on Sunday and went with my brother and two of our friends, so the majority of this post will be dedicated to talking about my experience on that day.
 
-## Sound
-{/* TODO(Thijs): main stage vs other stages, volume, bass. */}
+## Getting there and getting in
 
-## Location, facilities and decoration
-{/* TODO(Thijs): toilets, food and drinks, coins, stages and decoration. */}
+One of our friends was the designated driver, so we didn't need to pay for a shuttle- or a partybus. My brother and I each paid the driver €10 so he could pay for the parking ticket, and another €10 for gas, so it cost me roughly €20 for travel. If you don't have a friend who's willing to be the designated driver, or if you simply don't have a car; there will often also be partybus routes that you can find on [Eleventravel](https://eleventravel.nl/evenementen/rebirth-festival-zondag/?search=rotterdam). Those will usually start at big stations like Rotterdam Central station. Otherwise, you can also take public transport to 's-Hertogenbosch station and use a shuttle bus from there to get to the festival grounds. (See [REBiRTH’s own travel info page](https://www.rebirth-festival.nl/en/travel-location/) for more info.)
 
-## Ticket price: was it worth it?
-{/* TODO(Thijs): what you paid (ticket, travel, coins, lockers) vs what you got. */}
+Entering the festival grounds was also very easy. We were in after around 10 minutes which is about average for most big festivals like REBiRTH and Rebellion. There were multiple lines running next to each other which is part of the reason why getting through the entrance goes very quickly. The first check is the ticket check, and some people are asked to show their ID. At the second check security searches you and lets you through if you're all good.
 
-## Tips for your first Rebirth
-{/* TODO(Thijs): 3 to 5 short tips as a bullet list. */}
+After that we went straight to buying a locker as we always do since they're almost always right next to the entrance. Those are pretty much always worth the money if you have bags that you don't want to carry all day. I would recommend buying the cheapest locker option. Most times if you squeeze hard enough you can fit 2 or 3 people's jackets and bags in one of those lockers. So it’s not necessary to all buy separate lockers.
 
-{/* LINK (internal, planned): new to the genres? → [Uptempo vs rawstyle vs frenchcore](/blog/uptempo-vs-rawstyle-vs-frenchcore/) */}
+<MediaSection>
+
+## The lineup and the sound
+
+I spent a large part of the day switching between different stages, but I spent most of my time at the uptempo and rawstyle stages. Are you new to the scene and don't know the difference between those genres yet? I wrote about how I learned to hear the difference [in this post](/blog/uptempo-vs-rawstyle-vs-zaag/), check it out if you're interested!
+
+Some of my favorite sets of the day were the following:
+
+- [TOZA](https://open.spotify.com/artist/4EGv5uSV4xrFpAfrkvW71L): I always love TOZA because he's one of my favorite DJs overall, so I was already very hyped for his set in advance. The hype definitely delivered, mostly because of the tracks he played and the crowd's energy.
+- [Anderex](https://open.spotify.com/artist/7wXBtpPB5GFddtz9OeBlPW): Similarly to TOZA, Anderex is another DJ that I'm quite a big fan of. Unlike TOZA I had only been to one or two other festivals before where Anderex was on the lineup. To me it's always extra exciting when I get to go to a DJ whose sets I haven't seen often in real life.
+- [Detailed](https://open.spotify.com/artist/4iqEVZEav7vIiv1HStr6Gx) vs [Sparkz](https://open.spotify.com/artist/0kXJAI2hR2vdzVHsu9OLka) vs [Unload](https://open.spotify.com/artist/1Y19qzpsF8wvNVz4uvg6Pm): They made very good choices in the tracks they decided to play, and all three of their music styles simply work very well together. The crowd went insane over some of the tracks that were played (especially some upcoming collabs between these artists). In general all three of these DJs are great on their own. Combining them into one set made it even better.
+
+<VideoClip
+  src="/videos/rebirth-2026-toza-set.mp4"
+  poster="/videos/rebirth-2026-toza-set-poster.jpg"
+  label="23 second clip from TOZA's set recorded by myself."
+  credit="Video: own video"
+>
+  A short clip from TOZA's set which I recorded myself. Track ID is <a href="https://open.spotify.com/track/0uae3IV9OzGI4KZ8esmjjo">Real Insanity (Lekkerfaces, TOZA, Teal)</a>
+</VideoClip>
+
+Pretty much every stage at REBiRTH had great sound. It was loud and clear and overall the speakers just sound very solid. You should always bring some earplugs though, seeing as it does get quite loud. You can buy them at the festival grounds, so no need to worry if you don't have any earplugs yet.
+
+</MediaSection>
+
+## Atmosphere, crowd and decoration
+
+The crowd was very friendly as usual, to be honest there's very few people I've met in this scene that aren't friendly, so not only at REBiRTH, but at most other big festivals the crowd will be friendly and share good vibes. It's always very easy to make new friends there. I even ran into a friend whom I hadn't seen since Dominator 2025, so it was fun hanging out with her again and introducing her to my other friends.
+
+The stages also looked very great and are always nicely designed. I did like the 2025 stages a bit more though, especially the mainstage since it looked way crazier. Another reason is because that was my first big outdoor festival, so it's very hard to top that. Nonetheless I was still very impressed by the stage design this year and took some time in between to simply admire the stages while I was dancing or walking around the festival grounds.
+
+## Location and facilities
+
+The festival grounds are quite big, so it does take a little bit of time to walk between all the stages but it's nothing crazy. It's very normal for big festivals like these and in my opinion REBiRTH does this very well. It's easy to navigate, but if you do get lost, you can easily find the map somewhere nearby on the festival grounds. Additionally [Appic](https://apps.apple.com/app/id968362389) also has an interactive map for festivals like these. On that map you can see the entire festival's layout and where your friends are.
+
+Toilet queues were short. I'd say that the wait was roughly about 6-8 minutes on average, because there are plenty of toilets.
+
+If you want food and drinks it can unfortunately only be bought with coins (see the [FAQ](https://www.rebirth-festival.nl/faq/)). I spent somewhere around 40 euros on coins for the day. My friends also bought a few coins, but I don't know exactly how they all spent. It cost roughly 20 bucks for a strip of 5 coins. Water was 1.5 or 2 coins (I don't exactly remember), and a beer was 1 coin if I recall correctly. Those are pretty much the normal prices for most of these festivals though.
+
+My brother paid for the locker, so I don't exactly know how much that cost. However, we usually agree that if one person buys the locker, the other person buys the first strip of coins, so we can try to equally divide the costs throughout the day. So in this case I bought the first strip of coins after my brother paid for the locker.
+
+## Was REBiRTH worth the money?
+
+I initially bought a day ticket for Sunday on TicketSwap for €60,62. Which was only slightly cheaper than a [Sunday ticket](https://www.festivalinfo.nl/news/57761/REBiRTH-Festival-presenteert-volledige-line-up-met-o-a-Sub-Zero-Project-en-D-Block-S-te-Fan/) which was around €63 I believe. While I was on the way to the festival one of my friends who had a weekend ticket said he couldn't go on Sunday anymore, so he offered me his ticket for free. I paid him €25 because I didn't want to take it for free. At the same time I sold the ticket I bought on TicketSwap for €49,40. So in short this is roughly what my day cost me:
+
+- Ticket: about €36 (11 for the loss on the TicketSwap ticket + the 25 I paid my friend)
+- Travel: €20
+- Coins: about €40
+- Locker: €0
+- Total: about €96
+
+In my opinion that's a pretty good deal for a full day with my friends and being able to enjoy some of my favorite DJs live. On average you'll be spending around €120 per person if you divide the costs equally. I simply got lucky that my friend offered me his ticket so I could get a cheaper deal on that this time.
+
+## Pros and cons
+
+Pros:
+
+- The lineup was solid
+- Very friendly people in the crowd
+- The sound across the whole festival was great
+- Short queues overall for the whole festival
+
+Cons:
+
+- You can unfortunately only pay with coins
+- It is somewhat pricy but nothing too crazy, and I can't really complain about it since the total I spent is average for most festivals.
+
+## Who is REBiRTH for?
+
+REBiRTH is a great festival for pretty much anyone who likes uptempo, rawstyle or even regular hardstyle. If you're new to big festivals it's a very good option if you want your first one to be a banger, and even if you're already more experienced in the scene it's more than enough, so there's always something for you to enjoy. If you're on a budget, I'd recommend going for one day instead of the full weekend. I've never gone to a full weekend festival myself, but most of my friends recommend going for only one day regardless of which festival it is since it's a lot easier to manage and still very enjoyable.
+
+## Tips for your first REBiRTH festival
+
+- Carpool with friends since that’s almost always cheaper than a partybus or public transport.
+- Share a locker. One person pays for a cheap locker and you can usually fit about 2-3 people’s jackets and bags in one of those.
+- Bring earplugs if you already have some, otherwise you can buy them on the festival grounds.
+- Turn on ticket alerts in TicketSwap. If you actively keep looking for tickets there’s a high chance you’ll be able to snipe a ticket for slightly cheaper than the original price.
+
+Are you unsure of what to bring to a festival like REBiRTH? [Here are my own tips](/blog/what-to-bring-to-a-rave/) for what I usually bring, and what I'd recommend leaving at home instead.
+
+[REBiRTH 2027](https://www.rebirth-festival.nl/) is from 9-11 April. If my friends are up for going again next year, I'll for sure join them. And to be fair, I'll probably be the one asking them to come along since I love REBiRTH.
+
+Did you attend REBiRTH as well, or are you planning to attend next year? Feel free to let me know or message me your own thoughts on [Instagram](https://www.instagram.com/thijskraaij06/) or [TikTok](https://www.tiktok.com/@thijskraaij06)!

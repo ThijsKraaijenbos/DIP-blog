@@ -15,7 +15,7 @@ const { newer, older } = Astro.props;
     <NewsletterForm />
   </div>
   <p class="border-t border-line py-4 text-fg">
-    {CTA_COPY.comment.text} <a href={COMMUNITY.instagram} rel="noopener" target="_blank">{CTA_COPY.comment.link}</a>
+    {CTA_COPY.comment.text} <a href={COMMUNITY.instagram} rel="noopener" target="_blank" class="underline">{CTA_COPY.comment.link}</a>
   </p>
   {(older || newer) && (
     <nav class="grid border-t border-line sm:grid-cols-2" aria-label="Read next">

@@ -26,13 +26,13 @@ Rules for every post (they come from the rubric):
 - **Reviews.** Add `verdict.scores` (1 to 10) for the categories you can judge: lineup, atmosphere, sound, location, facilities, logistics, decoration, price.
 - **Your own voice.** Write from your own experience. AI can help you plan, never paste its text.
 - The CTA block, related posts and older/newer links are added to every post automatically. Their texts live in `src/data/copy.ts`.
-- `draft: true` keeps a post off the live site while you work on it.
+- `draft: true` keeps a post off the live site while you work on it. Its URL (`/blog/<file-name>/`) already works though: it shows a "this post hasn't been written yet" page with the newsletter sign-up (not in Google or the sitemap), so you can link to planned posts safely. Any other unknown URL shows the 404 page (`src/pages/404.astro`). In `npm run dev` you see the real draft instead.
 
 ### Adding a short video
 
 Astro does not optimize video, so put the clip and its poster image in `public/videos/` (for example `public/videos/rebirth-mainstage.mp4` and `rebirth-mainstage.jpg`). Keep each clip under about 5 MB.
 
-In the `.mdx` post, import the component below the frontmatter and use it like `Figure`:
+In the `.mdx` post, import the component below the frontmatter and use it like `Figure`. The caption goes between the tags, so it can contain a link:
 
 ```mdx
 import VideoClip from '@/components/ui/VideoClip.astro';
@@ -41,18 +41,45 @@ import VideoClip from '@/components/ui/VideoClip.astro';
   src="/videos/rebirth-mainstage.mp4"
   poster="/videos/rebirth-mainstage.jpg"
   label="Crowd jumping under red lasers at the Rebirth mainstage"
-  caption="The drop of the closing set."
   credit="Video: own footage"
-/>
+>
+  The drop of the closing set.
+</VideoClip>
 ```
 
-`label` is read out by screen readers, so describe what happens in the clip. Add `creditUrl` for third-party footage. Clips are always muted and looped; add `autoplay` only if the clip should start by itself.
+`label` is read out by screen readers, so describe what happens in the clip. Add `creditUrl` for third-party footage. Clips keep their sound and never autoplay or loop: they start when the reader presses play. The frame is sized for portrait phone clips (540×960, shown max 360px wide); pass `width`/`height` if your clip has a different size.
 
-Cut a clip to max 20 seconds (here starting at 1:05), remove the audio, scale it to 1280px wide and compress it:
+**Video next to a section's text (desktop):** wrap the whole section (heading, text and the clip) in `<MediaSection>`. On desktop the text goes left and the clip right, centred against the section; on phones everything stays in the order you wrote it, so place the clip where it should appear on a phone. Leave blank lines around the markdown inside:
+
+```mdx
+import MediaSection from '@/components/post/MediaSection.astro';
+
+<MediaSection>
+
+## The lineup and the sound
+
+Your text…
+
+<VideoClip … >Caption</VideoClip>
+
+More text…
+
+</MediaSection>
+```
+
+Cut a clip to max 20 seconds (here starting at 1:05), scale it to 540px wide and compress it (add `-an` to drop the sound):
 
 ```sh
-ffmpeg -ss 00:01:05 -i input.mov -t 20 -an -vf "scale=1280:-2" -c:v libx264 -crf 28 -preset slow -pix_fmt yuv420p -movflags +faststart public/videos/rebirth-mainstage.mp4
+ffmpeg -ss 00:01:05 -i input.mov -t 20 -vf "scale=540:-2" -c:v libx264 -c:a aac -b:a 128k -crf 28 -preset slow -pix_fmt yuv420p -movflags +faststart public/videos/rebirth-mainstage.mp4
 ```
+
+Clip too loud? Lower the sound in the file itself (`volume=0.5` = half as loud; this works on every device, iPhones included):
+
+```sh
+ffmpeg -i public/videos/clip.mp4 -c:v copy -af "volume=0.5" -c:a aac -b:a 128k -movflags +faststart clip-quieter.mp4
+```
+
+Then replace the original with `clip-quieter.mp4`.
 
 If the file is still over 5 MB, raise `-crf` (30 or 32) or shorten `-t`. Grab the first frame as poster image:
 

@@ -8,6 +8,12 @@ export async function getPosts(): Promise<Post[]> {
   return posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 }
 
+/** Drafts, only in a production build (they get a "not written yet" page). Empty in dev, where drafts show for real. */
+export async function getDrafts(): Promise<Post[]> {
+  if (import.meta.env.DEV) return [];
+  return getCollection('blog', ({ data }) => data.draft);
+}
+
 export const postUrl = (post: Post) => `/blog/${post.id}/`;
 
 /** Rough read time at 220 words per minute. */

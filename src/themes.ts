@@ -7,8 +7,11 @@ export type ThemePreset = {
   kind: 'genre' | 'event';
   /** Atmosphere colour (hex). Used for lines, lasers, sigil, large text. */
   atmosphere: string;
-  /** Optional CTA colour when the atmosphere clashes with the red CTA (e.g. a red event). */
+  /** Optional CTA colour when the atmosphere clashes with the red CTA (e.g. a red event). Buttons only. */
   ctaOverride?: string;
+  /** Optional second event colour for the whole action role (links + buttons) when the atmosphere sits too close to red.
+   *  Must reach 4.5:1 on the background. Use it instead of ctaOverride, never both. */
+  actionOverride?: string;
 };
 
 export const THEMES = {
@@ -17,8 +20,10 @@ export const THEMES = {
   uptempo: { label: 'Uptempo', kind: 'genre', atmosphere: '#c6ff1a' },
   rawstyle: { label: 'Rawstyle', kind: 'genre', atmosphere: '#1ec8ff' },
   rawtempo: { label: 'Rawtempo', kind: 'genre', atmosphere: '#ff9f1a' },
-  // Events (placeholders — edit colours/names freely)
-  'event-rebirth': { label: 'Rebirth (placeholder)', kind: 'event', atmosphere: '#16c79a' },
+  // Events (placeholders unless noted — edit colours/names freely)
+  // REBiRTH: magenta + cyan from rebirth-festival.nl (their site CSS + logo). Magenta is too close to the red links,
+  // so cyan takes over links and buttons on REBiRTH posts. Their green #18ff52 is left out (a third accent gets chaotic).
+  'event-rebirth': { label: 'REBiRTH', kind: 'event', atmosphere: '#fe0ac0', actionOverride: '#4ffff7' },
   'event-dominator': { label: 'Dominator (placeholder)', kind: 'event', atmosphere: '#e01e1e', ctaOverride: '#f2efe8' },
   'event-intents': { label: 'Intents (placeholder)', kind: 'event', atmosphere: '#ff3fb4' },
 } satisfies Record<string, ThemePreset>;
@@ -61,5 +66,9 @@ export function themeStyle(key: ThemeKey = 'default'): string {
   const t: ThemePreset = THEMES[key] ?? THEMES.default;
   const vars = [`--atmo:${t.atmosphere}`, `--atmo-text:${textSafeTint(t.atmosphere)}`];
   if (t.ctaOverride) vars.push(`--cta:${t.ctaOverride}`, `--cta-ink:${CTA_INK}`);
+  if (t.actionOverride) {
+    const hover = toHex(toRgb(t.actionOverride).map((v) => v + (255 - v) * 0.5));
+    vars.push(`--action:${t.actionOverride}`, `--action-hover:${hover}`, `--cta:${t.actionOverride}`, `--cta-ink:${CTA_INK}`);
+  }
   return vars.join(';');
 }

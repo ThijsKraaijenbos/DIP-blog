@@ -61,12 +61,14 @@ All fonts are self-hosted with Fontsource and imported in `src/layouts/BaseLayou
 | Sigil (KB icon) | `src/components/ui/Sigil.astro` | Draws the KB icon inline so it takes the theme colour. Props: `size` (height), `tone` (`atmo` / `fg` / `watermark`), `label`. Decorative by default (`aria-hidden`). |
 | Logo | `src/components/ui/Logo.astro` | Custom KICKBACK wordmark in UV violet (`public/brand/kickback-logo.svg`). The KB icon (`kickback-icon.svg`) is the favicon. PNG copies in `public/brand/` are for emails, since email apps don't show SVG. |
 | LaserDivider | `src/components/layout/LaserDivider.astro` | 1px atmosphere line, with an optional small sigil mark. |
-| LaserHero | `src/components/layout/LaserHero.astro` | SVG laser fan behind any content (two red beams). One slow sweep. |
+| LaserHero | `src/components/layout/LaserHero.astro` | SVG laser fan behind any content. One slow sweep. With a `bg` photo (post headers use the hero image) the lasers are left out and the photo sits under a flat 80% black layer; small labels get a solid black backing for AA contrast. |
 | FeatureHero | `src/components/layout/FeatureHero.astro` | Home/post hero: left-aligned headline, meta row, **one** CTA. |
 | Button | `src/components/ui/Button.astro` | `primary` (CTA colour) or `secondary` (outline). At least 44px tall. |
 | Tag | `src/components/ui/Tag.astro` | Genre tags automatically use their genre colour. |
 | PostCard | `src/components/ui/PostCard.astro` | Hard-bordered teaser with a sigil watermark. The whole card is clickable. |
 | Figure | `src/components/ui/Figure.astro` | Optimised image + caption + **required** credit. |
+| VideoClip | `src/components/ui/VideoClip.astro` | Self-hosted portrait clip with sound (plays on click), caption slot + credit. Max 360px wide. |
+| MediaSection | `src/components/post/MediaSection.astro` | Wraps one post section + one figure/clip: text left, media right (centred) on desktop; normal order on phones. |
 | Callout | `src/components/ui/Callout.astro` | Aside with a text label (colour is never the only cue). |
 | CommunityCTA | `src/components/ui/CommunityCTA.astro` | Discord (primary), WhatsApp (secondary), small notify form. |
 
@@ -92,7 +94,19 @@ How it works:
 4. `textSafeTint()` mixes the colour toward white until it reaches **5:1** on the background (AA needs 4.5; the extra margin helps the thin mono text). This is computed in TypeScript, so the contrast is guaranteed and shown on the style guide. It isn't left to `color-mix()` in the browser.
 5. `ctaOverride` is used when an event colour clashes with the red CTA. The Dominator placeholder is red itself, so its CTA becomes off-white.
 
-What a theme may change: **only the atmosphere colour** (and the CTA colour in a clash). Layout, fonts, logo, navigation, background and CTA position never change. Themes are colours only, so never recreate event logos or artwork.
+6. `actionOverride` is a second event colour that takes over the whole action role (links **and** buttons) inside that post. Use it when the atmosphere colour sits too close to red, so the page doesn't end up with two almost-matching hot colours plus a third accent. It must reach 4.5:1 on black; hover is generated (mixed halfway to white). The site header, footer and cookie banner stay red.
+
+**Event colours come from the event's own branding.** REBiRTH (`event-rebirth`) uses two colours from rebirth-festival.nl (taken from their site stylesheet and logo):
+- **Magenta `#fe0ac0`** = atmosphere: lasers, tags, dividers, verdict bars. 5.8:1 on black, so it needs no tint.
+- **Cyan `#4ffff7`** = action: links and buttons. 16.4:1 on black; button text is black (16.4:1).
+
+Why this split: magenta and red are nearly the same brightness (1.1:1 between them), so red links next to magenta tags look like a colour mistake. Cyan is magenta's opposite, so "decoration" and "clickable" are instantly different, and each colour still has exactly one job. Links stay underlined, so colour is never the only cue. Their neon green `#18ff52` and deep purple `#280066` background are left out: a third accent turns into chaos, green reads as "success", and the purple disappears on black.
+
+**`titleAccent`** (post frontmatter): a phrase from the title shown in the action colour (cyan on REBiRTH posts, red elsewhere), e.g. `titleAccent: 'REBiRTH 2026'`. Must match the title exactly. (Their neon green was tried for scores, tags and the secondary button, then dropped: three accents was too busy.)
+
+**Rule of thumb for mixing colours:** at most two accent colours per page, and each one gets a role (atmosphere or action), never "random decoration".
+
+What a theme may change: **only the atmosphere colour** (and the action/CTA colour in a clash). Layout, fonts, logo, navigation, background and CTA position never change. Themes are colours only, so never recreate event logos or artwork.
 
 **Add a new event theme:** add one line to `THEMES` (with a key like `event-qlimax`), then check its row in the contrast table on `/styleguide`. Posts can use it once Phase 4 adds the `theme` frontmatter field.
 

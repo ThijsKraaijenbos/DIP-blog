@@ -1,6 +1,8 @@
 ---
 // Hero with flat SVG lasers behind the content: a few hand-placed beams from three
 // fixtures, like a real stage rig. One slow sweep, off under reduced motion.
+// Optional `bg` slot: a photo behind everything, darkened by a flat 80% black layer so text keeps AA contrast.
+// With a photo the lasers are left out (the photo is the visual; lasers on top looked busy).
 interface Props { class?: string; sweep?: boolean }
 const { class: className = '', sweep = true } = Astro.props;
 // [x1, y1, x2, y2] in a 1000×600 box; fixtures sit above the top edge.
@@ -9,9 +11,12 @@ const rig = [
   { origin: '610px -40px', beams: [[610, -40, -40, 300], [610, -40, 260, 640], [610, -40, 900, 640]] },
 ];
 const accent = [1000, 120, 330, 640]; // the single red beam, low and from the side
+const hasBg = Astro.slots.has('bg');
 ---
 <section class:list={['relative overflow-hidden border-b border-line', className]}>
-  <svg
+  {hasBg && <slot name="bg" />}
+  {hasBg && <div class="absolute inset-0 bg-bg/80" aria-hidden="true"></div>}
+  {!hasBg && <svg
     class="pointer-events-none absolute inset-0 h-full w-full"
     viewBox="0 0 1000 600"
     preserveAspectRatio="xMidYMid slice"
@@ -25,7 +30,7 @@ const accent = [1000, 120, 330, 640]; // the single red beam, low and from the s
       </g>
     ))}
     <line x1={accent[0]} y1={accent[1]} x2={accent[2]} y2={accent[3]} stroke="var(--atmo-text)" stroke-width="1" vector-effect="non-scaling-stroke" opacity="0.9" />
-  </svg>
+  </svg>}
   <div class="relative">
     <slot />
   </div>

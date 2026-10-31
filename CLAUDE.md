@@ -52,7 +52,7 @@ docs/                  beginner docs (DEPLOY, DESIGN-SYSTEM, NEWSLETTER; email/ 
 ## Design rules
 - Dark rave-flyer / industrial look, kept simple. Signatures: **lasers** and a **spiky sigil** ornament.
 - Base: near-black bg, off-white text, greys for secondary text.
-- **Action** role = red: buttons, links, primary CTA. Constant site-wide.
+- **Action** role = red: buttons, links, primary CTA. Constant site-wide, except inside a post whose event theme sets `actionOverride` (e.g. REBiRTH: cyan, because its magenta clashes with red).
 - **Atmosphere** role = UV violet by default: lasers, sigil highlights, tags, highlights, dividers. The only themeable role.
 - Flat colours only: no purple/blue gradients, no glow, no neon blur, no glassmorphism, no drop shadows.
 - Sharp corners (0–2px), hard 1px borders. WCAG AA contrast (use the light tint for small text on black).
@@ -60,7 +60,7 @@ docs/                  beginner docs (DEPLOY, DESIGN-SYSTEM, NEWSLETTER; email/ 
 - Lasers only in home/post hero (SVG, one slow sweep disabled under `prefers-reduced-motion`) and as 1px dividers.
 - Sigil: symmetrical, thin tapered thorns. Never demonic/occult (no pentagrams, inverted crosses, horns, goats, skulls, runes).
 - Logo: custom KICKBACK wordmark (`public/brand/kickback-logo.svg`) and KB icon (`kickback-icon.svg`), fixed UV violet `#7a3cff`. Only used through `Logo.astro` (site) and the PNGs in `public/brand/` (emails). Themes never recolor it.
-- Themes change **only** the atmosphere colour. Never layout, fonts, logo, nav, background or CTA position. Never recreate event logos/artwork.
+- Themes change **only** the atmosphere colour (plus the action colour via `ctaOverride`/`actionOverride` in a clash, max two accents per page). Never layout, fonts, logo, nav, background or CTA position. Never recreate event logos/artwork.
 - Avoid AI-slop tells: gradients, Inter, emoji icons, identical rounded card grids, centred hero with two buttons, shadows everywhere.
 
 ## Content rules (graded)
