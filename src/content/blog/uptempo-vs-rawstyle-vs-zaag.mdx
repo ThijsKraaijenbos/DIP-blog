@@ -67,6 +67,10 @@ draft: false
 import TikTokEmbed from '@/components/ui/TikTokEmbed.astro';
 import InstagramEmbed from '@/components/ui/InstagramEmbed.astro';
 import MediaSection from '@/components/post/MediaSection.astro';
+import Figure from '@/components/ui/Figure.astro';
+import gearboxMainstage from '@/assets/images/gearbox-2026-mainstage.jpg';
+import intentsUptempo from '@/assets/images/intents-2026-uptempo-stage.jpg';
+import dominatorFireStation from '@/assets/images/dominator-2026-fire-station.jpg';
 
 Uptempo vs rawstyle vs zaag: maybe you don’t know the difference yet, but that’s okay! Back in early 2024 they all used to sound very similar to me, so I didn't know the difference either. Early on I used to confuse bouncy uptempo with zaag, but luckily my brother was able to explain the difference to me whenever I asked him. However, after a few months I learned how to hear the differences. In this post I wrote a step by step guide based on my own experience, and a few extra tips to help you learn the difference.
 
@@ -91,7 +95,14 @@ Rawstyle is overall more friendly for beginners in my opinion. It's easier to da
 
 ## Step 3: What is rawstyle?
 
-{/* TODO(Thijs): own photo of a raw stage (which event?). Use <Figure> like in the README, with alt, caption and credit 'Photo: own photo'. */}
+<Figure
+  src={gearboxMainstage}
+  alt="Blue laser beams crossing over a dark crowd in front of the Gearbox 2026 mainstage"
+  caption="The Gearbox 2026 mainstage, mostly raw all night."
+  credit="Photo: own photo"
+  class="max-w-md"
+  sizes="(min-width: 480px) 448px, 100vw"
+/>
 
 Rawstyle evolved from the hardstyle scene and consists of heavy, deep, and dark sounding kicks that sometimes have a screech after them (somewhat similar to hard techno). To me it often sounds like metal being hit very hard.
 
@@ -118,7 +129,14 @@ Another example of new upcoming kicks is "ping pong" kicks. There's even a track
 
 ## Step 4: What is uptempo?
 
-{/* TODO(Thijs): own photo of an uptempo stage (which event?). Use <Figure> with alt, caption and credit 'Photo: own photo'. */}
+<Figure
+  src={intentsUptempo}
+  alt="White laser beams cutting across the red-lit uptempo stage at Intents 2026"
+  caption="The uptempo stage at Intents 2026."
+  credit="Photo: own photo"
+  class="max-w-md"
+  sizes="(min-width: 480px) 448px, 100vw"
+/>
 
 Uptempo evolved from early hardcore, and gabber, [because of DJs like Partyraiser](https://www.hardcultr.com/guides/hardcore-vs-uptempo-explained-2026/). This genre has been gaining more traction in the past few years, especially bouncy uptempo.
 
@@ -156,7 +174,15 @@ At raves you will always see people swinging their arms to match the beat (usual
 
 ## Step 5: Zaag, the extreme side of uptempo
 
-{/* TODO(Thijs): own photo of a zaag stage (e.g. Dominator). Use <Figure> with alt, caption and credit 'Photo: own photo'. */}
+<Figure
+  src={dominatorFireStation}
+  alt="A packed crowd with raised hands inside the Fire Station tent at Dominator"
+  caption="The Fire Station, the zaag tent at Dominator."
+  credit="Photo: Dominator Festival on Facebook"
+  creditUrl="https://www.facebook.com/dominatorfestival/posts/the-fire-station-returns-to-dominator-2026-with-two-hostings-on-friday-noiseflow/1407257068097370/"
+  class="max-w-md"
+  sizes="(min-width: 480px) 448px, 100vw"
+/>
 
 Zaagkicks are a subgenre of uptempo which sound even more extreme. The name is based on the Dutch word for "saw", because zaagkicks often sound like a chainsaw. Zaagkicks can also be divided into several different types. I would personally consider the two main to be Deutsche krach and microwave kicks.
 
