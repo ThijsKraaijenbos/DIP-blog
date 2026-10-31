@@ -100,9 +100,11 @@ How it works:
 - **Magenta `#fe0ac0`** = atmosphere: lasers, tags, dividers, verdict bars. 5.8:1 on black, so it needs no tint.
 - **Cyan `#4ffff7`** = action: links and buttons. 16.4:1 on black; button text is black (16.4:1).
 
-Why this split: magenta and red are nearly the same brightness (1.1:1 between them), so red links next to magenta tags look like a colour mistake. Cyan is magenta's opposite, so "decoration" and "clickable" are instantly different, and each colour still has exactly one job. Links stay underlined, so colour is never the only cue. Their neon green `#18ff52` and deep purple `#280066` background are left out: a third accent turns into chaos, green reads as "success", and the purple disappears on black.
+Why this split: magenta and red are nearly the same brightness (1.1:1 between them), so red links next to magenta tags look like a colour mistake. Cyan is magenta's opposite, so "decoration" and "clickable" are instantly different, and each colour still has exactly one job. Links stay underlined, so colour is never the only cue. - **Neon green `#18ff52`** = highlight: **only** the review scores (verdict bars and the overall score). 14.9:1 on black. Green reads as "good / rating", and because it lives in one box it doesn't compete with the other two.
 
-**Rule of thumb for mixing colours:** at most two accent colours per page, and each one gets a role (atmosphere or action), never "random decoration".
+Their deep purple `#280066` background is left out: it disappears on black.
+
+**Rule of thumb for mixing colours:** every accent colour gets exactly one role (atmosphere, action, or highlight for scores), never "random decoration". A third colour is only OK when it stays inside one component, like the scores. Themes set it with the optional `highlight` field; without it, scores use the atmosphere colour.
 
 What a theme may change: **only the atmosphere colour** (and the action/CTA colour in a clash). Layout, fonts, logo, navigation, background and CTA position never change. Themes are colours only, so never recreate event logos or artwork.
 

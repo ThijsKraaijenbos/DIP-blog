@@ -1,6 +1,7 @@
 ---
 // Review score box. Only the categories filled in are shown, in the order of VERDICT.
 // The overall score is the average of the filled-in scores.
+// Scores use the highlight colour (an event theme can set one, e.g. REBiRTH green); otherwise the atmosphere colour.
 import { VERDICT, VERDICT_KEYS, type VerdictKey } from '@/consts';
 interface Props { scores: Partial<Record<VerdictKey, number>>; summary?: string }
 const { scores, summary } = Astro.props;
@@ -12,7 +13,7 @@ const fmt = (n: number) => (Number.isInteger(n) ? String(n) : n.toFixed(1));
   <div class="flex items-end justify-between gap-4 border-b border-atmo px-5 py-4">
     <h2 id="verdict-title" class="text-3xl">Verdict</h2>
     <p class="text-right leading-none">
-      <span class="font-display text-4xl text-atmo-text">{fmt(overall)}</span>
+      <span class="font-display text-4xl text-highlight-text">{fmt(overall)}</span>
       <span class="font-mono text-sm text-muted">/10<span class="sr-only"> overall</span></span>
     </p>
   </div>
@@ -23,7 +24,7 @@ const fmt = (n: number) => (Number.isInteger(n) ? String(n) : n.toFixed(1));
         <dd class="contents">
           <span class="grid grid-cols-10 gap-0.5" aria-hidden="true">
             {Array.from({ length: 10 }, (_, i) => (
-              <span class:list={['h-2.5', i < value ? 'bg-atmo' : 'border border-line']}></span>
+              <span class:list={['h-2.5', i < value ? 'bg-highlight' : 'border border-line']}></span>
             ))}
           </span>
           <span class="text-right font-mono text-sm text-fg">{fmt(value)}<span class="sr-only"> out of 10</span></span>

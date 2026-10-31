@@ -34,6 +34,10 @@
   --color-atmo: var(--atmo);
   --color-atmo-text: var(--atmo-text);
 
+  /* Highlight (review scores). Falls back to the atmosphere colour unless a theme sets `highlight`. */
+  --color-highlight: var(--highlight, var(--atmo));
+  --color-highlight-text: var(--highlight, var(--atmo-text));
+
   /* Fonts */
   --font-display: 'Anton', 'Impact', 'Arial Narrow', sans-serif;
   --font-mono: 'Space Mono', ui-monospace, monospace;

@@ -52,7 +52,7 @@ const Section = 'section';
       <h3 class="mt-10 text-2xl">Atmosphere presets</h3>
       <div class="mt-4 overflow-x-auto">
         <table class="w-full min-w-[36rem] border-collapse font-mono text-sm">
-          <thead><tr class="meta text-left"><th class="p-2">Theme</th><th class="p-2">Atmosphere</th><th class="p-2">Text tint</th><th class="p-2">Action</th></tr></thead>
+          <thead><tr class="meta text-left"><th class="p-2">Theme</th><th class="p-2">Atmosphere</th><th class="p-2">Text tint</th><th class="p-2">Action</th><th class="p-2">Scores</th></tr></thead>
           <tbody>
             {THEME_KEYS.map((k) => {
               const t = THEMES[k]; const tint = textSafeTint(t.atmosphere);
@@ -64,6 +64,7 @@ const Section = 'section';
                   <td class="p-2"><span class="mr-2 inline-block size-3 align-middle" style={`background:${t.atmosphere}`}></span>{t.atmosphere} · {contrast(t.atmosphere, BG).toFixed(1)}:1</td>
                   <td class="p-2" style={`color:${tint}`}>{tint} · {contrast(tint, BG).toFixed(1)}:1 ✓AA</td>
                   <td class="p-2"><span class="mr-2 inline-block size-3 align-middle" style={`background:${cta}`}></span>{cta}{note}</td>
+                  <td class="p-2">{'highlight' in t ? <><span class="mr-2 inline-block size-3 align-middle" style={`background:${t.highlight}`}></span>{t.highlight} · {contrast(t.highlight, BG).toFixed(1)}:1</> : '(atmosphere)'}</td>
                 </tr>
               );
             })}
