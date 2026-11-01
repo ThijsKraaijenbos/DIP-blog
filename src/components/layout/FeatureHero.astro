@@ -2,12 +2,22 @@
 // Hero for the home page / post header, laid out like a flyer: the title runs huge on the
 // left, the event facts sit in a stacked "lineup" block beside it, one CTA below.
 // Pass `href` for a button, or put your own CTA in the slot (the home page does this).
+// Optional `image`: a photo behind the hero, darkened exactly like the post headers (LaserHero's bg slot).
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import LaserHero from '@/components/layout/LaserHero.astro';
 import Button from '@/components/ui/Button.astro';
-interface Props { title: string; facts?: [string, string][]; href?: string; cta?: string; compact?: boolean; sweep?: boolean; as?: 'h1' | 'h2' }
-const { title, facts = [], href, cta = 'Read the review', compact = false, sweep = true, as: H = 'h1' } = Astro.props;
+interface Props { title: string; facts?: [string, string][]; href?: string; cta?: string; compact?: boolean; sweep?: boolean; as?: 'h1' | 'h2'; image?: { src: ImageMetadata; alt: string } }
+const { title, facts = [], href, cta = 'Read the review', compact = false, sweep = true, as: H = 'h1', image } = Astro.props;
 ---
 <LaserHero sweep={sweep}>
+  {image && (
+    <Picture
+      slot="bg" src={image.src} alt={image.alt} widths={[800, 1200, 1600, 2000]} sizes="100vw"
+      formats={['avif', 'webp']} fallbackFormat="webp"
+      loading="eager" fetchpriority="high" class="absolute inset-0 h-full w-full object-cover"
+    />
+  )}
   <div class:list={['mx-auto grid max-w-6xl gap-8 px-4 sm:px-6 md:grid-cols-[1fr_auto] md:items-end', compact ? 'py-12' : 'py-16 sm:py-24']}>
     <div>
       <H class:list={['max-w-4xl', compact ? 'text-4xl' : 'text-5xl']}>{title}</H>
