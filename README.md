@@ -29,6 +29,24 @@ Rules for every post (they come from the rubric):
 - The CTA block and related posts are added to every post automatically. Their texts live in `src/data/copy.ts`.
 - `draft: true` keeps a post off the live site while you work on it. Its URL (`/blog/<file-name>/`) already works though: it shows a "this post hasn't been written yet" page with the newsletter sign-up (not in Google or the sitemap), so you can link to planned posts safely. Any other unknown URL shows the 404 page (`src/pages/404.astro`). In `npm run dev` you see the real draft instead.
 
+### Adding a checklist readers can tick off
+
+Use `Checklist` for a list people can tick while they pack. The checkboxes are real HTML, so ticking works even without JavaScript. A tiny script (under 0.5 KB, only on pages with a checklist, loaded after the page) remembers the ticks per post in the reader's browser (localStorage), so they're still there after a reload or the next day. Nothing is sent anywhere.
+
+```mdx
+import Checklist from '@/components/ui/Checklist.astro';
+
+<Checklist
+  label="Checklist"
+  groups={[
+    { title: 'Bring', items: ['Ticket and ID', 'Earplugs'] },
+    { title: 'Leave at home', items: ['Umbrella'] },
+  ]}
+/>
+```
+
+Ticks are saved by item name, so if you rename an item, readers who ticked it will see it unticked again.
+
 ### Adding a short video
 
 Astro does not optimize video, so put the clip and its poster image in `public/videos/` (for example `public/videos/rebirth-mainstage.mp4` and `rebirth-mainstage.webp`). Keep each clip under about 5 MB.

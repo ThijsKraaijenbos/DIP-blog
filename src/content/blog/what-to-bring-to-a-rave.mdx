@@ -30,7 +30,7 @@ related: ['dominator-2026-review-ticket-price']
 draft: false
 ---
 
-import Callout from '@/components/ui/Callout.astro';
+import Checklist from '@/components/ui/Checklist.astro';
 
 If you're unsure about what to bring to a rave and what to leave at home, don't worry, I've been there as well. I've been to plenty of raves, so by now I know quite well what you should have on your list of items to bring. This year alone I've already been to 7 raves/festivals. This includes: Gearbox, REBiRTH, Friction, Intents, Dominator, and the first and second editions of CONFUSED. I've even got another rave already planned (2nd edition of Friction). However, even with my experience going to quite a few raves, I still somehow manage to sometimes forget something. That's exactly why I've written this post so you can avoid forgetting your important items. By providing my own list of things I'd recommend to bring, and items I'd recommend leaving at home, you'll be able to be fully prepared for your next rave!
 
@@ -125,10 +125,19 @@ It's very easy to lose these things in a big crowd. Jewelry also overall gets qu
 
 ## My checklist before every rave
 
-<Callout label="Checklist">
-  <p>Bring: ticket and ID, earplugs, phone and powerbank, money, jacket for the ride home, bottle cap, comfortable shoes, foldable fan, a plan for the ride home.</p>
-  <p style={{ marginTop: '0.75rem' }}>Leave at home: food and drinks, spray deodorant and perfume, umbrella, jewelry.</p>
-</Callout>
+<Checklist
+  label="Checklist"
+  groups={[
+    {
+      title: 'Bring',
+      items: ['Ticket and ID', 'Earplugs', 'Phone and powerbank', 'Money', 'Jacket for the ride home', 'Bottle cap', 'Comfortable shoes', 'Foldable fan', 'A plan for the ride home'],
+    },
+    {
+      title: 'Leave at home',
+      items: ['Food and drinks', 'Spray deodorant and perfume', 'Umbrella', 'Jewelry'],
+    },
+  ]}
+/>
 
 The absolute most important ones are your ticket and ID, earplugs, phone, money, and a plan for the ride home. Everything else just makes your day more comfortable. Also don't stress about it too much, there's very few people I've met in this scene that aren't friendly, so if you forgot something you can always ask someone to help you out.
 

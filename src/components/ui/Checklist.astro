@@ -1,0 +1,70 @@
+---
+// A checklist readers can tick off while they pack. Real checkboxes: ticking works without JavaScript.
+// A tiny script (below, ~20 lines, deferred) remembers the ticks per post in localStorage, so they
+// survive a reload. Only pages that use a Checklist load it, and the list is plain HTML for search engines.
+// Looks like Callout (same box), so it fits the post. Colours follow the post's theme.
+interface Props {
+  label?: string;
+  groups: { title: string; items: string[] }[];
+}
+const { label = 'Checklist', groups } = Astro.props;
+---
+<aside data-checklist class="checklist my-8 border-l-2 border-atmo bg-surface px-5 py-4">
+  <p class="meta mb-3 !text-atmo-text">{label}</p>
+  {groups.map((g) => (
+    <fieldset class="m-0 border-0 p-0 [&+&]:mt-5">
+      <legend class="meta mb-2 p-0 !text-fg">{g.title}</legend>
+      <ul class="m-0 list-none p-0">
+        {g.items.map((item) => (
+          <li class="m-0">
+            <label class="flex cursor-pointer items-start gap-3 py-1.5 text-fg">
+              <input type="checkbox" value={`${g.title}: ${item}`} class="mt-[0.3em] shrink-0" />
+              <span>{item}</span>
+            </label>
+          </li>
+        ))}
+      </ul>
+    </fieldset>
+  ))}
+</aside>
+<script>
+  // Saves ticked items per page (key = the page URL), as a list of "Group: item" names.
+  // Using names, not positions, means editing the list later doesn't tick the wrong boxes.
+  // Storage can be blocked (private mode), so every access is wrapped in try/catch.
+  const key = `checklist:${location.pathname}`;
+  let saved: string[] = [];
+  try { saved = JSON.parse(localStorage.getItem(key) ?? '[]'); } catch {}
+  for (const list of document.querySelectorAll<HTMLElement>('[data-checklist]')) {
+    const boxes = [...list.querySelectorAll<HTMLInputElement>('input[type=checkbox]')];
+    for (const box of boxes) box.checked = saved.includes(box.value);
+    list.addEventListener('change', () => {
+      const all = [...document.querySelectorAll<HTMLInputElement>('[data-checklist] input:checked')].map((b) => b.value);
+      try { localStorage.setItem(key, JSON.stringify(all)); } catch {}
+    });
+  }
+</script>
+<style>
+  /* Square, flat, 1px border; ticked = filled with the theme colour and a black tick. */
+  .checklist input[type='checkbox'] {
+    appearance: none;
+    width: 1.125rem;
+    height: 1.125rem;
+    margin: 0;
+    border: 1px solid var(--color-fg);
+    border-radius: 0;
+    background: transparent;
+  }
+  .checklist input[type='checkbox']:checked {
+    border-color: var(--atmo);
+    background: var(--atmo) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3L13 4.5' fill='none' stroke='%23060606' stroke-width='2.2'/%3E%3C/svg%3E") center / 90% no-repeat;
+  }
+  .checklist input[type='checkbox']:focus-visible {
+    outline: 2px solid var(--color-fg);
+    outline-offset: 2px;
+  }
+  /* Ticked items fade and get struck through. */
+  .checklist label:has(input:checked) span {
+    color: var(--color-muted);
+    text-decoration: line-through;
+  }
+</style>
