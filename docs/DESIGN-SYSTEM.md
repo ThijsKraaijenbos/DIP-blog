@@ -119,9 +119,11 @@ When you paste a post link in Discord, WhatsApp or X, the app shows a preview pi
 - the hero photo, cropped to 1200×630 and darkened with the same 80% black layer as the post header
 - the meta row (category in the theme colour, then date and read time)
 - the title in Anton, with the `titleAccent` words in the post's action colour (red, cyan, orange…)
-- the KICKBACK logo in off-white, top left
+- the KICKBACK logo in off-white, top left, 96px tall
 
-The code is in `src/pages/og/[slug].jpg.ts`. It uses **satori** to draw the text and logo, and **sharp** to crop, darken and save the JPG. The cards are served at `/og/<post-slug>.jpg`. The title size shrinks automatically for long titles.
+**This is the house style for every post's share image.** Don't make share images by hand or give one post a different layout; change the design here, once, for all posts.
+
+The code is in `src/pages/og/[slug].jpg.ts`. It uses **satori** to draw the text and logo, and **sharp** to crop, darken and save the JPG. The cards are served at `/og/<post-slug>.jpg`. The title is as big as fits (up to 112px), so long titles get smaller text.
 
 You don't have to do anything for a new post. The address ends in `?v=…`, which changes whenever the title, accent, theme, date, category or photo changes, so apps fetch the new card instead of an old cached one. If you change the card **design** itself, bump `OG_VERSION` in `src/utils/posts.ts`.
 

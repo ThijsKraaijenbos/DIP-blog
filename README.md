@@ -25,6 +25,7 @@ Rules for every post (they come from the rubric):
 - **Scannable.** Short paragraphs, a heading every few paragraphs, bullet lists where it helps.
 - **Reviews.** Add `verdict.scores` (1 to 10) for the categories you can judge: lineup, atmosphere, sound, location, facilities, logistics, decoration, price.
 - **Your own voice.** Write from your own experience. AI can help you plan, never paste its text.
+- **Share image.** Every post gets the same style of share card automatically (darkened hero photo, meta row, title with your `titleAccent` colour, white KICKBACK logo). You don't make it yourself: pick a hero photo that still reads when it's dark, and set `titleAccent` and `theme`. See "Social preview images" in `docs/DESIGN-SYSTEM.md`.
 - The CTA block and related posts are added to every post automatically. Their texts live in `src/data/copy.ts`.
 - `draft: true` keeps a post off the live site while you work on it. Its URL (`/blog/<file-name>/`) already works though: it shows a "this post hasn't been written yet" page with the newsletter sign-up (not in Google or the sitemap), so you can link to planned posts safely. Any other unknown URL shows the 404 page (`src/pages/404.astro`). In `npm run dev` you see the real draft instead.
 

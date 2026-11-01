@@ -65,6 +65,7 @@ docs/                  beginner docs (DEPLOY, DESIGN-SYSTEM, NEWSLETTER; email/ 
 
 ## Content rules (graded)
 - SEO per page, 6+ internal/external links per post, clear community CTAs, credited images with captions, scannable posts.
+- Share images: every post uses the generated card from `src/pages/og/[slug].jpg.ts` (darkened hero, meta row, title with accent colour, off-white logo at 96px, top left). Never hand-made or per-post variants; design changes go in that file for all posts, then bump `OG_VERSION` in `src/utils/posts.ts`.
 
 ## Secrets
 - Never print, log, commit or write `VERCEL_TOKEN`. Always pass it as `--token "$VERCEL_TOKEN"`.

@@ -56,7 +56,7 @@ export const GET: APIRoute = async ({ props }) => {
   const overlay = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}"><rect width="100%" height="100%" fill="${BG}" fill-opacity="${DARKEN}"/></svg>`);
 
   // Logo: the brand SVG, recoloured to the off-white text colour for this card only.
-  const logoH = 72;
+  const logoH = 96;
   const logo = await sharp(Buffer.from(logoSvg.toString().replaceAll('#7a3cff', FG)), { density: 300 })
     .resize({ height: logoH }).png().toBuffer();
 
