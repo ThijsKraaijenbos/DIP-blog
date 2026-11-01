@@ -38,3 +38,35 @@ export function relatedPosts(post: Post, all: Post[], count = 3): Post[] {
   const rest = others.filter((p) => !picked.includes(p)).sort((a, b) => score(b) - score(a)); // stable: newest first on ties
   return [...picked, ...rest].slice(0, count);
 }
+
+/**
+ * Splits the title into plain and accented parts (frontmatter `titleAccent`: one phrase or a list, in title order).
+ * Used by the post header and the social preview image, so both colour the same words.
+ */
+export function titleParts(post: Post): { text: string; accent: boolean }[] {
+  const parts: { text: string; accent: boolean }[] = [];
+  let rest = post.data.title;
+  for (const phrase of [post.data.titleAccent ?? []].flat()) {
+    const at = rest.indexOf(phrase);
+    if (at < 0) throw new Error(`titleAccent "${phrase}" is not in the title of "${post.id}" (or not in title order).`);
+    if (at > 0) parts.push({ text: rest.slice(0, at), accent: false });
+    parts.push({ text: phrase, accent: true });
+    rest = rest.slice(at + phrase.length);
+  }
+  if (rest) parts.push({ text: rest, accent: false });
+  return parts;
+}
+
+/**
+ * Social preview image for a post (made by src/pages/og/[slug].jpg.ts).
+ * `?v=` changes whenever something on the card changes, so Discord, WhatsApp etc. fetch the new picture
+ * instead of their cached copy. Bump OG_VERSION after changing the card design itself.
+ */
+const OG_VERSION = 1;
+export function ogImagePath(post: Post): string {
+  const d = post.data;
+  const key = JSON.stringify([OG_VERSION, d.title, d.titleAccent, d.theme, d.category, d.pubDate, d.heroImage.src.src]);
+  let h = 0;
+  for (let i = 0; i < key.length; i++) h = (h * 31 + key.charCodeAt(i)) >>> 0;
+  return `/og/${post.id}.jpg?v=${h.toString(36)}`;
+}

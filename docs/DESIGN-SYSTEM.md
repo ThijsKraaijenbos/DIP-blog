@@ -112,5 +112,20 @@ What a theme may change: **only the atmosphere colour** (and the action/CTA colo
 
 **Add a new event theme:** add one line to `THEMES` (with a key like `event-qlimax`), then check its row in the contrast table on `/styleguide`. Posts can use it once Phase 4 adds the `theme` frontmatter field.
 
+## Social preview images (share cards)
+
+When you paste a post link in Discord, WhatsApp or X, the app shows a preview picture. Every published post gets its own card, made automatically when the site builds:
+
+- the hero photo, cropped to 1200×630 and darkened with the same 80% black layer as the post header
+- the meta row (category in the theme colour, then date and read time)
+- the title in Anton, with the `titleAccent` words in the post's action colour (red, cyan, orange…)
+- the KICKBACK logo in off-white, top left
+
+The code is in `src/pages/og/[slug].jpg.ts`. It uses **satori** to draw the text and logo, and **sharp** to crop, darken and save the JPG. The cards are served at `/og/<post-slug>.jpg`. The title size shrinks automatically for long titles.
+
+You don't have to do anything for a new post. The address ends in `?v=…`, which changes whenever the title, accent, theme, date, category or photo changes, so apps fetch the new card instead of an old cached one. If you change the card **design** itself, bump `OG_VERSION` in `src/utils/posts.ts`.
+
+Pages that aren't posts (home, about, "Coming soon" drafts) keep using `public/og-default.png`.
+
 ## Anti-patterns (don't)
 Purple/blue gradients, glassmorphism, glow or neon blur, drop shadows, Inter, emoji icons, identical rounded card grids, a centred hero with two buttons.

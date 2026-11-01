@@ -1,7 +1,7 @@
 ---
 // One layout for every post. Everything comes from the post's frontmatter;
 // the post body (your text) goes in the <slot />.
-import { getImage, Picture } from 'astro:assets';
+import { Picture } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import LaserHero from '@/components/layout/LaserHero.astro';
 import Tag from '@/components/ui/Tag.astro';
@@ -11,35 +11,23 @@ import PostCTA from '@/components/post/PostCTA.astro';
 import RelatedPosts from '@/components/post/RelatedPosts.astro';
 import { SITE, CATEGORIES } from '@/consts';
 import { themeStyle } from '@/themes';
-import { formatDate, readTime, type Post } from '@/utils/posts';
+import { formatDate, readTime, titleParts as splitTitle, ogImagePath, type Post } from '@/utils/posts';
 
 interface Props { post: Post; related: Post[] }
 const { post, related } = Astro.props;
 const d = post.data;
 
-// Social preview: the hero image cropped to 1200×630.
-const og = await getImage({ src: d.heroImage.src, width: 1200, height: 630, fit: 'cover', format: 'jpg' });
-// Optional phrase(s) in the title shown in the action colour (frontmatter `titleAccent`; cyan on REBiRTH posts).
-// One phrase or a list, in title order. Splits the title into plain and accented parts.
-const titleParts: { text: string; accent: boolean }[] = [];
-{
-  let rest = d.title;
-  for (const phrase of [d.titleAccent ?? []].flat()) {
-    const at = rest.indexOf(phrase);
-    if (at < 0) throw new Error(`titleAccent "${phrase}" is not in the title of "${post.id}" (or not in title order).`);
-    if (at > 0) titleParts.push({ text: rest.slice(0, at), accent: false });
-    titleParts.push({ text: phrase, accent: true });
-    rest = rest.slice(at + phrase.length);
-  }
-  if (rest) titleParts.push({ text: rest, accent: false });
-}
+// Social preview: a 1200×630 card like the header (darkened hero, title, logo), made by src/pages/og/[slug].jpg.ts.
+const ogImage = ogImagePath(post);
+// Title split into plain and accented parts (frontmatter `titleAccent`, shown in the action colour).
+const titleParts = splitTitle(post);
 const url = new URL(Astro.url.pathname, Astro.site ?? SITE.url).href;
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
   headline: d.title,
   description: d.description,
-  image: new URL(og.src, Astro.site ?? SITE.url).href,
+  image: new URL(ogImage, Astro.site ?? SITE.url).href,
   datePublished: d.pubDate.toISOString(),
   dateModified: (d.updatedDate ?? d.pubDate).toISOString(),
   author: { '@type': 'Person', name: SITE.author, url: new URL('/about/', Astro.site ?? SITE.url).href },
@@ -51,7 +39,7 @@ const jsonLd = {
 ---
 <BaseLayout
   title={d.metaTitle ?? d.title} description={d.description} type="article"
-  image={og.src} imageAlt={d.heroImage.alt}
+  image={ogImage} imageAlt={`${d.title}, over a darkened photo: ${d.heroImage.alt}`}
   publishedTime={d.pubDate} modifiedTime={d.updatedDate} jsonLd={jsonLd}
 >
   <article style={themeStyle(d.theme)}>

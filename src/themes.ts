@@ -38,6 +38,7 @@ export type Genre = (typeof GENRES)[number];
 
 const BG = '#060606';
 const CTA_INK = '#060606';
+const ACTION_RED = '#ff2a1a'; // keep in sync with --action in global.css
 
 // --- tiny colour helpers (WCAG relative luminance) ---
 const toRgb = (hex: string) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
@@ -74,4 +75,10 @@ export function themeStyle(key: ThemeKey = 'default'): string {
     vars.push(`--action:${t.actionOverride}`, `--action-hover:${hover}`, `--cta:${t.actionOverride}`, `--cta-ink:${CTA_INK}`);
   }
   return vars.join(';');
+}
+
+/** The final colours of a theme as plain hex values (for places that can't read CSS variables, like the social preview image). */
+export function themeColors(key: ThemeKey = 'default') {
+  const t: ThemePreset = THEMES[key] ?? THEMES.default;
+  return { atmo: t.atmosphere, atmoText: textSafeTint(t.atmosphere), action: t.actionOverride ?? ACTION_RED };
 }
