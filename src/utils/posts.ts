@@ -62,7 +62,7 @@ export function titleParts(post: Post): { text: string; accent: boolean }[] {
  * `?v=` changes whenever something on the card changes, so Discord, WhatsApp etc. fetch the new picture
  * instead of their cached copy. Bump OG_VERSION after changing the card design itself.
  */
-const OG_VERSION = 2;
+const OG_VERSION = 1;
 export function ogImagePath(post: Post): string {
   const d = post.data;
   const key = JSON.stringify([OG_VERSION, d.title, d.titleAccent, d.theme, d.category, d.pubDate, d.heroImage.src.src]);
