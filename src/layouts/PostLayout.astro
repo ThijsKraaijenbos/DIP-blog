@@ -19,8 +19,20 @@ const d = post.data;
 
 // Social preview: the hero image cropped to 1200×630.
 const og = await getImage({ src: d.heroImage.src, width: 1200, height: 630, fit: 'cover', format: 'jpg' });
-// Optional phrase in the title shown in the action colour (frontmatter `titleAccent`; cyan on REBiRTH posts).
-const accentAt = d.titleAccent ? d.title.indexOf(d.titleAccent) : -1;
+// Optional phrase(s) in the title shown in the action colour (frontmatter `titleAccent`; cyan on REBiRTH posts).
+// One phrase or a list, in title order. Splits the title into plain and accented parts.
+const titleParts: { text: string; accent: boolean }[] = [];
+{
+  let rest = d.title;
+  for (const phrase of [d.titleAccent ?? []].flat()) {
+    const at = rest.indexOf(phrase);
+    if (at < 0) throw new Error(`titleAccent "${phrase}" is not in the title of "${post.id}" (or not in title order).`);
+    if (at > 0) titleParts.push({ text: rest.slice(0, at), accent: false });
+    titleParts.push({ text: phrase, accent: true });
+    rest = rest.slice(at + phrase.length);
+  }
+  if (rest) titleParts.push({ text: rest, accent: false });
+}
 const url = new URL(Astro.url.pathname, Astro.site ?? SITE.url).href;
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -59,9 +71,7 @@ const jsonLd = {
           <span>{readTime(post.body)}</span>
         </p>
         <h1 class="mt-4 max-w-5xl text-4xl">
-          {accentAt >= 0 && d.titleAccent ? (
-            <>{d.title.slice(0, accentAt)}<span class="text-action">{d.titleAccent}</span>{d.title.slice(accentAt + d.titleAccent.length)}</>
-          ) : d.title}
+          {titleParts.map((p) => (p.accent ? <span class="text-action">{p.text}</span> : p.text))}
         </h1>
         <p class="mt-6 max-w-2xl text-lg text-fg sm:text-xl">{d.intro}</p>
         {(d.persona || d.genre || d.tags.length > 0) && (

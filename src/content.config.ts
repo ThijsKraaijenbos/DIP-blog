@@ -15,7 +15,7 @@ const blog = defineCollection({
       // Shown on the page (the one H1) and in post lists.
       title: z.string().max(90),
       // Optional: a phrase from the title shown in colour, e.g. 'REBiRTH 2026'. Must match the title exactly.
-      titleAccent: z.string().optional(),
+      titleAccent: z.union([z.string(), z.array(z.string())]).optional(),
       // SEO: what Google shows. Falls back to title. Keep it under ~60 characters.
       metaTitle: z.string().max(60).optional(),
       // SEO: meta description + social preview text. Keep it under 160 characters.
