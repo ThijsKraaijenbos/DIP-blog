@@ -4,7 +4,7 @@
 
 export type ThemePreset = {
   label: string;
-  kind: 'genre' | 'event';
+  kind: 'genre' | 'event' | 'post';
   /** Atmosphere colour (hex). Used for lines, lasers, sigil, large text. */
   atmosphere: string;
   /** Optional CTA colour when the atmosphere clashes with the red CTA (e.g. a red event). Buttons only. */
@@ -26,6 +26,9 @@ export const THEMES = {
   'event-rebirth': { label: 'REBiRTH', kind: 'event', atmosphere: '#fe0ac0', actionOverride: '#4ffff7' },
   'event-dominator': { label: 'Dominator (placeholder)', kind: 'event', atmosphere: '#e01e1e', ctaOverride: '#f2efe8' },
   'event-intents': { label: 'Intents (placeholder)', kind: 'event', atmosphere: '#ff3fb4' },
+  // Post styles: a one-off colour pair for a post that isn't about one genre or event.
+  // Tips (first used on "What to bring to a rave"): acid lime + orange, so it doesn't repeat UV + red or REBiRTH's magenta + cyan.
+  tips: { label: 'Tips (lime + orange)', kind: 'post', atmosphere: '#b8ff1f', actionOverride: '#ff8a1a' },
 } satisfies Record<string, ThemePreset>;
 
 export type ThemeKey = keyof typeof THEMES;

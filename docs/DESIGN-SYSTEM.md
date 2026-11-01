@@ -102,6 +102,8 @@ How it works:
 
 Why this split: magenta and red are nearly the same brightness (1.1:1 between them), so red links next to magenta tags look like a colour mistake. Cyan is magenta's opposite, so "decoration" and "clickable" are instantly different, and each colour still has exactly one job. Links stay underlined, so colour is never the only cue. Their neon green `#18ff52` and deep purple `#280066` background are left out: a third accent turns into chaos, green reads as "success", and the purple disappears on black.
 
+**Post styles** (`kind: 'post'`) are one-off colour pairs for posts that aren't about one genre or event. `tips` (first used on "What to bring to a rave") is **acid lime `#b8ff1f`** as atmosphere (16.8:1) and **orange `#ff8a1a`** as action (8.6:1, black button text). It was picked so no two published posts share a colour pair (UV + red on the genre explainer, magenta + cyan on the REBiRTH review).
+
 **`titleAccent`** (post frontmatter): a phrase from the title shown in the action colour (cyan on REBiRTH posts, red elsewhere), e.g. `titleAccent: 'REBiRTH 2026'`. For several words use a list in title order, e.g. `titleAccent: ['Uptempo', 'rawstyle', 'zaag']`. Must match the title exactly (the build stops otherwise). (Their neon green was tried for scores, tags and the secondary button, then dropped: three accents was too busy.)
 
 **Rule of thumb for mixing colours:** at most two accent colours per page, and each one gets a role (atmosphere or action), never "random decoration".
