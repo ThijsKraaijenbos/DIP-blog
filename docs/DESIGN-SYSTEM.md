@@ -121,7 +121,7 @@ When you paste a post link in Discord, WhatsApp or X, the app shows a preview pi
 - the title in Anton, with the `titleAccent` words in the post's action colour (red, cyan, orange…)
 - the KICKBACK logo in off-white, top left
 
-The code is in `src/pages/og/[slug].jpg.ts`. It uses **satori** to draw the text and logo, and **sharp** to crop, darken and save the JPG. The cards are served at `/og/<post-slug>.jpg`. The title size shrinks automatically for long titles.
+The code is in `src/pages/og/[slug].jpg.ts`. It uses **satori** to draw the text and logo, and **sharp** to crop, darken and save the JPG. The cards are served at `/og/<post-slug>.jpg`. Every card uses the same title size (92px, `TITLE_SIZE`), so they look consistent; only a title too long for three lines shrinks, so it never runs off the card.
 
 You don't have to do anything for a new post. The address ends in `?v=…`, which changes whenever the title, accent, theme, date, category or photo changes, so apps fetch the new card instead of an old cached one. If you change the card **design** itself, bump `OG_VERSION` in `src/utils/posts.ts`.
 

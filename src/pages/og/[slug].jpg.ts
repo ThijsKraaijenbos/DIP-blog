@@ -29,9 +29,12 @@ const assets = Promise.all([
   file('public/brand/kickback-logo.svg'),
 ]);
 
-// Picks the biggest title size that fits the space (Anton is narrow: about 0.47em per character on average).
+// Every card uses the same title size, so they look consistent (line breaks differ per title).
+// Only a title too long for the space at that size shrinks, so it never runs off the card.
+// Anton is narrow: about 0.47em per character on average.
+const TITLE_SIZE = 92;
 function titleSize(words: string[], maxW: number, maxH: number): number {
-  for (let size = 112; size > 48; size -= 4) {
+  for (let size = TITLE_SIZE; size > 48; size -= 4) {
     let lines = 1;
     let width = 0;
     for (const w of words) {
