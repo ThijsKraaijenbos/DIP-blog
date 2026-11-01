@@ -14,20 +14,20 @@ export async function getStaticPaths() {
     if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(p.id)) throw new Error(`Post file name "${p.id}" must be lowercase words with dashes, e.g. rebirth-2026-review.mdx`);
     if (/^#\s/m.test(p.body ?? '')) throw new Error(`Post "${p.id}" uses "# " in the text. The title is the only H1: start sections with "## ".`);
   }
-  const published = posts.map((post, i) => ({
+  const published = posts.map((post) => ({
     params: { slug: post.id },
-    props: { post, newer: posts[i - 1], older: posts[i + 1], related: relatedPosts(post, posts) } as Props,
+    props: { post, related: relatedPosts(post, posts) } as Props,
   }));
   const upcoming = (await getDrafts()).map((d) => ({ params: { slug: d.id }, props: { post: undefined } as Props }));
   return [...published, ...upcoming];
 }
 
-interface Props { post?: Post; newer?: Post; older?: Post; related?: Post[] }
-const { post, newer, older, related = [] } = Astro.props;
+interface Props { post?: Post; related?: Post[] }
+const { post, related = [] } = Astro.props;
 const Content = post ? (await render(post)).Content : undefined;
 ---
 {post && Content ? (
-  <PostLayout post={post} newer={newer} older={older} related={related}>
+  <PostLayout post={post} related={related}>
     <Content />
   </PostLayout>
 ) : (

@@ -1,5 +1,7 @@
 ---
 // Wrap one post section (its heading + text) together with ONE figure or VideoClip.
+// Only the LAST figure in the section goes to the right column; a photo placed earlier (e.g. under the
+// heading) stays in the text column, so a section can have a photo in the text and a video beside it.
 // Desktop (lg+): text on the left, the figure in a column on the right, vertically centred
 // against the whole section. Phones/tablets: everything stays in normal reading order,
 // so put the figure where it should appear on a phone.
@@ -25,10 +27,12 @@
       width: max-content;
       margin-top: calc(1.6 * var(--text-3xl)); /* same gap as above any other h2 */
     }
+    /* A section that starts with a ### subheading gets the smaller h3 gap. */
+    .media-section:has(> :global(h3:first-child)) { margin-top: calc(1.6 * var(--text-xl)); }
     /* The gap above the heading lives on the section, so the figure centres on the visible text. */
     .media-section > :global(:first-child) { margin-top: 0; }
     .media-section > :global(*) { grid-column: 1; }
-    .media-section > :global(figure) {
+    .media-section > :global(figure:last-of-type) {
       grid-column: 2;
       grid-row: 1 / span 30; /* spans the whole section (up to 30 blocks of text) */
       align-self: center;

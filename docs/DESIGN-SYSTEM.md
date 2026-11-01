@@ -64,7 +64,7 @@ All fonts are self-hosted with Fontsource and imported in `src/layouts/BaseLayou
 | LaserHero | `src/components/layout/LaserHero.astro` | SVG laser fan behind any content. One slow sweep. With a `bg` photo (post headers use the hero image) the lasers are left out and the photo sits under a flat 80% black layer; small labels get a solid black backing for AA contrast. |
 | FeatureHero | `src/components/layout/FeatureHero.astro` | Home/post hero: left-aligned headline, meta row, **one** CTA. |
 | Button | `src/components/ui/Button.astro` | `primary` (CTA colour) or `secondary` (outline). At least 44px tall. |
-| Tag | `src/components/ui/Tag.astro` | Genre tags automatically use their genre colour. |
+| Tag | `src/components/ui/Tag.astro` | Every tag uses the post's theme colour (one colour per post, so it never gets busy). The genre colours are themes a post can pick. |
 | PostCard | `src/components/ui/PostCard.astro` | Hard-bordered teaser with a sigil watermark. The whole card is clickable. |
 | Figure | `src/components/ui/Figure.astro` | Optimised image + caption + **required** credit. |
 | VideoClip | `src/components/ui/VideoClip.astro` | Self-hosted portrait clip with sound (plays on click), caption slot + credit. Max 360px wide. |
@@ -102,7 +102,7 @@ How it works:
 
 Why this split: magenta and red are nearly the same brightness (1.1:1 between them), so red links next to magenta tags look like a colour mistake. Cyan is magenta's opposite, so "decoration" and "clickable" are instantly different, and each colour still has exactly one job. Links stay underlined, so colour is never the only cue. Their neon green `#18ff52` and deep purple `#280066` background are left out: a third accent turns into chaos, green reads as "success", and the purple disappears on black.
 
-**`titleAccent`** (post frontmatter): a phrase from the title shown in the action colour (cyan on REBiRTH posts, red elsewhere), e.g. `titleAccent: 'REBiRTH 2026'`. Must match the title exactly. (Their neon green was tried for scores, tags and the secondary button, then dropped: three accents was too busy.)
+**`titleAccent`** (post frontmatter): a phrase from the title shown in the action colour (cyan on REBiRTH posts, red elsewhere), e.g. `titleAccent: 'REBiRTH 2026'`. For several words use a list in title order, e.g. `titleAccent: ['Uptempo', 'rawstyle', 'zaag']`. Must match the title exactly (the build stops otherwise). (Their neon green was tried for scores, tags and the secondary button, then dropped: three accents was too busy.)
 
 **Rule of thumb for mixing colours:** at most two accent colours per page, and each one gets a role (atmosphere or action), never "random decoration".
 

@@ -61,7 +61,11 @@ const { id } = Astro.props;
     save(v);
     bar.hidden = true;
     if (v === 'granted') loadGA();
-    else if (loaded) location.reload(); // stop GA if it was running
+    else {
+      // Reject also forgets "load TikTok/Instagram videos automatically" (SocialEmbed.astro).
+      try { localStorage.removeItem('kickback-embeds-TikTok'); localStorage.removeItem('kickback-embeds-Instagram'); } catch {}
+      if (loaded) location.reload(); // stop GA if it was running
+    }
   });
   document.querySelector('[data-cookie-settings]')?.addEventListener('click', () => {
     open();

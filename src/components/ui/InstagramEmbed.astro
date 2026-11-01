@@ -1,0 +1,12 @@
+---
+// Instagram post or reel that only loads after the reader clicks (privacy: no Instagram cookies before that).
+// `url` is the post or reel link: https://www.instagram.com/reel/ABC123xyz/ or https://www.instagram.com/p/ABC123xyz/
+// `label` describes the video for screen readers, `credit` names the maker, `creditUrl` (optional) links to them.
+// Optional caption between the tags.
+import SocialEmbed from './SocialEmbed.astro';
+interface Props { url: string; label: string; credit: string; creditUrl?: string; class?: string }
+const { url, ...rest } = Astro.props;
+const id = url.match(/^https:\/\/(?:www\.)?instagram\.com\/(?:[\w.]+\/)?(?:p|reels?)\/([\w-]+)/)?.[1];
+if (!id) throw new Error(`InstagramEmbed: "${url}" is not an Instagram post or reel URL. Use a link like https://www.instagram.com/reel/ABC123xyz/`);
+---
+<SocialEmbed platform="Instagram" hasCaption={Astro.slots.has('default')} embedSrc={`https://www.instagram.com/p/${id}/embed/`} {url} {...rest}><slot /></SocialEmbed>

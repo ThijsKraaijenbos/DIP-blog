@@ -15,7 +15,7 @@ export type ThemePreset = {
 };
 
 export const THEMES = {
-  // Genres
+  // Genre colours: a post picks one as its theme (tags and everything else then use it; tags never get their own colour).
   default: { label: 'Default (UV)', kind: 'genre', atmosphere: '#7a3cff' },
   uptempo: { label: 'Uptempo', kind: 'genre', atmosphere: '#c6ff1a' },
   rawstyle: { label: 'Rawstyle', kind: 'genre', atmosphere: '#1ec8ff' },

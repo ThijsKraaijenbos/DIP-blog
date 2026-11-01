@@ -19,13 +19,13 @@ npm run build   # must pass before every push
 Rules for every post (they come from the rubric):
 
 - **One H1 only.** The title is the H1, so sections start with `##` and subsections with `###`. The build fails if you use `#`.
-- **SEO fields.** `metaTitle` under 60 characters (optional, falls back to `title`) and `description` 120 to 160 characters with the main keyword in it.
+- **SEO fields.** `metaTitle` under 60 characters (optional, falls back to `title`) and `description` under 160 characters with the main keyword in it.
 - **Images.** Every image needs `alt` (what is in it), a `caption` and a `credit` line: `Photo: own photo`, `Image generated with ChatGPT (OpenAI, 2026)` or `Photo: name / source`. Credit third parties with `creditUrl`.
 - **Links.** At least 6 per post, internal and external mixed. Link to your other posts in the text and put sources in `sources`.
 - **Scannable.** Short paragraphs, a heading every few paragraphs, bullet lists where it helps.
 - **Reviews.** Add `verdict.scores` (1 to 10) for the categories you can judge: lineup, atmosphere, sound, location, facilities, logistics, decoration, price.
 - **Your own voice.** Write from your own experience. AI can help you plan, never paste its text.
-- The CTA block, related posts and older/newer links are added to every post automatically. Their texts live in `src/data/copy.ts`.
+- The CTA block and related posts are added to every post automatically. Their texts live in `src/data/copy.ts`.
 - `draft: true` keeps a post off the live site while you work on it. Its URL (`/blog/<file-name>/`) already works though: it shows a "this post hasn't been written yet" page with the newsletter sign-up (not in Google or the sitemap), so you can link to planned posts safely. Any other unknown URL shows the 404 page (`src/pages/404.astro`). In `npm run dev` you see the real draft instead.
 
 ### Adding a short video
@@ -94,6 +94,32 @@ ffmpeg -i public/videos/rebirth-mainstage.mp4 -c:v libsvtav1 -preset 3 -crf 36 -
 ```
 
 Images in `src/assets/images/` need nothing: Astro turns them into AVIF and WebP in several sizes when it builds. Upload the best quality you have (JPG or PNG is fine).
+
+### Adding a TikTok or Instagram video
+
+For someone else's video, embed it instead of downloading it. Readers first see a "Load video" card; TikTok or Instagram only loads (and can set cookies) after they click it. A clicked TikTok starts playing right away, and the choice is remembered: after that, videos from that platform load by themselves ("Reject" in Cookie settings resets it). A plain "Watch on…" link is always shown too.
+
+```mdx
+import TikTokEmbed from '@/components/ui/TikTokEmbed.astro';
+import InstagramEmbed from '@/components/ui/InstagramEmbed.astro';
+
+<TikTokEmbed
+  url="https://www.tiktok.com/@user/video/1234567890123456789"
+  label="DJ dropping an uptempo track on the mainstage"
+  credit="Video: @user on TikTok"
+  creditUrl="https://www.tiktok.com/@user"
+/>
+
+<InstagramEmbed
+  url="https://www.instagram.com/reel/ABC123xyz/"
+  label="Crowd during a rawstyle drop"
+  credit="Video: @user on Instagram"
+>
+  Optional caption.
+</InstagramEmbed>
+```
+
+Use the full TikTok link (`/@user/video/<number>`, not a short `vm.tiktok.com` link) and an Instagram `/p/…` or `/reel/…` link; anything else stops the build with an error. They work inside `<MediaSection>` just like `VideoClip`.
 
 ## Open TODOs
 
